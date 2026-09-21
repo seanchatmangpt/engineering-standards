@@ -4,7 +4,15 @@
 
 ## Philosophy
 
-Documentation serves as the source of truth for both humans and AI agents. Keep it as simple as possible, write what's necessary when it's necessary, and update continuously as understanding evolves. Early-stage projects prioritize working software over comprehensive documentation—but the right documentation at the right time accelerates development.
+Documentation has two lawful roles.
+
+**Documentation Mode:** for small projects without a semantic graph, maintained documentation may serve as the practical source of truth.
+
+**Semantic Work Mode:** the admitted semantic graph is canonical. Markdown, diagrams, PRDs, ADR indexes, plans, dashboards, Jira/GitHub tickets, and agent context are revision-bound projections. They explain or render the source; they do not become independent semantic authority.
+
+In both modes, keep documentation as simple as possible and update it as understanding evolves. In Semantic Work Mode, change the canonical semantic subject first and regenerate any derivable documentation rather than maintaining two truths.
+
+See the root [Semantic Engineering Protocol](./semantic-engineering-protocol.md).
 
 ## Directory Structure
 
@@ -111,9 +119,13 @@ Repository documentation lives under `docs/` with the following top-level direct
 
 ## Best Practices
 
-### Write Specifications Before Code
+### Admit Semantics Before Consequence
 
-For any non-trivial feature, write a spec first. This clarifies intent, surfaces questions early, and serves as a contract for AI-assisted development. The spec becomes the source of truth—code implements the spec, not the other way around.
+For non-trivial work, establish the intended behavior, constraints, acceptance criteria, falsifiers, exact subject identity, and evidence boundary before consequential implementation.
+
+In Documentation Mode, a specification is the practical contract and may be the source of truth.
+
+In Semantic Work Mode, the specification is a human projection of the admitted WorkOrder/contract graph. Code and prose both implement or project the semantic source; neither outranks it. If the projection is derivable, regenerate it rather than hand-editing it.
 
 ### Keep It Current
 
@@ -160,11 +172,15 @@ shown its own defect is a check nobody can plant a defect in. The blockquote and
 marker-list checks read the raw line, because a leading code span already
 displaces the marker they look for.
 
-Run them before pushing:
+Run the documentation and semantic courts before pushing:
 
 ```bash
 npm ci --prefix scripts && node scripts/check-docs.mjs
+python -m pip install --disable-pip-version-check -r scripts/requirements-semantic.txt
+python scripts/check-semantic-standard.py
 ```
+
+The semantic court validates the root RDF/SHACL/JSON profile and its negative authority/identity falsifiers. A green documentation check proves rendering/link conformance only; it does not promote runtime standing.
 
 The Mermaid check calls mermaid's `parse()` rather than rendering, because the two disagree — the render path accepts diagrams GitHub's parser rejects. Dependencies are pinned and installed from a committed lockfile so the check reproduces one specific parser.
 
@@ -216,11 +232,13 @@ All documentation uses Markdown (`.md`) for:
 
 ## Getting Started
 
-For a new repository:
+For a Documentation Mode repository:
 
 ```bash
 mkdir -p docs/{product,engineering}
 echo "# Project Documentation" > docs/README.md
 ```
 
-Add subdirectories only when needed. Start minimal, expand as complexity grows.
+For Semantic Work Mode, start from the root adoption template: bind the repository/exact base, create the project semantic profile and WorkOrder graph, install the root court, then manufacture documentation projections. See `templates/README.md`.
+
+Add surfaces only when they carry information not already derivable from the canonical source.

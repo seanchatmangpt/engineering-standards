@@ -4,7 +4,17 @@
 
 ## Overview
 
-This workflow defines the process for **feature work driven by product and business stakeholders**. It follows a spec-driven approach: **Intent → Spec → Plan → Execute → Validate**. Each phase produces lightweight documentation that serves as the source of truth for the next phase.
+This workflow defines **feature work driven by product and business intent** under the root [Semantic Engineering Protocol](./semantic-engineering-protocol.md).
+
+The canonical Semantic Work Mode sequence is:
+
+```text
+INTENT -> OBSERVE -> ADMIT -> WorkOrder -> CLOSURE
+       -> SELECT -> CONSTRUCT -> AUTHORITY -> DO
+       -> RECEIPT -> REPLAY -> STANDING -> REUSE
+```
+
+Documentation Mode may use the lighter **Intent → Spec → Plan → Execute → Validate** projection described by the phases below.
 
 **For engineering-driven work** (bugs, tech debt, infrastructure, security), see [Technical Work Workflow](./technical-work-workflow.md).
 
@@ -29,11 +39,13 @@ flowchart LR
 
 ## Guiding Principles
 
-1. **Specifications before code** - Clarify intent and surface questions early
-2. **Small, scoped changes** - Break work into reviewable increments
-3. **Continuous validation** - Test against specs throughout development
-4. **Document decisions** - Capture context and rationale, not implementation details
-5. **Stay lightweight** - Only create documentation that provides value
+1. **Admission before consequence** — clarify intent, exact subject, constraints, evidence, and falsifiers before DO.
+2. **One canonical work identity** — conserve the WorkOrder through plans, branches, SA2A messages, construction, receipts, and replay.
+3. **Formal machinery for known classes** — use planners/solvers/generators/verifiers instead of repeatedly reasoning over solved structure.
+4. **Small coherent consequences** — scope work by semantic consequence and independently verifiable boundary, not arbitrary line count.
+5. **Continuous evidence** — validate the exact claimed boundary and bind receipts to exact identities.
+6. **Document decisions as projections** — preserve rationale without creating a second authority surface.
+7. **Operationalize learning** — every recurring correct judgment should become reusable machinery.
 
 ---
 
@@ -119,13 +131,21 @@ Deliver timely notifications to users about important account activities.
 
 ## Phase 3: Project Planning & Sequencing
 
-**Goal**: Break work into implementable increments with clear dependencies
+**Goal**: Construct an admissible dependency/constraint graph and expose lawful parallelism.
 
-**Process**:
-1. Break down work into tasks (components, data models, APIs, infrastructure)
-2. Estimate using story points (Fibonacci 1-13 scale, see [Project Planning Standards](./project-planning-standards.md))
-3. Sequence tasks (identify dependencies, parallel tracks, critical path)
-4. Identify risks (technical unknowns, external dependencies, constraints)
+**Semantic Work Mode process**:
+1. Identify WorkOrders/checkpoints and exact dependency edges.
+2. Route known planning classes to HDDL/HTN, PDDL/FOND, SAT/SMT/CP, or another formal solver.
+3. Preserve unresolved alternatives until evidence justifies elimination.
+4. Bind each unit to acceptance, falsifier, court, evidence, and authority ceiling.
+5. Identify critical path, parallel frontier, resource constraints, and blockers.
+
+**Documentation Mode / human coordination projection**:
+- break work into tasks;
+- optionally estimate with Fibonacci story points;
+- sequence tasks and identify risks.
+
+Story points are planning metadata, never semantic standing or execution evidence.
 
 **Output**: `docs/planning/feature-name-implementation.md`
 
@@ -212,13 +232,15 @@ App Events → Event Processor → Notification Router → Channel Handlers → 
 
 ## Phase 5: Implementation
 
-**Goal**: Write code that implements the spec
+**Goal**: Manufacture the admitted consequence.
 
 **Process**:
-1. Work from specs - technical design is source of truth
-2. Small, scoped PRs - focused on single components, include tests
-3. Continuous validation - run tests, compare behavior against spec
-4. Code review - matches spec? sufficient tests? docs current?
+1. Work from the canonical WorkOrder/contract graph; specs and plans are projections.
+2. Reuse framework-native generators and admitted ggen-marketplace capital before handwriting repeatable surfaces.
+3. Keep SELECT, CONSTRUCT, and DO distinct.
+4. Route consequence through explicit authority; a plan, proof, agent, or PR is not authority.
+5. Emit durable execution/verification receipts bound to exact source and subject identities.
+6. Review semantic scope, falsifiers, tests, and projection freshness.
 
 **Artifacts**: Working code, tests, updated docs (if needed)
 
@@ -226,17 +248,19 @@ App Events → Event Processor → Notification Router → Channel Handlers → 
 
 ---
 
-## Phase 6: Validation & Iteration
+## Phase 6: Validation, Replay & Learning
 
-**Goal**: Verify implementation meets requirements and success criteria
+**Goal**: Establish bounded standing for the exact subject and reduce future reasoning cost.
 
 **Process**:
-1. Test against acceptance criteria - functional, non-functional, edge cases
-2. Validate with users (when applicable) - solves problem? actual UX?
-3. Measure success criteria - collect metrics, compare actual vs expected
-4. Iterate - capture feedback, identify improvements, update specs
+1. Run the narrowest high-information court, then expand through unit/integration/e2e/chaos/stress/benchmark as required.
+2. Test acceptance criteria and explicit falsifiers.
+3. Observe real consequence at the claimed boundary; inspection is not execution.
+4. Seal receipts and replay the claimed state from admitted inputs + receipts.
+5. Promote standing only for the exact subject supported by evidence.
+6. Turn newly solved recurring judgment into ontology, schema, generator, planner, policy, verifier, fixture, or process control.
 
-**Artifacts**: Test results, user feedback, metrics, updated specs or new concepts
+**Artifacts**: evidence receipts, replay result, bounded standing, process/OCEL evidence where applicable, updated root/project semantics, and regenerated projections.
 
 ---
 

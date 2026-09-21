@@ -28,16 +28,16 @@ This document defines how to organize issues, track epics, and manage multi-issu
 
 ### Semantic Work Mode
 
-Projects that adopt the [Semantic Engineering Protocol](./semantic-engineering-protocol.md) use **Semantic Jira (sJira)** as the canonical work/evidence fabric. In that mode:
+Projects that adopt the [Semantic Engineering Protocol](./semantic-engineering-protocol.md) use the **engineering-standards root WorkOrder** as the canonical work subject. Semantic Jira (sJira) is the downstream work/evidence projection. In that mode:
 
-- the canonical subject is an admitted RDF `WorkOrder`, not a Markdown issue body;
+- the canonical subject is an admitted root `es:WorkOrder`, not a Markdown issue body or an sJira-local ticket identity;
 - GitHub issues, Jira tickets, PRDs, ARDs, plans, and status pages are deterministic projections of that work order;
 - every projection carries `authority=NONE` and may not promote its own standing;
-- the work order binds repository identity, exact base SHA, graph digest, replay identity, standing, evidence ceiling, authority ceiling, courts, evidence, acceptance criteria, and falsifiers;
+- the root WorkOrder binds repository identity, exact base SHA, graph digest, replay identity, standing, evidence ceiling, authority ceiling, courts, evidence, acceptance criteria, falsifiers, and required capabilities;
 - machine-to-machine routing binds the exact work-order identity to an SA2A capability; an SA2A message is transport, not admission or authority;
 - consequential execution remains outside the ticket system and must pass the project's BRCE/CommandBus authority boundary and produce a receipt.
 
-The three-tier GitHub hierarchy below remains valid as a **human navigation projection**. Standards-only projects may continue to use GitHub as the primary tracker. Do not maintain two independent work truths: when Semantic Work Mode is enabled, amend the graph and regenerate projections rather than hand-editing the projected ticket.
+The three-tier GitHub hierarchy below remains valid as a **human navigation projection**. Documentation Mode projects may continue to use GitHub as the practical primary tracker. Do not maintain two independent work truths: when Semantic Work Mode is enabled, amend the graph and regenerate projections rather than hand-editing the projected ticket.
 
 > **When compound-engineering is in use**: solo + AI work often runs at a smaller scale than the three-tier hierarchy below assumes. The standard already carries solo carve-outs at the Epic Size Guidelines section (below) — "Fewer than 3 issues: probably doesn't need an epic, just use labels", "<1 month: might not need epic structure". For CE-using solo projects, plan files (`docs/plans/...`) serve as the granular tracker via U-IDs, with reactive sub-issues filed for review residuals, bugs, and Open Question activations. See [`process/compound-engineering-integration.md`](./compound-engineering-integration.md) § 3 for the full ticket-policy pattern.
 
@@ -294,6 +294,8 @@ None
 ## Epic Lifecycle Management
 
 ### Closing an Epic
+
+Epic closure is a navigation consequence, not evidence standing. In Semantic Work Mode, close only after the projected child WorkOrders have the required bounded standing or have explicit typed dispositions.
 
 Close an epic when **ALL** of these conditions are met:
 
