@@ -12,8 +12,13 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import ValidationError
-from pyshacl import validate
-from rdflib import Graph, Namespace, RDF, URIRef
+from rdflib import BNode, Graph, Literal, Namespace, RDF, URIRef
+from rdflib.collection import Collection
+
+try:
+    from pyshacl import validate as pyshacl_validate
+except ModuleNotFoundError:
+    pyshacl_validate = None
 
 ROOT = Path(__file__).resolve().parents[1]
 SEMANTIC = ROOT / "semantic"
@@ -100,17 +105,89 @@ def manifest_contract() -> dict:
     return manifest
 
 
+SH = Namespace("http://www.w3.org/ns/shacl#")
+
+
+def _fallback_values(data: Graph, subject, path):
+    return list(data.objects(subject, path))
+
+
+def _fallback_shape_errors(data: Graph, shapes: Graph) -> list[str]:
+    """Validate the exact SHACL Core subset used by this repository.
+
+    pySHACL remains the preferred full engine. This fallback exists so the
+    root court does not depend on package-network availability for the small
+    declared subset: targetClass, property/path, min/maxCount, minLength,
+    pattern, class, hasValue, and sh:in.
+    """
+    import re
+
+    errors: list[str] = []
+    for node_shape in shapes.subjects(RDF.type, SH.NodeShape):
+        target_classes = list(shapes.objects(node_shape, SH.targetClass))
+        targets = set()
+        for target_class in target_classes:
+            targets.update(data.subjects(RDF.type, target_class))
+
+        for prop_shape in shapes.objects(node_shape, SH.property):
+            path = shapes.value(prop_shape, SH.path)
+            if path is None:
+                errors.append(f"{node_shape}: property shape missing sh:path")
+                continue
+
+            min_count = shapes.value(prop_shape, SH.minCount)
+            max_count = shapes.value(prop_shape, SH.maxCount)
+            min_length = shapes.value(prop_shape, SH.minLength)
+            pattern = shapes.value(prop_shape, SH.pattern)
+            required_class = shapes.value(prop_shape, SH["class"])
+            has_value = shapes.value(prop_shape, SH.hasValue)
+            in_head = shapes.value(prop_shape, SH["in"])
+
+            allowed = None
+            if in_head is not None:
+                allowed = set(Collection(shapes, in_head))
+
+            for subject in targets:
+                values = _fallback_values(data, subject, path)
+                if min_count is not None and len(values) < int(min_count):
+                    errors.append(f"{subject} {path}: count {len(values)} < {int(min_count)}")
+                if max_count is not None and len(values) > int(max_count):
+                    errors.append(f"{subject} {path}: count {len(values)} > {int(max_count)}")
+
+                if has_value is not None and has_value not in values:
+                    errors.append(f"{subject} {path}: missing required value {has_value}")
+
+                for value in values:
+                    lexical = str(value)
+                    if min_length is not None and len(lexical) < int(min_length):
+                        errors.append(f"{subject} {path}: value shorter than {int(min_length)}")
+                    if pattern is not None and re.search(str(pattern), lexical) is None:
+                        errors.append(f"{subject} {path}: value {lexical!r} fails pattern {pattern}")
+                    if required_class is not None and (value, RDF.type, required_class) not in data:
+                        errors.append(f"{subject} {path}: {value} is not a {required_class}")
+                    if allowed is not None and value not in allowed:
+                        errors.append(f"{subject} {path}: {value} not in admitted value set")
+
+    return errors
+
+
 def shacl_conforms(data: Graph, shapes: Graph) -> tuple[bool, str]:
-    conforms, _, report = validate(
-        data_graph=data,
-        shacl_graph=shapes,
-        inference="rdfs",
-        advanced=True,
-        abort_on_first=False,
-        allow_infos=False,
-        allow_warnings=False,
-    )
-    return bool(conforms), str(report)
+    if pyshacl_validate is not None:
+        conforms, _, report = pyshacl_validate(
+            data_graph=data,
+            shacl_graph=shapes,
+            inference="rdfs",
+            advanced=True,
+            abort_on_first=False,
+            allow_infos=False,
+            allow_warnings=False,
+        )
+        return bool(conforms), str(report)
+
+    errors = _fallback_shape_errors(data, shapes)
+    if errors:
+        return False, "repository SHACL Core fallback:\n" + "\n".join(errors)
+    return True, "repository SHACL Core fallback: conforms"
 
 
 def copy_graph(graph: Graph) -> Graph:
@@ -277,7 +354,8 @@ def main() -> None:
 
     print(f"turtle-graphs: {len(parsed)} parsed")
     print("root-direction: PASS")
-    print("shacl: PASS (positive fixture + 4 negative falsifiers)")
+    engine = "pyshacl" if pyshacl_validate is not None else "repository-shacl-core-fallback"
+    print(f"shacl: PASS via {engine} (positive fixture + 4 negative falsifiers)")
     print("json-schema: PASS (8 positive examples + 8 negative falsifiers)")
     print("compatibility: PASS")
     print("standing: ALIVE(repository-semantic-conformance)")
