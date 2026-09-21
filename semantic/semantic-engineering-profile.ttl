@@ -64,6 +64,8 @@ es:Refusal a owl:Class ; rdfs:subClassOf prov:Entity ;
 es:CompatibilityMapping a owl:Class ; rdfs:subClassOf prov:Entity ;
   skos:definition "Explicit migration/profile mapping. It is not an OWL equivalence assertion." .
 es:Invariant a owl:Class ; rdfs:subClassOf prov:Entity .
+es:NormativeClaim a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "A proposed or admitted root-law claim with explicit evidence, falsifier, scope, and disposition." .
 es:RepositorySubject a owl:Class ; rdfs:subClassOf prov:Entity .
 
 # Identity and evidence
@@ -94,6 +96,10 @@ es:profileImplementation a owl:ObjectProperty .
 es:transportProfile a owl:DatatypeProperty ; rdfs:range xsd:string .
 es:generatorIdentity a owl:DatatypeProperty ; rdfs:range xsd:string .
 es:verifierIdentity a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:claimText a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:claimScope a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:evidenceSource a owl:ObjectProperty .
+es:claimDisposition a owl:DatatypeProperty ; rdfs:range xsd:string .
 
 # Standing scheme
 es:StandingScheme a skos:ConceptScheme ; skos:prefLabel "Engineering evidence standing" .

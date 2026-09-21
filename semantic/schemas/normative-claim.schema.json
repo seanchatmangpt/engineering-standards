@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/chatman/engineering-standards/normative-claim.schema.json",
+  "title": "Normative Root Claim",
+  "description": "Evidence-bounded proposal/admission record for changes to engineering-standards root law.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_iri",
+    "claim",
+    "scope",
+    "status",
+    "evidence",
+    "falsifiers",
+    "prior_art",
+    "decision"
+  ],
+  "properties": {
+    "claim_iri": {"type":"string","format":"uri"},
+    "claim": {"type":"string","minLength":1},
+    "scope": {"type":"string","minLength":1},
+    "status": {"enum":["CANDIDATE","ADMITTED","REFUSED","SUPERSEDED"]},
+    "evidence": {
+      "type":"array",
+      "minItems":1,
+      "uniqueItems":true,
+      "items":{"type":"string","minLength":1}
+    },
+    "falsifiers": {
+      "type":"array",
+      "minItems":1,
+      "uniqueItems":true,
+      "items":{"type":"string","minLength":1}
+    },
+    "prior_art": {
+      "type":"array",
+      "minItems":1,
+      "uniqueItems":true,
+      "items":{"type":"string","minLength":1}
+    },
+    "decision": {
+      "type":"object",
+      "additionalProperties": false,
+      "required":["disposition","reason"],
+      "properties": {
+        "disposition":{"enum":["REUSE","COMPOSE","EXTEND","INVENT","REFUSE","SUPERSEDE"]},
+        "reason":{"type":"string","minLength":1}
+      }
+    },
+    "supersedes":{"type":"array","items":{"type":"string","format":"uri"},"uniqueItems":true},
+    "evidence_ceiling":{"type":"string","minLength":1}
+  }
+}

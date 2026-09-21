@@ -104,6 +104,7 @@ Root lifecycle:
 - [Semantic Manufacturing](./process/semantic-manufacturing.md)
 - [Repository Adoption](./process/repository-adoption.md)
 - [Process Intelligence](./process/process-intelligence.md)
+- [Standards Change Control](./process/standards-change-control.md)
 
 Human coordination projections:
 - [Feature Development Workflow](./process/feature-development-workflow.md)

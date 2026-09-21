@@ -10,6 +10,7 @@ These documents are human-readable projections of the root [Semantic Engineering
 - [Semantic Manufacturing](./semantic-manufacturing.md) — reuse/generation and generated-vs-handwritten law.
 - [Repository Adoption](./repository-adoption.md) — how downstream repositories consume this root.
 - [Process Intelligence](./process-intelligence.md) — object-centric execution evidence and conformance learning.
+- [Standards Change Control](./standards-change-control.md) — evidence/falsifier admission for changes to the root itself.
 
 ## Work projections
 

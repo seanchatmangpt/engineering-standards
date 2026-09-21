@@ -52,6 +52,7 @@ SCHEMA_EXAMPLES = {
     "semantic/schemas/evidence-receipt.schema.json": "semantic/examples/evidence-receipt.valid.json",
     "semantic/schemas/standing-assertion.schema.json": "semantic/examples/standing-assertion.valid.json",
     "semantic/schemas/process-evidence-event.schema.json": "semantic/examples/process-evidence-event.valid.json",
+    "semantic/schemas/normative-claim.schema.json": "semantic/examples/normative-claim.valid.json",
 }
 
 
@@ -91,6 +92,9 @@ def manifest_contract() -> dict:
     for rel in manifest["authority"]["lifecycleSchemas"]:
         if not (ROOT / rel).is_file():
             raise AssertionError(f"manifest lifecycle schema missing: {rel}")
+    claim_schema = manifest["authority"].get("normativeClaimSchema")
+    if not claim_schema or not (ROOT / claim_schema).is_file():
+        raise AssertionError("manifest normative claim schema missing")
     if manifest["generatedVsHandwritten"]["canonicalSemanticSource"] != "semantic/semantic-engineering-profile.ttl":
         raise AssertionError("canonical semantic source drift")
     return manifest
@@ -203,6 +207,12 @@ def json_falsifiers() -> None:
         lambda x: {**x, "objects": []},
         "process event without object identity",
     )
+    must_refuse(
+        "semantic/schemas/normative-claim.schema.json",
+        "semantic/examples/normative-claim.valid.json",
+        lambda x: {**x, "falsifiers": []},
+        "normative root claim without falsifier",
+    )
 
 
 def compatibility_contract(parsed: dict[Path, Graph]) -> None:
@@ -232,8 +242,8 @@ def write_receipt(path: Path, parsed_count: int) -> None:
             "manifest authority surfaces exist",
             "root SHACL positive fixture",
             "4 root SHACL negative falsifiers",
-            "7 JSON schemas + positive examples",
-            "7 JSON negative falsifiers",
+            "8 JSON schemas + positive examples",
+            "8 JSON negative falsifiers",
             "downstream profiles bind engineering-standards root",
             "APS compatibility has no OWL equivalence assertion"
         ],
@@ -268,7 +278,7 @@ def main() -> None:
     print(f"turtle-graphs: {len(parsed)} parsed")
     print("root-direction: PASS")
     print("shacl: PASS (positive fixture + 4 negative falsifiers)")
-    print("json-schema: PASS (7 positive examples + 7 negative falsifiers)")
+    print("json-schema: PASS (8 positive examples + 8 negative falsifiers)")
     print("compatibility: PASS")
     print("standing: ALIVE(repository-semantic-conformance)")
     if args.receipt:
