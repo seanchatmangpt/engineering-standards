@@ -26,7 +26,7 @@ Defines how and when to create documentation:
 - Best practices for spec-driven development
 - Markdown formatting and diagram tools
 
-**Key principle**: Documentation is the source of truth. Write specs before code, keep them current, focus on decisions and context rather than implementation details.
+**Key principle**: In documentation-mode projects, documentation is the source of truth. Projects adopting the [Semantic Engineering Protocol](./process/semantic-engineering-protocol.md) use the admitted semantic graph as source authority and treat documents, Jira/GitHub tickets, plans, and generated code as bounded projections.
 
 ### [Feature Development Workflow](./process/feature-development-workflow.md)
 
@@ -81,6 +81,17 @@ How to organize issues, track epics, and manage multi-issue initiatives in GitHu
 - **Cross-epic dependencies** - Documenting and handling blocking relationships
 
 **Key principle**: Use GitHub's native features (sub-issues, labels, milestones) for lightweight, scalable issue organization without external tools.
+
+### [Semantic Engineering Protocol](./process/semantic-engineering-protocol.md)
+
+Combines the durable laws recovered from the Agile Protocol Specification with Semantic Jira (sJira) work/evidence semantics and Semantic A2A (SA2A) capability transport:
+- **sJira owns work identity and evidence projection** from a canonical RDF graph
+- **SA2A owns machine-to-machine capability transport**, not authority
+- **BRCE/CommandBus owns consequential DO** behind explicit authority and receipts
+- **SELECT, CONSTRUCT, and DO remain separate**
+- Generated tickets, plans, messages, and code carry no standing merely because they exist
+
+**Key principle**: Received is not admitted; ticket is not authority; agent is not authority; zero unreceipted actuation.
 
 ### [Compound Engineering Integration](./process/compound-engineering-integration.md)
 

@@ -1,8 +1,13 @@
 # Issue Tracking and Epic Organization
 
-**Version**: 2.1
-**Date**: 2026-09-20
+**Version**: 2.2
+**Date**: 2026-09-21
 **Status**: Active
+
+**Changes in v2.2**:
+- Added Semantic Work Mode: a canonical sJira RDF WorkOrder may replace the issue body as work authority
+- Classified GitHub/Jira issues as projections in Semantic Work Mode, never DO authority
+- Bound machine work transport to SA2A capability identity while keeping authority and standing separate
 
 **Changes in v2.1**:
 - Label Strategy is now the single owner of every label definition, rendered as one table with a Mode column
@@ -20,6 +25,19 @@
 ## Overview
 
 This document defines how to organize issues, track epics, and manage multi-issue initiatives in GitHub. It provides a lightweight, scalable approach using GitHub's native features.
+
+### Semantic Work Mode
+
+Projects that adopt the [Semantic Engineering Protocol](./semantic-engineering-protocol.md) use **Semantic Jira (sJira)** as the canonical work/evidence fabric. In that mode:
+
+- the canonical subject is an admitted RDF `WorkOrder`, not a Markdown issue body;
+- GitHub issues, Jira tickets, PRDs, ARDs, plans, and status pages are deterministic projections of that work order;
+- every projection carries `authority=NONE` and may not promote its own standing;
+- the work order binds repository identity, exact base SHA, graph digest, replay identity, standing, evidence ceiling, authority ceiling, courts, evidence, acceptance criteria, and falsifiers;
+- machine-to-machine routing binds the exact work-order identity to an SA2A capability; an SA2A message is transport, not admission or authority;
+- consequential execution remains outside the ticket system and must pass the project's BRCE/CommandBus authority boundary and produce a receipt.
+
+The three-tier GitHub hierarchy below remains valid as a **human navigation projection**. Standards-only projects may continue to use GitHub as the primary tracker. Do not maintain two independent work truths: when Semantic Work Mode is enabled, amend the graph and regenerate projections rather than hand-editing the projected ticket.
 
 > **When compound-engineering is in use**: solo + AI work often runs at a smaller scale than the three-tier hierarchy below assumes. The standard already carries solo carve-outs at the Epic Size Guidelines section (below) — "Fewer than 3 issues: probably doesn't need an epic, just use labels", "<1 month: might not need epic structure". For CE-using solo projects, plan files (`docs/plans/...`) serve as the granular tracker via U-IDs, with reactive sub-issues filed for review residuals, bugs, and Open Question activations. See [`process/compound-engineering-integration.md`](./compound-engineering-integration.md) § 3 for the full ticket-policy pattern.
 

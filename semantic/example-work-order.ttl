@@ -1,0 +1,23 @@
+@prefix ex: <https://example.org/engineering/> .
+@prefix esp: <https://w3id.org/chatman/engineering-standards#> .
+@prefix sj: <https://ggen-igniter.dev/ontology/semantic-jira#> .
+@prefix oslc_cm: <http://open-services.net/ns/cm#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+ex:work-001 a sj:WorkOrder, oslc_cm:ChangeRequest ;
+  dcterms:identifier "ENG-001" ;
+  dcterms:title "Refactor engineering standards into one semantic protocol" ;
+  dcterms:description "Combine APS law, sJira work identity, and SA2A transport without granting projection authority." ;
+  sj:repository "seanchatmangpt/engineering-standards" ;
+  sj:baseSha "610944c48bce6377291c088a3e07775e9ef2908b" ;
+  sj:standing "UNKNOWN" ;
+  sj:authorityCeiling "CONSTRUCT" ;
+  esp:requiresCapability ex:semantic-engineering-capability ;
+  esp:graphDigest "0000000000000000000000000000000000000000000000000000000000000000" ;
+  esp:transportProfile "SA2A" ;
+  esp:projectionAuthority "NONE" .
+
+ex:semantic-engineering-capability a prov:Entity ;
+  dcterms:identifier "semantic-engineering.refactor" ;
+  dcterms:title "Semantic engineering refactor capability" .

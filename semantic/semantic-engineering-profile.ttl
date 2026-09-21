@@ -1,0 +1,64 @@
+@prefix esp: <https://w3id.org/chatman/engineering-standards#> .
+@prefix aps: <https://w3id.org/chatman/aps#> .
+@prefix sj: <https://ggen-igniter.dev/ontology/semantic-jira#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/chatman/engineering-standards> a owl:Ontology ;
+  dcterms:title "Semantic Engineering Protocol profile v26.9.21" ;
+  dcterms:description "Application profile joining APS law, Semantic Jira work identity, SA2A capability transport, and an explicit consequence authority boundary." ;
+  dcterms:references
+    <https://github.com/seanchatmangpt/agile-protocol-specification/commit/5c31d9d05fe36dc1eca3a26c9eb5cd267a2cf625>,
+    <https://github.com/seanchatmangpt/ash_a2a/commit/baa135d5c6129aea1d4b38d48a12ad87e132b638>,
+    <https://github.com/seanchatmangpt/ggen_igniter/pull/20>,
+    <https://github.com/seanchatmangpt/ggen_igniter/pull/24> .
+
+esp:SemanticEngineeringProtocol a aps:Contract ;
+  skos:definition "Engineering protocol in which admitted semantic work identity is projected through sJira, transported through SA2A, and may create consequence only after an explicit authority admission." .
+
+esp:SemanticJiraPlane a aps:Contract ;
+  skos:definition "Canonical work/evidence plane. Its generated projections have no independent execution authority." .
+
+esp:SA2ATransportPlane a aps:Contract ;
+  skos:definition "Capability discovery and transport plane. Receipt of a message or possession of a capability does not confer standing or authority." .
+
+esp:ConsequencePlane a aps:Contract ;
+  skos:definition "Explicit authority, DO, receipt, replay, and standing boundary implemented by BRCE, CommandBus, or an equivalent authority broker." .
+
+esp:requiresCapability a owl:ObjectProperty ;
+  rdfs:domain sj:WorkOrder ;
+  rdfs:range prov:Entity ;
+  skos:definition "Exact machine capability identity required to transport or handle this semantic work subject." .
+
+esp:graphDigest a owl:DatatypeProperty ;
+  rdfs:domain sj:WorkOrder ;
+  rdfs:range xsd:string ;
+  skos:definition "Lowercase SHA-256 digest of the admitted semantic graph that defines the work subject." .
+
+esp:transportProfile a owl:DatatypeProperty ;
+  rdfs:domain sj:WorkOrder ;
+  rdfs:range xsd:string ;
+  skos:definition "Named machine transport profile. This profile admits SA2A only." .
+
+esp:projectionAuthority a owl:DatatypeProperty ;
+  rdfs:domain sj:WorkOrder ;
+  rdfs:range xsd:string ;
+  skos:definition "Authority carried by a generated projection. Under this profile the only lawful value is NONE." .
+
+esp:authorityPolicy a owl:ObjectProperty ;
+  rdfs:domain sj:WorkOrder ;
+  rdfs:range odrl:Policy ;
+  skos:definition "Optional explicit authority policy consulted by the consequence plane; its presence is not itself an authorization." .
+
+esp:SA2A a skos:Concept ;
+  skos:prefLabel "SA2A" ;
+  skos:definition "Semantic A2A transport profile." .
+
+esp:NONE a skos:Concept ;
+  skos:prefLabel "NONE" ;
+  skos:definition "No projection authority." .
