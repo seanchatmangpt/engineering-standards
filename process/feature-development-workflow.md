@@ -20,7 +20,7 @@ Documentation Mode may use the lighter **Intent → Spec → Plan → Execute �
 
 ### Workflow Diagram
 
-```mermaid
+```text
 flowchart LR
     A[Phase 1:<br/>Product Concept] --> B[Phase 2:<br/>Requirements & UI]
     B --> C[Phase 3:<br/>Planning &<br/>Sequencing]
