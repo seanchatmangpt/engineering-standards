@@ -2,6 +2,18 @@
 
 *Modern tooling and practices for Python command-line and library projects*
 
+## Root Relationship
+
+This Python standard is a construction/verification profile under the [Semantic Engineering Protocol](../process/semantic-engineering-protocol.md) and the shared [Construction, Generation, and Verification Contract](./construction-generation-verification.md).
+
+Before hand-writing repeatable Python:
+1. prefer framework-native generators where they preserve required semantics;
+2. reuse/compose admitted ggen-marketplace capital;
+3. encode stable differences as ontology/schema/data;
+4. hand-write irreducible mechanism only, recording exact generator capability gaps.
+
+Generated Python is non-sovereign projection inventory. Static typing, lint, and unit tests establish only their declared boundary; they do not imply runtime ALIVE or DO authority.
+
 ## Overview
 
 This document defines standards for Python-based computational engine projects, covering project structure, tooling, code quality, testing, and deployment. These standards prioritize:
@@ -22,13 +34,19 @@ Use contemporary tools that solve problems better than traditional approaches:
 - **ruff** over pylint/black/isort - Single tool for formatting and linting
 - **pyproject.toml** over setup.py/setup.cfg - Standardized project metadata
 
-### Automation First
+### Manufacture Before Repeated Automation
 
-Automate everything that can be automated:
+Move recurring correct transformations into deterministic machinery. Prefer generators/templates/rules over scripts that repeatedly reconstruct known structure, and prefer those over repeated model inference.
+
+Automate mechanical qualification:
 - Environment setup via `make setup`
 - Quality checks via pre-commit hooks
 - Testing and validation via CI/CD
 - Security scanning as part of the workflow
+
+### Types as Executable Constraints, Not Authority
+
+Types externalize known constraints and reduce repeated reasoning. They are evidence about a type boundary, not proof of runtime consequence or authorization.
 
 ### Type Safety Without Ceremony
 
