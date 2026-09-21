@@ -1,0 +1,13 @@
+{
+  "event_id":"engineering-standards:event:1",
+  "activity":"verify-root-profile",
+  "timestamp":"2026-09-21T21:00:00Z",
+  "work_order_iri":"https://example.org/engineering/work-001",
+  "receipt_iri":"https://example.org/receipt/1",
+  "objects":[
+    {"object_type":"WorkOrder","object_id":"https://example.org/engineering/work-001"},
+    {"object_type":"Repository","object_id":"seanchatmangpt/engineering-standards"},
+    {"object_type":"Commit","object_id":"75850a8c145f6b72b5c90a5b3e658e67ca7b2c94"}
+  ],
+  "attributes":{"court":"root-semantic-conformance"}
+}

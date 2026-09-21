@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/chatman/engineering-standards/actuation-intent.schema.json",
+  "title": "Actuation Intent",
+  "description": "A request for consequential DO. Schema validity does not grant authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["intent_iri","work_order_iri","capability_iri","graph_digest","repository_identity","base_sha","requested_authority","principal_iri","policy_iri","replay_identity","requested_consequence"],
+  "properties": {
+    "intent_iri": {"type":"string","format":"uri"},
+    "work_order_iri": {"type":"string","format":"uri"},
+    "capability_iri": {"type":"string","format":"uri"},
+    "graph_digest": {"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "repository_identity": {"type":"string","pattern":"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+    "base_sha": {"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "requested_authority": {"const":"DO"},
+    "principal_iri": {"type":"string","format":"uri"},
+    "policy_iri": {"type":"string","format":"uri"},
+    "replay_identity": {"type":"string","minLength":1},
+    "requested_consequence": {"type":"string","minLength":1},
+    "expires_at": {"type":"string","format":"date-time"}
+  }
+}

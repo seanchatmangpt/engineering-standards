@@ -1,0 +1,9 @@
+{
+  "refusal_iri":"https://example.org/refusal/1",
+  "subject_iri":"https://example.org/engineering/work-001",
+  "stage":"AUTHORITY",
+  "code":"REFUSED:AUTHORITY_MISSING",
+  "reason":"No admitted DO grant exists for the requested consequence.",
+  "evidence_iris":[],
+  "observed_at":"2026-09-21T21:00:00Z"
+}

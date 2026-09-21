@@ -1,0 +1,10 @@
+{
+  "decision_iri":"https://example.org/authority/decision-1",
+  "intent_iri":"https://example.org/authority/intent-1",
+  "work_order_iri":"https://example.org/engineering/work-001",
+  "decision":"ADMITTED",
+  "granted_authority":"DO",
+  "policy_iri":"https://example.org/policy/root",
+  "decider_iri":"https://example.org/authority/broker",
+  "decided_at":"2026-09-21T21:00:00Z"
+}
