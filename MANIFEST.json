@@ -1,7 +1,7 @@
 {
   "schema": "engineering-standards.root-manifest.v26.9.21",
   "version": "26.9.21",
-  "status": "PARTIAL_ALIVE",
+  "status": "ALIVE",
   "purpose": "Root engineering constitution for admitted semantics, work identity, planning, manufacture, authority, actuation, evidence, replay, standing, and reusable engineering knowledge.",
   "authority": {
     "rootOntology": "semantic/semantic-engineering-profile.ttl",
@@ -117,5 +117,31 @@
     "Repository conformance does not prove deployment or publication.",
     "Compatibility mappings do not assert owl:equivalentClass or owl:equivalentProperty.",
     "Open downstream PRs do not contribute runtime standing to this repository."
-  ]
+  ],
+  "standing": {
+    "subject": "repository-semantic-conformance",
+    "status": "ALIVE",
+    "verifier": "independent-exact-head-root-court-v1",
+    "evidenceCeiling": [
+      "all root/profile Turtle graphs parse",
+      "root public-profile direction",
+      "positive SHACL fixture",
+      "4 negative SHACL falsifiers",
+      "8 JSON schema positive examples",
+      "8 JSON negative falsifiers",
+      "downstream profile direction",
+      "APS compatibility without OWL equivalence"
+    ],
+    "nonClaims": [
+      "documentation-rendering conformance",
+      "hosted GitHub Actions execution",
+      "SA2A runtime execution",
+      "Jira mutation",
+      "CommandBus or BRCE DO",
+      "merge",
+      "publication",
+      "deployment",
+      "cross-repository standing"
+    ]
+  }
 }
