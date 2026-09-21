@@ -1,116 +1,51 @@
 # Semantic Engineering Protocol
 
-**Version**: 26.9.21  
-**Status**: Active profile; runtime standing remains adapter-specific  
-**Scope**: Engineering work identity, machine coordination, authority, evidence, replay, and standing
+**Version:** 26.9.21  
+**Status:** Root standard  
+**Authority:** `MANIFEST.json` + `semantic/semantic-engineering-profile.ttl`
 
-## Purpose
+## Root position
 
-This standard combines three previously adjacent systems into one engineering protocol:
-
-1. the durable constitutional laws recovered by the **Agile Protocol Specification (APS)**;
-2. **Semantic Jira (sJira)** as the canonical work/evidence graph and deterministic projection boundary; and
-3. **Semantic A2A (SA2A)** as the machine-to-machine capability transport.
-
-The combined protocol has one operational spine:
+This repository is the root engineering constitution. It owns the stable semantics that downstream systems implement:
 
 ```text
-OBSERVE
-  -> ADMIT
-  -> WORK ORDER
-  -> FORMAL CLOSURE / PLAN
-  -> SELECT
-  -> CONSTRUCT
-  -> AUTHORITY
-  -> DO
-  -> RECEIPT
-  -> REPLAY
-  -> STANDING
-  -> REUSE
+engineering-standards
+  ├─ profiles work/evidence -> sJira
+  ├─ profiles transport/runtime -> SA2A
+  ├─ profiles manufacture -> ggen / ggen-marketplace
+  ├─ profiles consequence -> BRCE / CommandBus runtimes
+  ├─ profiles process evidence -> OCEL/process intelligence
+  └─ profiles human interfaces -> docs, Jira/GitHub, dashboards, agent context
 ```
 
-The purpose is not to make tickets smarter or agents more trusted. It is to make recurring engineering work progressively less dependent on runtime interpretation.
+APS is predecessor evidence. Useful APS law has been carried into the root namespace; APS no longer sits above this repository.
 
-## Source reconstruction
-
-This profile was reconstructed from exact repository subjects before the refactor:
-
-| Source | Exact subject used | Role here |
-|---|---|---|
-| Agile Protocol Specification | `seanchatmangpt/agile-protocol-specification@5c31d9d05fe36dc1eca3a26c9eb5cd267a2cf625` | constitutional prior art: admission, DfCM, authority separation, receipts, replay, standing |
-| SA2A / AshA2A | `seanchatmangpt/ash_a2a@baa135d5c6129aea1d4b38d48a12ad87e132b638` and RFC-SA2A-001/002 | capability projection and transport; CommandBus-only consequence boundary |
-| Semantic Jira | `seanchatmangpt/ggen_igniter#20@90cfd360bc6dfe041d35f7082f064716d22b4d99` | RDF WorkOrder fabric and deterministic projections |
-| Semantic Jira SHACL reconciliation | `seanchatmangpt/ggen_igniter#24@e509b375dc84e7ac50935d0b53bcb44ea1935242` | explicit pre-actuation SHACL court and refusal topology |
-| This repository | `seanchatmangpt/engineering-standards@610944c48bce6377291c088a3e07775e9ef2908b` | existing human engineering standards being refactored |
-
-The APS repository remains predecessor evidence and a reusable vocabulary source. This repository does **not** copy its implementation tree or inherit its runtime standing. SA2A and sJira remain independent implementations with their own verification and release boundaries.
-
-## The three planes
-
-### 1. Work and evidence plane — sJira
-
-sJira owns the canonical identity of work.
-
-A Semantic WorkOrder MUST be represented in an admitted graph before a projected ticket can claim to represent canonical work. The graph SHOULD reuse public vocabularies where the semantics are exact: DCTERMS for labels/identifiers, PROV-O for provenance, OSLC Change Management for change-request identity, SHACL for admission constraints, and ODRL or an equivalent explicit policy model for authority policy.
-
-A work order MUST bind at least:
-
-- stable work-order IRI and identifier;
-- repository identity and exact base commit SHA;
-- semantic graph digest;
-- subject identity;
-- replay identity;
-- standing;
-- evidence ceiling;
-- authority ceiling;
-- required courts and evidence;
-- acceptance criteria;
-- falsifiers;
-- required capability identity for machine transport.
-
-A Jira ticket, GitHub issue, PRD, ARD, plan, generated source file, or dashboard is a **projection**. A projection MUST NOT become an independent source of semantic truth merely because a person or agent edited it.
-
-### 2. Interaction plane — SA2A
-
-SA2A owns capability discovery and machine-to-machine transport.
-
-An SA2A capability advertises what a machine can receive or perform. It does not grant authority. An inbound message MUST remain candidate information until the receiver admits the exact semantic subject it references.
-
-For work transport, an SA2A envelope MUST bind:
-
-- exact WorkOrder IRI;
-- semantic graph digest;
-- repository identity;
-- exact base SHA;
-- exact capability IRI;
-- replay identity;
-- current bounded standing;
-- authority ceiling;
-- projection authority `NONE`.
-
-Authentication proves identity. Capability proves reachability. Neither proves permission.
-
-### 3. Consequence plane — BRCE / CommandBus
-
-Only the consequence plane may cross from proposal into consequential DO.
+## Calculus
 
 ```text
-message -> candidate
-candidate -> admission
-admission -> SELECT / CONSTRUCT
-SELECT / CONSTRUCT -> authority request
-authority request -> admit | refuse
-admit -> CommandBus / BRCE DO
-DO -> receipt
-receipt -> independent verification
-verification -> bounded standing
+O  -> observations
+O* -> admitted, grounded, bounded observations
+W  -> WorkOrder(O*)
+C  -> formal closure / constraints / plan candidates
+S  -> SELECT(C)
+M  -> CONSTRUCT(S)
+G  -> authority grant or typed refusal
+D  -> DO(G, M)
+R  -> receipt(D)
+P  -> replay(O*, R)
+T  -> standing(P)
+K  -> reusable knowledge from verified boundary
 ```
 
-Projects MAY implement the authority broker differently, but they MUST preserve the separation between capability, plan, proof, authority, execution, receipt, and standing.
+Lawful artifact manufacture remains:
 
-## Constitutional invariants
+```text
+A = mu(O*)
+```
 
-The following are protocol laws:
+but an artifact does not acquire standing or authority merely because it was manufactured.
+
+## Hard separations
 
 ```text
 Received != Admitted
@@ -122,130 +57,183 @@ Plan != Authority
 Proof != Authority
 SELECT != CONSTRUCT
 CONSTRUCT != DO
-GeneratedArtifact != SemanticTruth
+GeneratedArtifact != SemanticAuthority
 Inspection != Execution
+Workflow != Run
 NamedReceipt != Receipt
 UNKNOWN != ALIVE
 ```
 
-The strongest permitted sJira projection ceiling is `CONSTRUCT`. `DO`, merge, publish, deploy, external mutation, or standing promotion MUST NOT be granted by a generated work artifact.
+## Root WorkOrder
+
+`es:WorkOrder` is the canonical unit of engineering work. It binds:
+
+- stable IRI and human identifier;
+- repository identity and exact base SHA;
+- semantic graph digest;
+- subject/replay identity;
+- standing and evidence ceiling;
+- authority ceiling;
+- required capabilities;
+- required courts/evidence;
+- falsifiers;
+- projection authority.
+
+A GitHub issue, Jira issue, PRD, ARD, plan, branch name, dashboard card, agent task, or generated source file is a projection or transport of the WorkOrder.
+
+## Admission
+
+Admission fails closed. Unknown is not admitted.
+
+Use SHACL and other formal courts to establish structural admissibility. Use repository/source evidence to bind real identities. Admission does not grant DO.
+
+A malformed identity, ambiguous subject, unsupported vocabulary construct, missing evidence requirement, or authority-smuggling projection is a typed refusal.
 
 ## Standing
 
-Use one bounded standing vocabulary across work, transport, and receipts:
+Root standing vocabulary:
 
-- `UNKNOWN` — no admitted execution evidence for the claimed subject;
-- `PARTIAL_ALIVE` — some required boundary has executed, but the full claim has not;
-- `ALIVE` — the exact admitted subject has observed execution satisfying its declared court;
-- `BLOCKED` — a required transition cannot currently proceed;
-- `BUILD_BROKEN` — the subject cannot reach its verification court because its build is broken;
-- `UNSUPPORTED` — the required capability is absent;
-- `REFUSED(reason)` — admission or authority rejected the request for a typed reason.
+- `UNKNOWN` — exact subject has no admitted execution proof.
+- `PARTIAL_ALIVE` — a required boundary executed, but the full claim is not closed.
+- `ALIVE` — exact admitted subject has observed execution satisfying its declared court.
+- `BLOCKED` — acceptance is unmet and no currently lawful authorized route remains at the tested boundary.
+- `BUILD_BROKEN` — build prevents the declared verification boundary.
+- `UNSUPPORTED` — required capability is absent.
+- `REFUSED` — admission or authority rejected the request with a typed reason.
 
-Standing MUST bind the exact subject and evidence scope. A repository-wide green check does not automatically promote a narrower or broader subject. A ticket marked done is not an ALIVE receipt.
+Keep observed, admitted, inferred, executed, changed, verified, refused, blocked, and unsupported state separate.
 
-## DfCM operating sequence
+## DfCM
 
-For non-trivial changes, use the seven-stage sequence recovered from APS:
+Use the seven-stage root sequence:
 
-1. **Preserve (守)** — retain observed behavior, history, current standards, exact source identities, and reversible options.
-2. **Fence (柵)** — reconstruct system, boundary, origin, and function before replacing structure.
-3. **Calculate (算)** — map objects, transitions, state, admission, closure, authority, consequence, receipt, replay, and standing.
-4. **Exclude (除)** — record discarded assumptions so they cannot silently return.
-5. **Falsify (偽)** — define the observation that would invalidate each consequential claim.
-6. **Extend (延)** — reuse, compose, or extend admitted machinery before inventing a new mechanism.
-7. **Operationalize (実)** — turn recurring judgment into ontology, schema, generator, planner, verifier, policy, or process control.
+1. **守 Preserve** — exact identities, history, existing behavior, lawful reversible possibilities.
+2. **柵 Fence** — reconstruct system, boundary, origin, function before replacement.
+3. **算 Calculate** — objects -> morphisms -> state -> admission -> closure -> authority -> consequence -> receipt -> replay -> standing.
+4. **除 Exclude** — record non-adopted assumptions.
+5. **偽 Falsify** — define observations that overturn the claim.
+6. **延 Extend** — reuse -> compose -> extend -> invent.
+7. **実 Operationalize** — externalize recurring correctness into formal machinery.
 
-A failure on one edge changes the known topology. It does not prove the graph impossible.
+A failed edge changes topology. It is not graph failure.
 
-## GitHub and Jira integration
+## Prior-art-first intelligence routing
 
-The existing [Issue Tracking and Epic Organization](./issue-tracking.md) standard remains the human navigation layer.
+Before general reasoning, route known classes:
 
-There are two modes:
+| Class | Preferred machinery |
+|---|---|
+| Hierarchical planning | HDDL / HTN planner |
+| Classical or FOND planning | PDDL/FOND solver |
+| Constraint satisfaction | SAT / SMT / CP |
+| Process conformance | OCEL + process mining |
+| Rules / derivation | declarative rule engine |
+| Repeatable source manufacture | ggen / framework-native generator |
+| Semantic admission | RDF + SHACL/SPARQL |
+| Provenance | PROV-O; SLSA for software-build provenance |
+| Policy | ODRL where semantics fit |
+| Lifecycle integration | OSLC/DCMI profiles |
 
-**Documentation mode**
-- GitHub issues and Markdown specifications may be the primary work record.
-- Existing three-tier milestone/epic/issue guidance applies directly.
+Only unresolved semantic residue should continue to purchase general model reasoning.
 
-**Semantic Work Mode**
-- the admitted sJira graph is canonical;
-- GitHub/Jira issues are generated or synchronized projections;
-- branch/PR descriptions reference the WorkOrder identity and exact base SHA;
-- ticket status changes do not promote semantic standing;
-- projected tickets are regenerated from graph changes instead of edited as a second source of truth.
+## Public ontology rule
+
+Use public terms where semantics are exact. Do not map by adjacency.
+
+The root profiles PROV-O, SHACL, ODRL, DCMI, OSLC, PROF, and DCAT, and references OCEL and SLSA. Local residue is allowed for concepts such as evidence standing, authority ceilings, falsifiers, replay identities, and exact engineering work-subject binding when no public term is exact.
+
+Never assert `owl:equivalentClass` or `owl:equivalentProperty` without an equivalence proof.
+
+## sJira profile
+
+Semantic Jira is the work/evidence projection of the root.
+
+sJira MUST:
+- conserve root WorkOrder identity;
+- conserve exact repository/base and graph identity;
+- fail closed before projection;
+- keep generated ticket/PRD/ARD/plan authority at `NONE`;
+- derive standing only from receipts for the same subject.
+
+A Jira state change is not a standing promotion.
+
+## SA2A profile
+
+SA2A is the capability/transport projection of the root.
+
+SA2A MUST conserve:
+- WorkOrder IRI;
+- graph digest;
+- repository/base identity;
+- exact capability;
+- replay identity;
+- bounded standing;
+- authority ceiling.
+
+Authentication proves identity. Capability proves addressability. Neither grants permission.
+
+## Authority and BRCE
+
+The only lawful consequential path is:
+
+```text
+parse -> route -> admit/refuse -> diagnose/repair -> construct
+      -> authority -> DO -> receipt -> replay -> standing
+```
+
+No ambient DO authority. No unreceipted actuation.
+
+The strongest authority a work projection may carry is `CONSTRUCT`. `DO` is admitted separately by an authority broker such as CommandBus/BRCE.
+
+## Manufacture
+
+Use existing manufacturing capital before handwriting repeatable surfaces.
+
+Current admitted prior art includes ggen-marketplace packs for semantic documentation, semantic projection, semantic manufacture epochs, SHACL projection, GitHub cloud operating doctrine, and ggen pack specification.
+
+Generated output is disposable inventory. Canonical semantics, generator law, verifier law, and receipts are durable capital.
+
+If a generator cannot express required semantics, record `UNSUPPORTED(generator-capability)` and the exact missing capability. Do not silently treat hand-written output as generated.
+
+## Verification and replay
+
+Verification ladder:
+
+```text
+narrow -> unit -> integration -> e2e -> chaos -> stress -> benchmark -> machine report
+```
+
+Use the cheapest high-information court first. Every failure produces a new hypothesis and, when learned, a permanent guard.
+
+Replay must reconstruct claimed state from admitted inputs and receipts. A checkpoint is not a crown.
+
+Exact-head evidence is required for source-bound claims. CI is supplementary evidence, not truth.
+
+## Documentation mode vs Semantic Work Mode
+
+Documentation Mode remains available for small repositories that have not adopted the root semantic graph. In that mode a maintained spec can be the practical source of truth.
+
+Semantic Work Mode is the ecosystem default:
+- canonical semantics live in the root/project graph;
+- docs and tickets are projections;
+- plans are candidate artifacts;
+- generated source is projection inventory;
+- receipts establish consequence;
+- standing is evidence-bound.
 
 Do not run both modes as independent authorities.
 
-## Public ontology before local vocabulary
+## Root learning loop
 
-Before introducing a local semantic term:
-
-1. search the relevant public standard or ontology;
-2. prove semantic equivalence before mapping;
-3. carry the public term when the meaning is exact;
-4. retain a local residue term when the public term would fabricate meaning;
-5. record the failed mapping and the condition that would allow a future carry.
-
-Known useful substrates include PROV-O, DCTERMS, OSLC CM/RM, SHACL, ODRL, SKOS, OWL, and the APS profile at `https://w3id.org/chatman/aps#`.
-
-Adjacency is not equivalence. A generic `relation` property is not an acceptable replacement for an exact authority, dependency, digest, receipt, or standing relation.
-
-## Admission and projection contract
-
-The repository carries an executable profile in `semantic/`:
-
-- `semantic-engineering-profile.ttl` — the integration vocabulary/profile;
-- `semantic-engineering-shapes.ttl` — SHACL constraints for an sJira WorkOrder transported through SA2A;
-- `semantic-work-envelope.schema.json` — JSON transport projection for the same subject;
-- `example-work-order.ttl` and `example-work-envelope.json` — positive fixtures.
-
-The repository court MUST also prove negative cases. At minimum these mutations must fail:
-
-- changing the work-order authority ceiling to `DO`;
-- changing projection authority away from `NONE`;
-- supplying a malformed graph digest;
-- changing the transport profile away from `SA2A`.
-
-Run:
-
-```bash
-python -m pip install --disable-pip-version-check -r scripts/requirements-semantic.txt
-python scripts/check-semantic-standard.py
-```
-
-This court proves repository profile conformance only. It does not prove an AshA2A runtime, Jira SaaS mutation, XaaS materialization, production CommandBus execution, deployment, or cross-repository ALIVE standing.
-
-## Migration from APS
-
-This refactor does not delete APS history or pretend its existing repository never existed.
-
-The migration rule is:
+A downstream repository may discover a valid new law. The correct lifecycle is:
 
 ```text
-APS law
-  -> reconstruct exact useful invariant
-  -> map to this standard or public ontology
-  -> executable profile/falsifier
-  -> retain source identity
-  -> stop requiring a parallel human interpretation of the same rule
+downstream observation
+  -> root candidate
+  -> fence/equivalence/prior-art check
+  -> root ontology/schema/verifier update
+  -> qualification
+  -> downstream profile regeneration/adoption
 ```
 
-New engineering process law SHOULD land here when it governs engineering work generally. Implementation-specific protocol details stay in SA2A, sJira, XaaS, ggen, or their owning repositories.
-
-## Adoption criteria
-
-A project may claim conformance to this profile only when:
-
-- work identity has one canonical source;
-- the source binds exact repository/base identities;
-- admission fails closed;
-- sJira projections carry no DO authority;
-- SA2A messages bind the exact semantic subject and graph digest;
-- consequential work crosses an explicit authority boundary;
-- consequence emits a durable receipt;
-- standing is promoted only from evidence for the same subject;
-- replay can reconstruct the claimed state from admitted inputs and receipts;
-- recurring solved work is moved from repeated inference into reusable formal machinery.
-
-The target is not maximum ceremony. It is to make the next correct execution require less exceptional intelligence than the previous one.
+Success means the next repository does not need to rediscover the same reasoning.

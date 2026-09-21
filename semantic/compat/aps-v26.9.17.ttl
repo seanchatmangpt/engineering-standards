@@ -1,0 +1,30 @@
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
+@prefix aps: <https://w3id.org/chatman/aps#> .
+@prefix compat: <https://w3id.org/chatman/engineering-standards/compat/aps#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+
+compat:APSCompatibility a prof:Profile ;
+  dcterms:title "APS v26.9.17 compatibility mapping" ;
+  dcterms:source <https://github.com/seanchatmangpt/agile-protocol-specification/commit/5c31d9d05fe36dc1eca3a26c9eb5cd267a2cf625> ;
+  prof:isProfileOf <https://w3id.org/chatman/engineering-standards> .
+
+compat:m01 a es:CompatibilityMapping ; es:sourceTerm aps:AdmittedKnowledge ; es:targetTerm es:AdmittedKnowledge ; es:mappingDisposition es:Carried .
+compat:m02 a es:CompatibilityMapping ; es:sourceTerm aps:Contract ; es:targetTerm es:Contract ; es:mappingDisposition es:Carried .
+compat:m03 a es:CompatibilityMapping ; es:sourceTerm aps:CandidateFalsifier ; es:targetTerm es:CandidateFalsifier ; es:mappingDisposition es:Carried .
+compat:m04 a es:CompatibilityMapping ; es:sourceTerm aps:ActuationIntent ; es:targetTerm es:ActuationIntent ; es:mappingDisposition es:Carried .
+compat:m05 a es:CompatibilityMapping ; es:sourceTerm aps:EvidenceReceipt ; es:targetTerm es:EvidenceReceipt ; es:mappingDisposition es:Carried .
+compat:m06 a es:CompatibilityMapping ; es:sourceTerm aps:StandingAssertion ; es:targetTerm es:StandingAssertion ; es:mappingDisposition es:Carried .
+compat:m07 a es:CompatibilityMapping ; es:sourceTerm aps:Reconstitution ; es:targetTerm es:Replay ; es:mappingDisposition es:Profiled .
+compat:m08 a es:CompatibilityMapping ; es:sourceTerm aps:UNKNOWN ; es:targetTerm es:UNKNOWN ; es:mappingDisposition es:Carried .
+compat:m09 a es:CompatibilityMapping ; es:sourceTerm aps:PARTIAL_ALIVE ; es:targetTerm es:PARTIAL_ALIVE ; es:mappingDisposition es:Carried .
+compat:m10 a es:CompatibilityMapping ; es:sourceTerm aps:ALIVE ; es:targetTerm es:ALIVE ; es:mappingDisposition es:Carried .
+compat:m11 a es:CompatibilityMapping ; es:sourceTerm aps:BLOCKED ; es:targetTerm es:BLOCKED ; es:mappingDisposition es:Carried .
+compat:m12 a es:CompatibilityMapping ; es:sourceTerm aps:BUILD_BROKEN ; es:targetTerm es:BUILD_BROKEN ; es:mappingDisposition es:Carried .
+compat:m13 a es:CompatibilityMapping ; es:sourceTerm aps:UNSUPPORTED ; es:targetTerm es:UNSUPPORTED ; es:mappingDisposition es:Carried .
+compat:m14 a es:CompatibilityMapping ; es:sourceTerm aps:REFUSED ; es:targetTerm es:REFUSED ; es:mappingDisposition es:Carried .
+
+compat:APSRepository a prov:Entity ;
+  dcterms:isReplacedBy <https://w3id.org/chatman/engineering-standards> ;
+  dcterms:description "Predecessor evidence remains immutable. This mapping carries useful law without granting APS continuation privilege above the root." .

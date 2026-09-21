@@ -1,85 +1,63 @@
-@prefix esp: <https://w3id.org/chatman/engineering-standards#> .
-@prefix sj: <https://ggen-igniter.dev/ontology/semantic-jira#> .
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-esp:IntegratedWorkOrderShape a sh:NodeShape ;
-  sh:targetClass sj:WorkOrder ;
+es:WorkOrderShape a sh:NodeShape ;
+  sh:targetClass es:WorkOrder ;
+  sh:closed false ;
+
+  sh:property [ sh:path dcterms:identifier ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 2 ] ;
+  sh:property [ sh:path dcterms:title ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] ;
+  sh:property [ sh:path dcterms:description ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] ;
 
   sh:property [
-    sh:path dcterms:identifier ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:minLength 2
-  ] ;
-
-  sh:property [
-    sh:path dcterms:title ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:minLength 1
-  ] ;
-
-  sh:property [
-    sh:path dcterms:description ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:minLength 1
-  ] ;
-
-  sh:property [
-    sh:path sj:repository ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
+    sh:path es:repository ;
+    sh:minCount 1 ; sh:maxCount 1 ;
     sh:pattern "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
   ] ;
 
   sh:property [
-    sh:path sj:baseSha ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
+    sh:path es:baseSha ;
+    sh:minCount 1 ; sh:maxCount 1 ;
     sh:pattern "^[0-9a-f]{40}$"
   ] ;
 
   sh:property [
-    sh:path sj:standing ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:pattern "^(UNKNOWN|PARTIAL_ALIVE|ALIVE|BLOCKED|BUILD_BROKEN|UNSUPPORTED|REFUSED\\(.+\\))$"
-  ] ;
-
-  sh:property [
-    sh:path sj:authorityCeiling ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:in ( "OBSERVE" "SELECT" "CONSTRUCT" )
-  ] ;
-
-  sh:property [
-    sh:path esp:requiresCapability ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:nodeKind sh:IRI
-  ] ;
-
-  sh:property [
-    sh:path esp:graphDigest ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
+    sh:path es:graphDigest ;
+    sh:minCount 1 ; sh:maxCount 1 ;
     sh:pattern "^[0-9a-f]{64}$"
   ] ;
 
   sh:property [
-    sh:path esp:transportProfile ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:hasValue "SA2A"
+    sh:path es:standing ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:in ( es:UNKNOWN es:PARTIAL_ALIVE es:ALIVE es:BLOCKED es:BUILD_BROKEN es:UNSUPPORTED es:REFUSED )
   ] ;
 
   sh:property [
-    sh:path esp:projectionAuthority ;
+    sh:path es:authorityCeiling ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:in ( es:OBSERVE es:SELECT es:CONSTRUCT )
+  ] ;
+
+  sh:property [
+    sh:path es:requiresCapability ;
     sh:minCount 1 ;
-    sh:maxCount 1 ;
-    sh:hasValue "NONE"
-  ] .
+    sh:class es:Capability
+  ] ;
+
+  sh:property [ sh:path es:requiresCourt ; sh:minCount 1 ; sh:class es:Court ] ;
+  sh:property [ sh:path es:hasFalsifier ; sh:minCount 1 ; sh:class es:CandidateFalsifier ] ;
+  sh:property [ sh:path es:replayIdentity ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 1 ] ;
+  sh:property [ sh:path es:projectionAuthority ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue es:NONE ] .
+
+es:GeneratedArtifactShape a sh:NodeShape ;
+  sh:targetClass es:GeneratedArtifact ;
+  sh:property [ sh:path es:projectionOf ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path es:projectionAuthority ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue es:NONE ] .
+
+es:EvidenceReceiptShape a sh:NodeShape ;
+  sh:targetClass es:EvidenceReceipt ;
+  sh:property [ sh:path es:verifiesSubject ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path es:artifactDigest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^[0-9a-f]{64}$" ] .

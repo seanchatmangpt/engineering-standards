@@ -1,0 +1,25 @@
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
+@prefix p: <https://w3id.org/chatman/engineering-standards/profile/manufacturing#> .
+@prefix sp: <https://ggen.dev/ontology/semantic-projection#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+
+p:ManufacturingProfile a prof:Profile ;
+  dcterms:title "Engineering standards semantic manufacturing profile" ;
+  prof:isProfileOf <https://w3id.org/chatman/engineering-standards> ;
+  dcterms:source <https://github.com/seanchatmangpt/ggen-marketplace/commit/616e93d1e6f9566e4b5eb4e2c3d1400746786e50> .
+
+p:m01 a es:CompatibilityMapping ; es:sourceTerm sp:GeneratedArtifact ; es:targetTerm es:GeneratedArtifact ; es:mappingDisposition es:Profiled .
+p:m02 a es:CompatibilityMapping ; es:sourceTerm sp:ProjectionEvent ; es:targetTerm es:ProjectionEvent ; es:mappingDisposition es:Profiled .
+p:m03 a es:CompatibilityMapping ; es:sourceTerm sp:CanonicalSemanticSource ; es:targetTerm <https://w3id.org/chatman/engineering-standards> ; es:mappingDisposition es:Profiled .
+
+p:semanticDocumentationPack a es:Capability ; dcterms:identifier "semantic-documentation-contract-pack" .
+p:semanticProjectionPack a es:Capability ; dcterms:identifier "semantic-projection-pack" .
+p:semanticManufactureEpochPack a es:Capability ; dcterms:identifier "semantic-manufacture-epoch-pack" .
+p:shaclProjectionPack a es:Capability ; dcterms:identifier "shacl-projection-pack" .
+p:githubDoctrinePack a es:Capability ; dcterms:identifier "github-cloud-operating-doctrine-pack" .
+p:gpackSpecPack a es:Capability ; dcterms:identifier "ggen-pack-spec-pack" .
+
+p:rootManufactureLaw a es:Contract ;
+  dcterms:title "Manufacture projections from the root; never promote projections into root authority" ;
+  dcterms:description "Known transformation routes through admitted marketplace capital before handwritten generation. Generator absence is UNSUPPORTED, not permission to invent an untracked shadow source." .

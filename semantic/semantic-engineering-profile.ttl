@@ -1,64 +1,137 @@
-@prefix esp: <https://w3id.org/chatman/engineering-standards#> .
-@prefix aps: <https://w3id.org/chatman/aps#> .
-@prefix sj: <https://ggen-igniter.dev/ontology/semantic-jira#> .
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix odrl: <http://www.w3.org/ns/odrl/2/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://w3id.org/chatman/engineering-standards> a owl:Ontology ;
-  dcterms:title "Semantic Engineering Protocol profile v26.9.21" ;
-  dcterms:description "Application profile joining APS law, Semantic Jira work identity, SA2A capability transport, and an explicit consequence authority boundary." ;
+<https://w3id.org/chatman/engineering-standards> a owl:Ontology, prof:Profile, dcterms:Standard ;
+  dcterms:title "Engineering Standards Root Profile v26.9.21" ;
+  dcterms:description "Root engineering constitution for admitted semantics, work, planning, manufacture, authority, consequence, evidence, replay, standing, and reusable engineering knowledge." ;
+  dcterms:issued "2026-09-21"^^xsd:date ;
+  prof:isProfileOf
+    <https://www.w3.org/TR/prov-o/>,
+    <https://www.w3.org/TR/shacl/>,
+    <https://www.w3.org/TR/odrl-model/>,
+    <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/>,
+    <https://open-services.net/>,
+    <https://www.w3.org/TR/dx-prof/>,
+    <https://www.w3.org/TR/vocab-dcat-3/> ;
   dcterms:references
-    <https://github.com/seanchatmangpt/agile-protocol-specification/commit/5c31d9d05fe36dc1eca3a26c9eb5cd267a2cf625>,
-    <https://github.com/seanchatmangpt/ash_a2a/commit/baa135d5c6129aea1d4b38d48a12ad87e132b638>,
-    <https://github.com/seanchatmangpt/ggen_igniter/pull/20>,
-    <https://github.com/seanchatmangpt/ggen_igniter/pull/24> .
+    <https://www.ocel-standard.org/specification/overview/>,
+    <https://slsa.dev/spec/v1.2/provenance> .
 
-esp:SemanticEngineeringProtocol a aps:Contract ;
-  skos:definition "Engineering protocol in which admitted semantic work identity is projected through sJira, transported through SA2A, and may create consequence only after an explicit authority admission." .
+# Core semantic subjects
+es:AdmittedKnowledge a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Bounded knowledge admitted for a declared subject and evidence ceiling." .
+es:Contract a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Executable or mechanically checkable precondition, postcondition, invariant, refusal, authority, and evidence law." .
+es:WorkOrder a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Canonical evidence-bound unit of engineering work. Tickets and plans are projections of this subject." .
+es:Capability a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Addressable ability. Capability never implies authority." .
+es:Plan a owl:Class ; rdfs:subClassOf prov:Plan ;
+  skos:definition "A candidate transition structure. Validity never implies authority." .
+es:CandidateFalsifier a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Observation or adversarial condition capable of refuting a bounded claim." .
+es:Court a owl:Class ; rdfs:subClassOf prov:Plan ;
+  skos:definition "Declared verification procedure for an exact subject." .
+es:Projection a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Non-sovereign representation derived from canonical semantics." .
+es:ProjectionEvent a owl:Class ; rdfs:subClassOf prov:Activity .
+es:GeneratedArtifact a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Artifact manufactured from admitted semantics; it does not become semantic authority by existing." .
+es:AuthorityGrant a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Explicit bounded permission for a declared consequence." .
+es:ActuationIntent a owl:Class ; rdfs:subClassOf prov:Plan ;
+  skos:definition "Proposal for consequential DO. Existence does not authorize execution." .
+es:Actuation a owl:Class ; rdfs:subClassOf prov:Activity ;
+  skos:definition "Observed consequential execution after authority admission." .
+es:EvidenceReceipt a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Integrity-bound record of requested subject, authority, execution identity, observed consequence, and verifier evidence." .
+es:Replay a owl:Class ; rdfs:subClassOf prov:Activity ;
+  skos:definition "Reconstruction of claimed state from admitted inputs and durable receipts." .
+es:StandingAssertion a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Bounded evidentiary state for one exact admitted subject." .
+es:Refusal a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Typed denial produced by admission or authority policy." .
+es:CompatibilityMapping a owl:Class ; rdfs:subClassOf prov:Entity ;
+  skos:definition "Explicit migration/profile mapping. It is not an OWL equivalence assertion." .
+es:Invariant a owl:Class ; rdfs:subClassOf prov:Entity .
+es:RepositorySubject a owl:Class ; rdfs:subClassOf prov:Entity .
 
-esp:SemanticJiraPlane a aps:Contract ;
-  skos:definition "Canonical work/evidence plane. Its generated projections have no independent execution authority." .
+# Identity and evidence
+es:subject a owl:ObjectProperty .
+es:repository a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:baseSha a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:candidateSha a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:graphDigest a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:artifactDigest a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:replayIdentity a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:evidenceCeiling a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:authorityCeiling a owl:ObjectProperty .
+es:standing a owl:ObjectProperty .
+es:requiresCapability a owl:ObjectProperty ; rdfs:range es:Capability .
+es:requiresCourt a owl:ObjectProperty ; rdfs:range es:Court .
+es:requiresEvidence a owl:ObjectProperty .
+es:hasFalsifier a owl:ObjectProperty ; rdfs:range es:CandidateFalsifier .
+es:governedByPolicy a owl:ObjectProperty ; rdfs:range odrl:Policy .
+es:projectionOf a owl:ObjectProperty .
+es:projectionAuthority a owl:ObjectProperty .
+es:producedReceipt a owl:ObjectProperty ; rdfs:range es:EvidenceReceipt .
+es:verifiesSubject a owl:ObjectProperty .
+es:observedConsequence a owl:ObjectProperty .
+es:sourceTerm a owl:ObjectProperty .
+es:targetTerm a owl:ObjectProperty .
+es:mappingDisposition a owl:ObjectProperty .
+es:profileImplementation a owl:ObjectProperty .
+es:transportProfile a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:generatorIdentity a owl:DatatypeProperty ; rdfs:range xsd:string .
+es:verifierIdentity a owl:DatatypeProperty ; rdfs:range xsd:string .
 
-esp:SA2ATransportPlane a aps:Contract ;
-  skos:definition "Capability discovery and transport plane. Receipt of a message or possession of a capability does not confer standing or authority." .
+# Standing scheme
+es:StandingScheme a skos:ConceptScheme ; skos:prefLabel "Engineering evidence standing" .
+es:UNKNOWN a skos:Concept ; skos:inScheme es:StandingScheme ; skos:prefLabel "UNKNOWN" .
+es:PARTIAL_ALIVE a skos:Concept ; skos:inScheme es:StandingScheme ; skos:prefLabel "PARTIAL_ALIVE" .
+es:ALIVE a skos:Concept ; skos:inScheme es:StandingScheme ; skos:prefLabel "ALIVE" .
+es:BLOCKED a skos:Concept ; skos:inScheme es:StandingScheme ; skos:prefLabel "BLOCKED" .
+es:BUILD_BROKEN a skos:Concept ; skos:inScheme es:StandingScheme ; skos:prefLabel "BUILD_BROKEN" .
+es:UNSUPPORTED a skos:Concept ; skos:inScheme es:StandingScheme ; skos:prefLabel "UNSUPPORTED" .
+es:REFUSED a skos:Concept ; skos:inScheme es:StandingScheme ; skos:prefLabel "REFUSED" .
 
-esp:ConsequencePlane a aps:Contract ;
-  skos:definition "Explicit authority, DO, receipt, replay, and standing boundary implemented by BRCE, CommandBus, or an equivalent authority broker." .
+# Authority scheme
+es:AuthorityScheme a skos:ConceptScheme ; skos:prefLabel "Engineering consequence authority" .
+es:OBSERVE a skos:Concept ; skos:inScheme es:AuthorityScheme ; skos:prefLabel "OBSERVE" .
+es:SELECT a skos:Concept ; skos:inScheme es:AuthorityScheme ; skos:prefLabel "SELECT" .
+es:CONSTRUCT a skos:Concept ; skos:inScheme es:AuthorityScheme ; skos:prefLabel "CONSTRUCT" .
+es:DO a skos:Concept ; skos:inScheme es:AuthorityScheme ; skos:prefLabel "DO" .
+es:NONE a skos:Concept ; skos:prefLabel "NONE" .
 
-esp:requiresCapability a owl:ObjectProperty ;
-  rdfs:domain sj:WorkOrder ;
-  rdfs:range prov:Entity ;
-  skos:definition "Exact machine capability identity required to transport or handle this semantic work subject." .
+# Compatibility dispositions
+es:Carried a skos:Concept ; skos:prefLabel "carried" .
+es:Profiled a skos:Concept ; skos:prefLabel "profiled" .
+es:Residue a skos:Concept ; skos:prefLabel "residue" .
+es:Superseded a skos:Concept ; skos:prefLabel "superseded" .
 
-esp:graphDigest a owl:DatatypeProperty ;
-  rdfs:domain sj:WorkOrder ;
-  rdfs:range xsd:string ;
-  skos:definition "Lowercase SHA-256 digest of the admitted semantic graph that defines the work subject." .
-
-esp:transportProfile a owl:DatatypeProperty ;
-  rdfs:domain sj:WorkOrder ;
-  rdfs:range xsd:string ;
-  skos:definition "Named machine transport profile. This profile admits SA2A only." .
-
-esp:projectionAuthority a owl:DatatypeProperty ;
-  rdfs:domain sj:WorkOrder ;
-  rdfs:range xsd:string ;
-  skos:definition "Authority carried by a generated projection. Under this profile the only lawful value is NONE." .
-
-esp:authorityPolicy a owl:ObjectProperty ;
-  rdfs:domain sj:WorkOrder ;
-  rdfs:range odrl:Policy ;
-  skos:definition "Optional explicit authority policy consulted by the consequence plane; its presence is not itself an authorization." .
-
-esp:SA2A a skos:Concept ;
-  skos:prefLabel "SA2A" ;
-  skos:definition "Semantic A2A transport profile." .
-
-esp:NONE a skos:Concept ;
-  skos:prefLabel "NONE" ;
-  skos:definition "No projection authority." .
+# Root invariants are semantic objects so tools can consume them without scraping prose.
+es:I01 a es:Invariant ; dcterms:title "Received is not admitted" .
+es:I02 a es:Invariant ; dcterms:title "Message is not fact" .
+es:I03 a es:Invariant ; dcterms:title "Ticket is not authority" .
+es:I04 a es:Invariant ; dcterms:title "Agent is not authority" .
+es:I05 a es:Invariant ; dcterms:title "Capability is not authority" .
+es:I06 a es:Invariant ; dcterms:title "Plan is not authority" .
+es:I07 a es:Invariant ; dcterms:title "Proof is not authority" .
+es:I08 a es:Invariant ; dcterms:title "SELECT is not CONSTRUCT" .
+es:I09 a es:Invariant ; dcterms:title "CONSTRUCT is not DO" .
+es:I10 a es:Invariant ; dcterms:title "Generated artifact is not semantic authority" .
+es:I11 a es:Invariant ; dcterms:title "Inspection is not execution" .
+es:I12 a es:Invariant ; dcterms:title "Zero unreceipted actuation" .
+es:I13 a es:Invariant ; dcterms:title "Standing binds one exact admitted subject" .
+es:I14 a es:Invariant ; dcterms:title "Failed route is topology, not graph failure" .
+es:I15 a es:Invariant ; dcterms:title "Known recurring work migrates into formal machinery" .
