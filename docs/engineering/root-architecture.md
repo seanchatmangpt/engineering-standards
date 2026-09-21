@@ -6,8 +6,7 @@ Show the authority, projection, and evidence topology of `engineering-standards`
 
 ## System context
 
-```mermaid
-flowchart TD
+```text
     ES[engineering-standards<br/>semantic root]
     PUB[Public standards<br/>PROV SHACL ODRL DCMI OSLC PROF DCAT]
     APS[APS<br/>predecessor evidence]
