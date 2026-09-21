@@ -27,7 +27,7 @@ The [Feature Development Workflow](./feature-development-workflow.md) covers pro
 
 The process varies by work type and complexity:
 
-```mermaid
+```text
 flowchart TD
     Start([Technical Work]) --> Classify{Work Type?}
 
