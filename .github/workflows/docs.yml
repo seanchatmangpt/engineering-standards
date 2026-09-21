@@ -15,7 +15,7 @@ on:
       - 'scripts/package-lock.json'
       - '.github/workflows/docs.yml'
   push:
-    branches: [main]
+    branches: ['**']
     paths:
       - 'MANIFEST.json'
       - 'AGENTS.md'
