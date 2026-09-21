@@ -10,14 +10,23 @@
     "agentConstitution": "AGENTS.md",
     "transportSchema": "semantic/semantic-work-envelope.schema.json",
     "repositoryVerifier": "scripts/check-semantic-standard.py",
-    "workflow": ".github/workflows/docs.yml"
+    "workflow": ".github/workflows/docs.yml",
+    "lifecycleSchemas": [
+      "semantic/schemas/actuation-intent.schema.json",
+      "semantic/schemas/authority-decision.schema.json",
+      "semantic/schemas/refusal.schema.json",
+      "semantic/schemas/evidence-receipt.schema.json",
+      "semantic/schemas/standing-assertion.schema.json",
+      "semantic/schemas/process-evidence-event.schema.json"
+    ]
   },
   "profiles": {
     "apsCompatibility": "semantic/compat/aps-v26.9.17.ttl",
     "semanticJira": "semantic/profiles/sjira.ttl",
     "semanticA2A": "semantic/profiles/sa2a.ttl",
     "manufacturing": "semantic/profiles/manufacturing.ttl",
-    "documentation": "semantic/profiles/documentation.ttl"
+    "documentation": "semantic/profiles/documentation.ttl",
+    "processEvidence": "semantic/profiles/process-evidence.ttl"
   },
   "predecessorEvidence": [
     {
@@ -89,7 +98,9 @@
   ],
   "generatedVsHandwritten": {
     "canonicalSemanticSource": "semantic/semantic-engineering-profile.ttl",
-    "generatedArtifacts": [],
+    "generatedArtifacts": [
+      "CI root-conformance receipt artifact"
+    ],
     "handwrittenResidue": [
       "normative prose",
       "compatibility/profile graphs",

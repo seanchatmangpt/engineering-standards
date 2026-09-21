@@ -4,11 +4,36 @@ This directory contains the machine-readable root of the engineering standards.
 
 ## Authority
 
-`semantic-engineering-profile.ttl` is the canonical vocabulary/profile. It is deliberately **not** a profile of APS. It profiles public standards directly and treats APS as predecessor evidence through `compat/aps-v26.9.17.ttl`.
+`semantic-engineering-profile.ttl` is the canonical vocabulary/profile. It profiles public standards directly and treats APS as predecessor evidence through `compat/aps-v26.9.17.ttl`.
 
-`semantic-engineering-shapes.ttl` is the admission court for root WorkOrders, generated artifacts, and evidence receipts.
+`semantic-engineering-shapes.ttl` is the RDF admission court for root WorkOrders, generated artifacts, and evidence receipts.
 
-`semantic-work-envelope.schema.json` is a transport projection. A valid envelope is not authority.
+## Lifecycle contracts
+
+The root lifecycle is machine-readable end to end:
+
+```text
+WorkOrder
+  -> semantic-work-envelope
+  -> actuation-intent
+  -> authority-decision | refusal
+  -> authorized execution
+  -> evidence-receipt
+  -> process-evidence-event
+  -> standing-assertion
+```
+
+Schemas:
+
+- `semantic-work-envelope.schema.json` — authority-free transport projection.
+- `schemas/actuation-intent.schema.json` — request for DO; validity is not a grant.
+- `schemas/authority-decision.schema.json` — explicit ADMITTED/REFUSED authority result.
+- `schemas/refusal.schema.json` — durable typed fail-closed refusal.
+- `schemas/evidence-receipt.schema.json` — exact execution/consequence evidence.
+- `schemas/standing-assertion.schema.json` — bounded standing; ALIVE requires receipt + observed execution + replay.
+- `schemas/process-evidence-event.schema.json` — object-centric process-evidence projection.
+
+Positive fixtures live in `examples/`. The verifier also manufactures negative mutations.
 
 ## Profiles
 
@@ -16,9 +41,10 @@ This directory contains the machine-readable root of the engineering standards.
 - `profiles/sa2a.ttl` — machine transport/runtime projection into SA2A.
 - `profiles/manufacturing.ttl` — reuse of ggen-marketplace manufacturing capital.
 - `profiles/documentation.ttl` — documentation as revision-bound non-sovereign projection.
+- `profiles/process-evidence.ttl` — OCEL-oriented object-centric process evidence.
 - `compat/aps-v26.9.17.ttl` — predecessor migration map.
 
-Profiles use explicit `es:CompatibilityMapping` resources rather than OWL equivalence assertions. A mapping can be carried, profiled, residue, or superseded.
+Profiles use explicit `es:CompatibilityMapping` resources rather than OWL equivalence assertions.
 
 ## Source / projection law
 
@@ -34,13 +60,16 @@ engineering-standards root graph
   -> standing
 ```
 
-Generated artifacts must carry `es:projectionAuthority es:NONE`.
+Generated artifacts carry `es:projectionAuthority es:NONE`.
 
 ## Verification
 
 ```bash
 python -m pip install --disable-pip-version-check -r scripts/requirements-semantic.txt
 python scripts/check-semantic-standard.py
+python scripts/check-semantic-standard.py --receipt /tmp/root-conformance.json
 ```
 
-The verifier parses every Turtle graph under `semantic/`, validates JSON schemas, executes the positive SHACL fixture, and manufactures negative mutations for authority smuggling, bad identity, and non-sovereign projection violations.
+The court parses every Turtle graph under `semantic/`, validates all root JSON schemas and positive examples, executes SHACL, and exercises negative authority/identity/projection/standing falsifiers. CI uploads the success receipt as an exact-head artifact.
+
+Repository semantic conformance does not prove downstream runtime execution, deployment, external mutation, or cross-repository standing.
