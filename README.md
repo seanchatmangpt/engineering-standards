@@ -95,7 +95,17 @@ The root uses W3C/industry standards where the semantics fit: PROV-O for provena
 
 ## Process standards
 
+Start with the [process index](./process/README.md).
+
+Root lifecycle:
 - [Semantic Engineering Protocol](./process/semantic-engineering-protocol.md)
+- [Authority and Actuation](./process/authority-and-actuation.md)
+- [Verification, Replay, and Standing](./process/verification-replay-standing.md)
+- [Semantic Manufacturing](./process/semantic-manufacturing.md)
+- [Repository Adoption](./process/repository-adoption.md)
+- [Process Intelligence](./process/process-intelligence.md)
+
+Human coordination projections:
 - [Feature Development Workflow](./process/feature-development-workflow.md)
 - [Technical Work Workflow](./process/technical-work-workflow.md)
 - [Project Planning Standards](./process/project-planning-standards.md)
@@ -125,7 +135,11 @@ python scripts/check-semantic-standard.py
 
 The semantic court parses every Turtle graph, validates every JSON schema, executes positive SHACL admission, and manufactures negative authority/identity/projection falsifiers.
 
+CI runs the same semantic court and uploads an exact-head root-conformance receipt artifact on success.
+
 Repository conformance does not by itself prove runtime SA2A, Jira mutation, CommandBus DO, deployment, publication, or cross-repository standing.
+
+See [Root Architecture](./docs/engineering/root-architecture.md) for the authority/projection topology.
 
 ## Change law
 

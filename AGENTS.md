@@ -86,6 +86,8 @@ BRCE/CommandBus or an equivalent explicit authority broker is the only lawful pa
 
 No ambient DO authority. No unreceipted actuation. Authentication and capability do not imply authorization.
 
+Detailed law: [Authority and Actuation](process/authority-and-actuation.md).
+
 ## Verification
 
 Use the narrowest high-information court first, then expand:
@@ -94,6 +96,8 @@ narrow -> unit -> integration -> e2e -> chaos -> stress -> benchmark -> machine 
 Do not rerun an unchanged failure without a new hypothesis. Turn every learned boundary into a durable guard, refusal, fixture, schema, theorem, or verifier rule.
 
 `ALIVE` requires observed execution for the exact admitted subject. CI is evidence, never truth by itself.
+
+Detailed law: [Verification, Replay, and Standing](process/verification-replay-standing.md).
 
 ## GitHub work
 
@@ -116,3 +120,5 @@ Do not merge unless explicitly requested.
 - XaaS and other runtimes consume this root; they do not redefine it.
 
 When downstream reality discovers a valid new law, bring the law back here, qualify it, and remove the repeated reasoning from downstream consumers.
+
+Adoption and manufacture: [Repository Adoption](process/repository-adoption.md) · [Semantic Manufacturing](process/semantic-manufacturing.md) · [Process Intelligence](process/process-intelligence.md).

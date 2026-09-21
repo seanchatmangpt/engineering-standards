@@ -1,9 +1,12 @@
 # Engineering Documentation
 
-Technical documentation for the engineering-standards repository.
+Explanatory/decision projections for the engineering-standards root.
 
-## Contents
+## Start here
 
-- **[`adr/`](./adr/)** — Architecture decision records, numbered sequentially (e.g., `0001-<title>.md`)
+- [Root Architecture](./root-architecture.md) — authority/projection/evidence topology.
+- [ADR-0001](./adr/0001-six-layer-ai-architecture.md) — AI context architecture history; amended to be subordinate to the semantic root.
+- [ADR-0002](./adr/0002-semantic-engineering-protocol.md) — decision to make engineering-standards the ecosystem root.
+- [ADR-0003](./adr/0003-public-ontology-profiles.md) — public-ontology profile and local-residue law.
 
-Future subdirectories may include `designs/` (technical design documents), `api/` (API schemas), or others as content emerges. See `process/documentation-standards.md` for the canonical directory taxonomy.
+The root machine source is `../../semantic/`; these documents explain decisions rather than replacing it.

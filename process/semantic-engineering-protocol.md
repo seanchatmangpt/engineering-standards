@@ -185,6 +185,8 @@ No ambient DO authority. No unreceipted actuation.
 
 The strongest authority a work projection may carry is `CONSTRUCT`. `DO` is admitted separately by an authority broker such as CommandBus/BRCE.
 
+Detailed contract: [Authority and Actuation](./authority-and-actuation.md).
+
 ## Manufacture
 
 Use existing manufacturing capital before handwriting repeatable surfaces.
@@ -194,6 +196,8 @@ Current admitted prior art includes ggen-marketplace packs for semantic document
 Generated output is disposable inventory. Canonical semantics, generator law, verifier law, and receipts are durable capital.
 
 If a generator cannot express required semantics, record `UNSUPPORTED(generator-capability)` and the exact missing capability. Do not silently treat hand-written output as generated.
+
+Detailed contract: [Semantic Manufacturing](./semantic-manufacturing.md).
 
 ## Verification and replay
 
@@ -208,6 +212,8 @@ Use the cheapest high-information court first. Every failure produces a new hypo
 Replay must reconstruct claimed state from admitted inputs and receipts. A checkpoint is not a crown.
 
 Exact-head evidence is required for source-bound claims. CI is supplementary evidence, not truth.
+
+Detailed contract: [Verification, Replay, and Standing](./verification-replay-standing.md). Object-centric execution evidence: [Process Intelligence](./process-intelligence.md).
 
 ## Documentation mode vs Semantic Work Mode
 
@@ -237,3 +243,5 @@ downstream observation
 ```
 
 Success means the next repository does not need to rediscover the same reasoning.
+
+Downstream adoption procedure: [Repository Adoption](./repository-adoption.md).
