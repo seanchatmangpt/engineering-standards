@@ -19,7 +19,7 @@ A moved base is new evidence. Never silently rebase the claimed subject and pres
 
 ### Workflow Diagram
 
-```mermaid
+```text
 gitGraph
     commit id: "initial"
     commit id: "stable"
