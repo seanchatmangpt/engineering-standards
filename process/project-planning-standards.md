@@ -30,7 +30,9 @@ Use specialized machinery for known classes before general model reasoning:
 
 Every planned work unit should bind acceptance criteria, falsifier, verification court, exact dependencies, and authority ceiling.
 
-## Story Point Estimation — Human Coordination Projection
+## Story Point Estimation
+
+**Human coordination projection.**
 
 ### Fibonacci Scale: 1, 2, 3, 5, 8, 13
 
