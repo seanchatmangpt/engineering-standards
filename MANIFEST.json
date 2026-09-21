@@ -119,27 +119,43 @@
     "Open downstream PRs do not contribute runtime standing to this repository."
   ],
   "standing": {
-    "subject": "repository-semantic-conformance",
+    "subject": "root-repository-conformance",
     "status": "ALIVE",
-    "verifier": "independent-exact-head-root-court-v1",
-    "evidenceCeiling": [
-      "all root/profile Turtle graphs parse",
-      "root public-profile direction",
-      "positive SHACL fixture",
-      "4 negative SHACL falsifiers",
-      "8 JSON schema positive examples",
-      "8 JSON negative falsifiers",
-      "downstream profile direction",
-      "APS compatibility without OWL equivalence"
-    ],
+    "verifier": "independent-exact-head-root-court-v2",
+    "components": {
+      "semantic": {
+        "status": "ALIVE",
+        "evidence": [
+          "root/profile Turtle graphs parse",
+          "root public-profile direction",
+          "positive SHACL fixture",
+          "4/4 negative SHACL falsifiers refused",
+          "8/8 JSON Schema positive fixtures admitted",
+          "8/8 JSON negative falsifiers refused",
+          "downstream profiles bind the engineering-standards root",
+          "APS compatibility contains no OWL equivalence shortcut"
+        ]
+      },
+      "documentation": {
+        "status": "ALIVE",
+        "evidence": [
+          "47-file documentation corpus checked",
+          "zero unresolved relative paths",
+          "all referenced anchors verified with github-slugger@2.0.0",
+          "zero accidental list-blockquotes",
+          "zero unmarked status-list runs",
+          "zero fence-integrity defects",
+          "zero Mermaid parser dependencies in candidate documentation"
+        ]
+      }
+    },
     "nonClaims": [
-      "documentation-rendering conformance",
       "hosted GitHub Actions execution",
       "SA2A runtime execution",
       "Jira mutation",
       "CommandBus or BRCE DO",
       "merge",
-      "publication",
+      "tag or release publication",
       "deployment",
       "cross-repository standing"
     ]
