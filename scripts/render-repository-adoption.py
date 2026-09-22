@@ -19,7 +19,7 @@ def manifest(repo: str, base: str, role: str, root_sha: str, constitution: str) 
         "root": {"repository": ROOT_REPO, "sha": root_sha, "version": ROOT_VERSION},
         "local_constitution": constitution,
         "project_profile": "semantic/engineering-standards-profile.ttl",
-        "standing": "ALIVE",
+        "standing": "UNKNOWN",
         "generator_identity": "engineering-standards/scripts/render-repository-adoption.py",
         "non_claims": [
             "root adoption does not prove local runtime behavior",
