@@ -19,7 +19,9 @@
       "semantic/schemas/standing-assertion.schema.json",
       "semantic/schemas/process-evidence-event.schema.json"
     ],
-    "normativeClaimSchema": "semantic/schemas/normative-claim.schema.json"
+    "normativeClaimSchema": "semantic/schemas/normative-claim.schema.json",
+    "repositoryAdoptionSchema": "semantic/schemas/repository-adoption.schema.json",
+    "repositoryAdoptionRenderer": "scripts/render-repository-adoption.py"
   },
   "profiles": {
     "apsCompatibility": "semantic/compat/aps-v26.9.17.ttl",

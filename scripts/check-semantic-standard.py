@@ -58,6 +58,7 @@ SCHEMA_EXAMPLES = {
     "semantic/schemas/standing-assertion.schema.json": "semantic/examples/standing-assertion.valid.json",
     "semantic/schemas/process-evidence-event.schema.json": "semantic/examples/process-evidence-event.valid.json",
     "semantic/schemas/normative-claim.schema.json": "semantic/examples/normative-claim.valid.json",
+    "semantic/schemas/repository-adoption.schema.json": "semantic/examples/repository-adoption.valid.json",
 }
 
 
@@ -97,6 +98,12 @@ def manifest_contract() -> dict:
     for rel in manifest["authority"]["lifecycleSchemas"]:
         if not (ROOT / rel).is_file():
             raise AssertionError(f"manifest lifecycle schema missing: {rel}")
+    adoption_schema = manifest["authority"].get("repositoryAdoptionSchema")
+    if not adoption_schema or not (ROOT / adoption_schema).is_file():
+        raise AssertionError("manifest repository adoption schema missing")
+    renderer = manifest["authority"].get("repositoryAdoptionRenderer")
+    if not renderer or not (ROOT / renderer).is_file():
+        raise AssertionError("manifest repository adoption renderer missing")
     claim_schema = manifest["authority"].get("normativeClaimSchema")
     if not claim_schema or not (ROOT / claim_schema).is_file():
         raise AssertionError("manifest normative claim schema missing")
@@ -285,6 +292,12 @@ def json_falsifiers() -> None:
         "process event without object identity",
     )
     must_refuse(
+        "semantic/schemas/repository-adoption.schema.json",
+        "semantic/examples/repository-adoption.valid.json",
+        lambda x: {**x, "root": {**x["root"], "sha": "deadbeef"}},
+        "repository adoption without exact root SHA",
+    )
+    must_refuse(
         "semantic/schemas/normative-claim.schema.json",
         "semantic/examples/normative-claim.valid.json",
         lambda x: {**x, "falsifiers": []},
@@ -319,8 +332,8 @@ def write_receipt(path: Path, parsed_count: int) -> None:
             "manifest authority surfaces exist",
             "root SHACL positive fixture",
             "4 root SHACL negative falsifiers",
-            "8 JSON schemas + positive examples",
-            "8 JSON negative falsifiers",
+            "9 JSON schemas + positive examples",
+            "9 JSON negative falsifiers",
             "downstream profiles bind engineering-standards root",
             "APS compatibility has no OWL equivalence assertion"
         ],
@@ -356,7 +369,7 @@ def main() -> None:
     print("root-direction: PASS")
     engine = "pyshacl" if pyshacl_validate is not None else "repository-shacl-core-fallback"
     print(f"shacl: PASS via {engine} (positive fixture + 4 negative falsifiers)")
-    print("json-schema: PASS (8 positive examples + 8 negative falsifiers)")
+    print("json-schema: PASS (9 positive examples + 9 negative falsifiers)")
     print("compatibility: PASS")
     print("standing: ALIVE(repository-semantic-conformance)")
     if args.receipt:
