@@ -1,6 +1,6 @@
 # RFC-0001: BRCE Protocol v0.1
 
-**Status:** Draft  
+**Status:** FINAL_SPEC — v0.1 (v26.9.24)  
 **Category:** Architecture / execution safety / interoperability  
 **Protocol:** BRCE  
 **Normative independence:** This RFC defines BRCE without requiring any particular repository, runtime, planner, ontology, formal method, receipt engine, or AI system.
@@ -601,3 +601,23 @@ Replay \land UnexpectedNewConsequence
 ]
 
 Everything else is implementation.
+
+
+## 28. v26.9.24 specification closure
+
+This protocol specification is complete at v0.1. Specification completion does not assert any implementation, deployment, or production standing.
+
+A conforming implementation remains subject to the evidence ceilings defined above:
+
+- BRCE Core requires executable evidence for the Core conformance cases.
+- BRCE Replay additionally requires consequence-free replay evidence.
+- BRCE Formal additionally requires machine-checked formal evidence bound to the exact model and verifier invocation.
+
+Therefore:
+
+[
+FinalSpec(BRCE v0.1) 
+otRightarrow ImplementationAlive
+]
+
+Future protocol changes require a new revision or an explicitly versioned amendment; implementation adapters may evolve independently while preserving this normative contract.
