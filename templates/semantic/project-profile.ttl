@@ -1,0 +1,15 @@
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
+@prefix project: <https://example.org/project#> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+project:Profile a prof:Profile ;
+  dcterms:title "PROJECT_NAME engineering profile" ;
+  prof:isProfileOf <https://w3id.org/chatman/engineering-standards> ;
+  dcterms:description "Replace PROJECT_NAME and this namespace. Declare only project-specific residue; reuse root terms for shared engineering semantics." .
+
+project:Repository a es:RepositorySubject ;
+  es:repository "OWNER/REPOSITORY" .
+
+# Add project WorkOrders, capabilities, courts, policies, and residue here.
+# Do not redefine root WorkOrder/standing/authority semantics locally.

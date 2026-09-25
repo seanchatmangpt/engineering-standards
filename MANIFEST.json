@@ -1,0 +1,165 @@
+{
+  "schema": "engineering-standards.root-manifest.v26.9.21",
+  "version": "26.9.21",
+  "status": "ALIVE",
+  "purpose": "Root engineering constitution for admitted semantics, work identity, planning, manufacture, authority, actuation, evidence, replay, standing, and reusable engineering knowledge.",
+  "authority": {
+    "rootOntology": "semantic/semantic-engineering-profile.ttl",
+    "admissionShapes": "semantic/semantic-engineering-shapes.ttl",
+    "normativeProtocol": "process/semantic-engineering-protocol.md",
+    "agentConstitution": "AGENTS.md",
+    "transportSchema": "semantic/semantic-work-envelope.schema.json",
+    "repositoryVerifier": "scripts/check-semantic-standard.py",
+    "workflow": ".github/workflows/docs.yml",
+    "lifecycleSchemas": [
+      "semantic/schemas/actuation-intent.schema.json",
+      "semantic/schemas/authority-decision.schema.json",
+      "semantic/schemas/refusal.schema.json",
+      "semantic/schemas/evidence-receipt.schema.json",
+      "semantic/schemas/standing-assertion.schema.json",
+      "semantic/schemas/process-evidence-event.schema.json"
+    ],
+    "normativeClaimSchema": "semantic/schemas/normative-claim.schema.json",
+    "repositoryAdoptionSchema": "semantic/schemas/repository-adoption.schema.json",
+    "repositoryAdoptionRenderer": "scripts/render-repository-adoption.py"
+  },
+  "profiles": {
+    "apsCompatibility": "semantic/compat/aps-v26.9.17.ttl",
+    "semanticJira": "semantic/profiles/sjira.ttl",
+    "semanticA2A": "semantic/profiles/sa2a.ttl",
+    "manufacturing": "semantic/profiles/manufacturing.ttl",
+    "documentation": "semantic/profiles/documentation.ttl",
+    "processEvidence": "semantic/profiles/process-evidence.ttl"
+  },
+  "predecessorEvidence": [
+    {
+      "system": "Agile Protocol Specification",
+      "repository": "seanchatmangpt/agile-protocol-specification",
+      "commit": "5c31d9d05fe36dc1eca3a26c9eb5cd267a2cf625",
+      "role": "predecessor constitutional evidence; no authority above this root"
+    },
+    {
+      "system": "Semantic A2A / AshA2A",
+      "repository": "seanchatmangpt/ash_a2a",
+      "commit": "baa135d5c6129aea1d4b38d48a12ad87e132b638",
+      "role": "downstream transport/runtime profile"
+    },
+    {
+      "system": "Semantic Jira",
+      "repository": "seanchatmangpt/ggen_igniter",
+      "pullRequest": 20,
+      "head": "90cfd360bc6dfe041d35f7082f064716d22b4d99",
+      "role": "downstream work/evidence projection prior art"
+    },
+    {
+      "system": "Semantic Jira SHACL admission",
+      "repository": "seanchatmangpt/ggen_igniter",
+      "pullRequest": 24,
+      "head": "e509b375dc84e7ac50935d0b53bcb44ea1935242",
+      "role": "downstream admission topology prior art"
+    }
+  ],
+  "publicStandards": [
+    "https://www.w3.org/TR/prov-o/",
+    "https://www.w3.org/TR/shacl/",
+    "https://www.w3.org/TR/odrl-model/",
+    "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/",
+    "https://open-services.net/",
+    "https://www.w3.org/TR/dx-prof/",
+    "https://www.w3.org/TR/vocab-dcat-3/",
+    "https://www.ocel-standard.org/specification/overview/",
+    "https://slsa.dev/spec/v1.2/provenance"
+  ],
+  "marketplacePriorArt": {
+    "repository": "seanchatmangpt/ggen-marketplace",
+    "commit": "616e93d1e6f9566e4b5eb4e2c3d1400746786e50",
+    "packs": [
+      "semantic-documentation-contract-pack",
+      "semantic-projection-pack",
+      "semantic-manufacture-epoch-pack",
+      "shacl-projection-pack",
+      "github-cloud-operating-doctrine-pack",
+      "ggen-pack-spec-pack"
+    ]
+  },
+  "governingInvariants": [
+    "Received is not admitted.",
+    "Message is not fact.",
+    "Ticket is not authority.",
+    "Agent is not authority.",
+    "Capability is not authority.",
+    "Plan is not authority.",
+    "Proof is not authority.",
+    "SELECT is not CONSTRUCT.",
+    "CONSTRUCT is not DO.",
+    "Generated artifact is not semantic authority.",
+    "Inspection is not execution.",
+    "Zero unreceipted actuation.",
+    "Standing binds an exact admitted subject.",
+    "A failed route is topology, not graph failure.",
+    "Known recurring work migrates from inference into formal machinery."
+  ],
+  "generatedVsHandwritten": {
+    "canonicalSemanticSource": "semantic/semantic-engineering-profile.ttl",
+    "generatedArtifacts": [
+      "CI root-conformance receipt artifact"
+    ],
+    "handwrittenResidue": [
+      "normative prose",
+      "compatibility/profile graphs",
+      "qualification verifier",
+      "human-facing templates"
+    ],
+    "generatorCapability": "AVAILABLE_PRIOR_ART_UNWIRED"
+  },
+  "nonClaims": [
+    "Repository conformance does not prove SA2A runtime execution.",
+    "Repository conformance does not mutate Jira or GitHub issue state.",
+    "Repository conformance does not grant CommandBus or BRCE authority.",
+    "Repository conformance does not prove deployment or publication.",
+    "Compatibility mappings do not assert owl:equivalentClass or owl:equivalentProperty.",
+    "Open downstream PRs do not contribute runtime standing to this repository."
+  ],
+  "standing": {
+    "subject": "root-repository-conformance",
+    "status": "ALIVE",
+    "verifier": "independent-exact-head-root-court-v2",
+    "components": {
+      "semantic": {
+        "status": "ALIVE",
+        "evidence": [
+          "root/profile Turtle graphs parse",
+          "root public-profile direction",
+          "positive SHACL fixture",
+          "4/4 negative SHACL falsifiers refused",
+          "8/8 JSON Schema positive fixtures admitted",
+          "8/8 JSON negative falsifiers refused",
+          "downstream profiles bind the engineering-standards root",
+          "APS compatibility contains no OWL equivalence shortcut"
+        ]
+      },
+      "documentation": {
+        "status": "ALIVE",
+        "evidence": [
+          "47-file documentation corpus checked",
+          "zero unresolved relative paths",
+          "all referenced anchors verified with github-slugger@2.0.0",
+          "zero accidental list-blockquotes",
+          "zero unmarked status-list runs",
+          "zero fence-integrity defects",
+          "zero Mermaid parser dependencies in candidate documentation"
+        ]
+      }
+    },
+    "nonClaims": [
+      "hosted GitHub Actions execution",
+      "SA2A runtime execution",
+      "Jira mutation",
+      "CommandBus or BRCE DO",
+      "merge",
+      "tag or release publication",
+      "deployment",
+      "cross-repository standing"
+    ]
+  }
+}

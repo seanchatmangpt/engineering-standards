@@ -1,47 +1,52 @@
-# Project Templates
+# Project Root Adoption Templates
 
-Project scaffolding and boilerplate for common application scenarios.
+These files help a repository consume **engineering-standards as its semantic root**. They are projections/bootstrap material, not an independent standards source.
 
-## Purpose
+## Minimal adoption
 
-This directory contains starter templates for different technology stacks and application types. Each template implements the code quality standards defined in `../code/` and follows the process standards in `../process/`.
+Copy/adapt:
 
-## Future Templates
+- `AGENTS.md` — cross-tool root constitution.
+- `CLAUDE.md` — Claude-specific projection of the same root.
+- `.claude/` — optional six-layer interaction baselines.
+- `semantic/project-profile.ttl` — project profile stub for Semantic Work Mode.
 
-Examples of templates that will live here:
+## Two modes
 
-- **python-fastapi/** - FastAPI backend service with async Python
-  - Pre-configured: black/ruff, pytest, Docker, CI/CD
-  - Implements standards from `code/python.md`
+### Semantic Work Mode — ecosystem default
 
-- **nextjs-webapp/** - Next.js web application with TypeScript
-  - Pre-configured: ESLint, Prettier, testing, deployment
-  - Implements standards from `code/typescript.md`
+The project semantic graph and WorkOrders are canonical. Documentation, issues, plans, agent messages, and generated code are projections/candidates.
 
-- **go-daemon/** - Go service daemon
-  - Pre-configured: gofmt, golint, testing, systemd service
-  - Implements standards from `code/go.md`
+Adoption sequence:
 
-- **python-cli/** - Python command-line application
-  - Pre-configured: Click/Typer, packaging, testing
-  - Implements standards from `code/python.md`
+```text
+pin engineering-standards identity
+-> define project profile
+-> bind repository/exact base
+-> declare authority policy and courts
+-> adopt WorkOrder transport/projection
+-> wire generator/verifier
+-> manufacture docs/issues/code where derivable
+-> receipt/replay
+```
 
-## Template Structure
+### Documentation Mode
 
-Each template should include:
-- **README.md** - Usage instructions and customization guide
-- **Pre-configured tooling** - Linters, formatters, pre-commit hooks matching code standards
-- **Example code** - Minimal working example demonstrating best practices
-- **CI/CD configuration** - GitHub Actions or similar
-- **Documentation templates** - Following `process/documentation-standards.md`
+Small projects may adopt the process/code standards without a semantic graph. Maintained specifications/issues may serve as the practical work record until the cost justifies promotion.
 
-## Usage
+## Generator law
 
-1. Copy template directory to your new project location
-2. Search and replace placeholder names (project name, author, etc.)
-3. Customize as needed while maintaining code standards
-4. Remove example code and build your application
+Templates should be replaced by framework-native/ggen generation once the transformation is stable. A copied template is bootstrap residue, not the desired terminal state.
 
-## Status
+Current reusable ggen-marketplace prior art includes semantic documentation, semantic projection, semantic manufacture epoch, SHACL projection, GitHub cloud doctrine, and pack protocol packs.
 
-**Placeholder** - Templates will be added as common patterns emerge from project work.
+## Generated vs handwritten
+
+Every adopting project should identify:
+- canonical semantic/source inputs;
+- generator/tool identity;
+- generated projections;
+- irreducible handwritten residue;
+- verifier/court identity.
+
+Do not hand-edit generated output.

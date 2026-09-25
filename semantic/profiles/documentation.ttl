@@ -1,0 +1,13 @@
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
+@prefix p: <https://w3id.org/chatman/engineering-standards/profile/documentation#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+
+p:DocumentationProfile a prof:Profile ;
+  dcterms:title "Engineering documentation projection profile" ;
+  prof:isProfileOf <https://w3id.org/chatman/engineering-standards> ;
+  dcterms:source <https://github.com/seanchatmangpt/ggen-marketplace/tree/616e93d1e6f9566e4b5eb4e2c3d1400746786e50/packs/semantic-documentation-contract-pack> .
+
+p:documentationProjectionLaw a es:Contract ;
+  dcterms:title "Documentation is a non-sovereign projection in Semantic Work Mode" ;
+  dcterms:description "Prose, C4, Diataxis, agent context, registry records, and generated plans derive from revision-bound semantic/source evidence and grant no DO authority." .

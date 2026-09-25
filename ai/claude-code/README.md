@@ -1,104 +1,99 @@
-# AI Architecture
+# AI Interaction Architecture
 
-A six-layer model for organizing AI tooling by **context cost** and **invocation pattern**.
+The six-layer model organizes AI tooling by **context cost and invocation pattern**. It is a downstream interaction profile of the repository's [Semantic Engineering Protocol](../../process/semantic-engineering-protocol.md), not the engineering semantic root.
 
-Architectural decision: [ADR-0001](../../docs/engineering/adr/0001-six-layer-ai-architecture.md).
-Operational reference for compound-engineering adoption: [`process/compound-engineering-integration.md`](../../process/compound-engineering-integration.md).
+Architectural history: [ADR-0001](../../docs/engineering/adr/0001-six-layer-ai-architecture.md).  
+Root decision: [ADR-0002](../../docs/engineering/adr/0002-semantic-engineering-protocol.md).  
+CE realization: [Compound Engineering Integration](../../process/compound-engineering-integration.md).
 
-## Why this exists
+## Dependency direction
 
-Context is the scarce resource in AI-assisted engineering, and it is spent whether or not it is spent well. Without a model for *when* each piece of guidance loads, AI tooling accumulates as an undifferentiated pile: rules that could be pointers, workflows pasted into every session, expertise that arrives too late to matter. The budget goes to content nobody needed on this turn.
-
-The six layers exist to make that cost legible. Each layer is a slot with a distinct answer to "when does this enter context, and what does it cost while it sits there" — always loaded and therefore small, loaded on invocation, loaded partway through a workflow, or never loaded because it runs at the shell. Sorting tooling into those slots turns an implicit budget into an explicit one.
-
-A second benefit follows from the first. Once the slots are named, they can be filled by different toolkits without renegotiating the model. The architecture is the abstraction; a specific toolkit is one realization of it.
-
-## What motivated six layers
-
-This repository first documented a **four-layer** model — Rules, Skills, Agents, Hooks — a useful sketch grounded in a thin, vendor-neutral toolkit.
-
-Sustained use of a developed LLM-engineering system showed the four layers could not hold it without distortion. Three structural patterns had no slot:
-
-- **Skill-orchestrated personas.** Review expertise dispatched *by* an orchestrating workflow, fanning out in parallel — not standalone subagents a user invokes directly.
-- **Skill-loaded reference subtrees.** Documents that load neither at session start nor at invocation, but partway through a workflow as its depth grows.
-- **Compounding learnings.** Captured outcomes that feed forward, so the second similar task is cheaper than the first.
-
-The choice was to absorb these into existing layers (which produced category errors), discard the model (which loses what it got right), or evolve it. The architecture evolved: References and Compound became first-class layers, and Skills and Agents were widened to admit both thin and deep realizations. [ADR-0001](../../docs/engineering/adr/0001-six-layer-ai-architecture.md) records the full reasoning.
-
-## The six layers
-
-| # | Layer | Principle | Baseline in this repository |
-|---|-------|-----------|------------------------------|
-| 1 | Rules | **Persistence** — loaded once per session, every session | [`ai/claude-code/rules/`](./rules/) |
-| 2 | Workflow Skills | **Composability** — multi-step orchestrators that compose into pipelines | [`templates/.claude/skills/`](../../templates/.claude/skills/) |
-| 3 | Persona Agents | **Perspective** — multiple expertises analyze one artifact | [`templates/.claude/agents/`](../../templates/.claude/agents/) |
-| 4 | References | **Progressivity** — context grows as workflow depth grows | (none yet) |
-| 5 | Compound / Learnings | **Compounding** — institutional knowledge accumulates across work | (none yet) |
-| 6 | Hooks | **Determinism** — non-AI enforcement at zero context cost | [`templates/.claude/hooks/`](../../templates/.claude/hooks/) |
-
-**Layer 1 — Rules.** Compact pointers and behavioral guardrails held in context every turn. Their discipline is to stay *small* (under ~150 lines each) so the always-loaded budget stays affordable, and to direct the agent toward the rest of the architecture rather than encoding policy inline. Elsewhere this layer appears as `AGENTS.md`, a project-root `CLAUDE.md`, or IDE rule files.
-
-**Layer 2 — Workflow Skills.** Orchestrators invoked on demand, composing into pipelines that run discovery → planning → execution → review → compounding. A Layer 2 skill is *lazy at invocation*: its content enters context only when called. Depth varies widely and the layer admits both ends — a thin template that fetches a standards URL, and a multi-round workflow that dispatches Layer 3 personas and loads Layer 4 references as it runs. Elsewhere: editor commands, hand-rolled slash commands.
-
-**Layer 3 — Persona Agents.** Prompt templates encoding focused domain expertise — security, performance, coherence, language-specific idiom. Persona Agents are **typically dispatched by Layer 2 skills** rather than invoked directly, though simple realizations may expose them standalone. One orchestrator fanning out to many personas in parallel is what makes multi-perspective review tractable at scale.
-
-**Layer 4 — References.** Documents loaded by a skill *during execution* — not at session start (Layer 1), not in the invocation bundle (Layer 2), but as a particular workflow branch demands them. This lets a skill stay lean at its entry point while still reaching for depth when the work calls for it. No vendor-neutral baseline yet; the pattern was surfaced by a toolkit realization and the layer is named in anticipation.
-
-**Layer 5 — Compound / Learnings.** Outcomes captured from finished work that feed into future work, closing the loop between execution and accumulated knowledge — solution documents, retrospectives, post-mortems. The principle is that work *compounds*: the second similar task should be cheaper and better because the first one's learnings were captured and are findable. Elsewhere: retrospective archives, post-mortem repositories, an ADR series for architectural learnings.
-
-**Layer 6 — Hooks.** Shell-level scripts on tool-use events (`PreToolUse`, `PostToolUse`) that enforce mechanical rules deterministically at zero AI context cost. They catch what needs no reasoning to verify: typos in paths, writes to protected locations, a skipped pre-commit check. Elsewhere: pre-commit hooks, CI guards, file-write linters.
-
-### Filling the layers with a toolkit
-
-Layers are independent slots — a project can fill some and leave others empty. A minimal project fills 1, 2 and 6. A project running a developed toolkit fills all six.
-
-This repository names [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) (CE) as the canonical realization of Layers 2–5, because it exists, works, and is in use — not because it is mandatory. Adopters can fill those layers with another toolkit, with hand-rolled implementations, or with the vendor-neutral baselines above.
-
-**What CE puts in each slot — skills, personas, reference subtrees, artifact paths — lives in [`process/compound-engineering-integration.md`](../../process/compound-engineering-integration.md), not here.** That document is verified against a stated CE version and carries the re-verification discipline. Keeping CE's inventory in one place means an upstream release invalidates one document rather than several.
-
-## How the layers compose
-
-Pipelines are composed at Layer 2 — a sequence of skill invocations carrying an artifact from discovery to compound output. A toolkit names these stages its own way; the shape is what the architecture fixes:
-
-```
-discovery ──▶ planning ──▶ execution ──▶ refinement ──▶ review ──▶ compounding
-                  │            │              │            │
-                  ▼            ▼              ▼            ▼
-               Layer 4      Layer 4        Layer 3      Layer 3
-             references   references      personas     personas
-                                              │            │
-                                              └────────────┴─▶  Layer 5
-                                                                compound output
+```text
+root semantic graph / WorkOrder / authority / evidence
+                    |
+                    v
+        AI interaction architecture
+   +--------+--------+--------+--------+
+   rules   skills  personas references
+                     |
+                  compound
+                     |
+                    hooks
 ```
 
-Each Layer 2 skill may dispatch Layer 3 personas (for review-shaped skills), load Layer 4 references as depth grows, and produce Layer 5 output when the work yields a durable learning. Layer 1 rules direct default behavior throughout; Layer 6 hooks enforce mechanical invariants at the shell boundary.
+A model, skill, persona, plan, review, or hook may observe, select, construct, validate, or request consequence according to its admitted capability. None acquires authority or standing by being in an AI layer.
 
-## Design principles
+## Six context-cost layers
 
-- **Context is expensive — load only what's needed, when it's needed.** Each layer specializes a distinct context-cost discipline. Layer 1 stays compact because it is always loaded; Layer 2 is lazy at invocation; Layer 4 is lazy *within* invocation; Layer 6 is free at the shell boundary.
-- **Standards are enforced, not just referenced.** Layer 6 catches mechanical violations, Layer 3 catches conceptual ones, Layer 1 directs the default discipline. Together they convert standards from documentation into behavior.
-- **Templates over copies.** Vendor-neutral skills reference standards by URL; agents point at standards docs. No duplicated content to keep in sync.
-- **Describe structure here, inventory elsewhere.** This document defines what each layer *is*. Anything owned by an upstream project — names, counts, paths — belongs in the integration doc that tracks it against a version.
+| # | Layer | Function | Root relationship |
+|---|---|---|---|
+| 1 | Rules | Persistent compact context | pointers/guardrails to admitted root law |
+| 2 | Workflow Skills | On-demand orchestration | transport/construct candidate workflows |
+| 3 | Persona Agents | Focused perspectives | candidate observations, never authority |
+| 4 | References | Progressive context | evidence/context inputs |
+| 5 | Compound / Learnings | Captured outcomes | candidates for formalization into reusable machinery |
+| 6 | Hooks | Deterministic local enforcement | guards/courts; never ambient DO authority |
 
-## Getting started
+### Layer 1 — Rules
 
-### In this repository
+Load small, durable pointers every session. A rule should point to canonical law rather than duplicate it. Project-root `AGENTS.md` is the preferred cross-tool constitution.
 
-The Layer 1 rule files in [`rules/`](./rules/) load automatically when working here, directing AI tools at the standards in `process/` and `code/`. The Layer 6 example hooks in [`templates/.claude/hooks/`](../../templates/.claude/hooks/) are not active by default; they exist as templates for adopters.
+### Layer 2 — Workflow Skills
 
-### In a new project
+Load workflows on demand. Skills may discover, plan, construct, review, or prepare an authority request. A workflow definition is not a run and a successful run is not standing without evidence for the claimed subject.
 
-1. Copy [`templates/.claude/`](../../templates/.claude/) into your project root as `.claude/` — baselines for Layers 2, 3 and 6, plus configuration.
-2. Copy [`templates/CLAUDE.md`](../../templates/CLAUDE.md) to your project root and fill in the project-specific sections.
-3. Customize hooks, skills and agents for your project's architecture.
-4. To adopt compound-engineering for Layers 2–5, install the plugin and follow [`process/compound-engineering-integration.md`](../../process/compound-engineering-integration.md) for path mappings, branch naming and review discipline. Layers 1 and 6 stay owned by your project's `.claude/`.
+### Layer 3 — Persona Agents
 
-## Where things live
+Produce specialized observations. Multiple personas improve search diversity but do not manufacture consensus authority.
 
-| Document | Owns |
-|----------|------|
-| [ADR-0001](../../docs/engineering/adr/0001-six-layer-ai-architecture.md) | The architectural decision and the reasoning behind six layers |
-| This document | Layer definitions, principles, and how the layers compose |
-| [`process/compound-engineering-integration.md`](../../process/compound-engineering-integration.md) | Everything CE-specific: skill mappings, artifact paths, review discipline, version tracking |
-| [`ai/CLAUDE.md`](../CLAUDE.md) | Quick-reference standards guide for AI tools working in this repository |
-| [`templates/.claude/`](../../templates/.claude/) | The vendor-neutral baselines themselves |
+### Layer 4 — References
+
+Load deeper evidence only when the workflow needs it. References are observations until admitted at the relevant subject boundary.
+
+### Layer 5 — Compound / Learnings
+
+Capture what was learned, then **retire repeated reasoning**. Durable success is promotion into ontology, type, template, generator, planner, policy, verifier, fixture, or process control where practical. A prose solution that must be re-reasoned every time is intermediate capital, not the terminal form.
+
+### Layer 6 — Hooks
+
+Use deterministic hooks for mechanical invariants. Hooks can block/refuse local operations under declared policy; they do not independently confer external authority.
+
+## Compound Engineering
+
+Compound Engineering is one realization of Layers 2–5. The [integration standard](../../process/compound-engineering-integration.md) owns CE-specific inventory, paths, and version drift.
+
+In Semantic Work Mode:
+- CE plans project root WorkOrders;
+- CE reviews are candidate evidence;
+- CE work constructs candidates;
+- merge/deploy/external mutation remains behind the project authority boundary;
+- CE compound output should feed the root learning loop rather than become a parallel doctrine.
+
+## Context economy
+
+Context economy remains useful, but it is subordinate to semantic economy.
+
+The stronger target is:
+
+```text
+known recurring class
+  -> formalize
+  -> deterministic machinery
+  -> less model context and less model reasoning next time
+```
+
+The best context optimization is removing the need for model reasoning altogether when a class has become known.
+
+## Baselines in this repository
+
+- Rules: [`rules/`](./rules/)
+- Skills: [`templates/.claude/skills/`](../../templates/.claude/skills/)
+- Personas: [`templates/.claude/agents/`](../../templates/.claude/agents/)
+- Hooks: [`templates/.claude/hooks/`](../../templates/.claude/hooks/)
+- Root adoption: [`templates/AGENTS.md`](../../templates/AGENTS.md)
+
+## Verification
+
+AI review and hook success are bounded evidence. They do not replace repository-native courts, exact-head execution evidence, receipts, or replay.
+
+When the work class is known, prefer non-AI verification machinery. When a new failure boundary is learned, encode it so subsequent runs do not need to rediscover it.

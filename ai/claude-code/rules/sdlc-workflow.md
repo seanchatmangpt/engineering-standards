@@ -1,41 +1,58 @@
-# SDLC Workflow
+# SDLC Root Workflow
 
-Behavioral guardrails for Claude Code sessions. Follow these in every task.
+Behavioral guardrails for agent sessions. These are a projection of the root protocol.
 
-## Read Before Changing
+## Orient before changing
 
-- Read the relevant spec, issue, or requirements before touching code
-- Read the existing code and understand its structure before modifying it
-- Check for related tests, configs, or documentation that may need updating
-- If there is no spec and the change is non-trivial, ask for one
+1. Read `AGENTS.md`, `MANIFEST.json`, and the task-specific standard.
+2. Resolve the exact repository/base SHA and canonical work subject.
+3. Read existing implementation, tests, generated/source boundaries, and relevant history.
+4. Reconstruct system, boundary, origin, and function before replacing structure.
+5. Search prior art and reusable machinery before inventing.
 
-## Plan Before Implementing
+## Route the class
 
-- Author a plan and present it before writing any code
-- Wait for explicit confirmation before proceeding with implementation
-- If the plan changes during implementation, pause and re-confirm
-- Break large changes into steps; confirm each step's approach
+Use specialized machinery when the problem class is known:
+- HDDL/HTN for hierarchical planning;
+- PDDL/FOND for planning;
+- SAT/SMT/CP for constraints;
+- OCEL/process mining for conformance;
+- declarative rules for derivation;
+- framework/ggen generators for repeatable source manufacture.
 
-When [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) is in use, `/ce-plan` produces the plan and `/ce-work` executes it iteratively against U-IDs and acceptance criteria; the `lfg` autonomous flow runs the discover → plan → execute → review pipeline without per-step confirmation and is appropriate when a complete plan exists. See [process/compound-engineering-integration.md](../../../process/compound-engineering-integration.md).
+Use model reasoning for unresolved semantic residue.
 
-## Validate After Each Change
+## Plan without manufacturing authority
 
-- After each meaningful change: run tests, run lint, confirm behavior
-- Do not batch multiple unverified changes — validate incrementally
-- Check that the change matches what the spec or issue describes
-- If tests don't exist for the changed behavior, note it and suggest adding them
+A plan is a candidate transition structure. Create or update one when useful, but do not treat plan approval as DO authority.
 
-## Flag Uncertainty
+Preserve alternatives until evidence justifies elimination. Bind dependencies, acceptance, falsifiers, court/evidence, and authority ceiling.
 
-- If requirements are ambiguous, ask — don't guess
-- If multiple valid approaches exist, present options with tradeoffs
-- If a change has broader implications than expected, raise it before proceeding
-- Prefer explicit confirmation over assumptions
+## Construct, then actuate
 
-## Scope Discipline
+SELECT and CONSTRUCT may prepare a candidate artifact. Consequential mutation requires the project's admitted authority path.
 
-- Do only what was asked — no unrequested refactoring or improvements
-- Don't add error handling, comments, or type annotations to unchanged code
-- If you notice something worth fixing outside the current scope, mention it
-  separately rather than including it in the current change
-- Match the complexity of the solution to the complexity of the problem
+Never infer authority from:
+- user identity alone;
+- agent capability;
+- an approved plan;
+- a proof;
+- a ticket state;
+- green CI.
+
+## Verify and learn
+
+- run the narrowest high-information court first;
+- classify failures before repair;
+- change the hypothesis before rerunning the same failure;
+- expand verification only after the boundary closes;
+- emit/record receipts;
+- replay where the claim requires reconstruction;
+- promote standing only for the exact subject;
+- encode learned recurrence into durable machinery.
+
+## Scope
+
+Follow the requested semantic consequence, not arbitrary file/line limits. Preserve unrelated work. If the lawful route to the requested acceptance boundary remains, continue through it rather than declaring BLOCKED.
+
+Compound Engineering and other autonomous workflows may execute without per-step human confirmation when their authority scope already admits those steps. They still cannot manufacture merge/deploy/external DO authority.

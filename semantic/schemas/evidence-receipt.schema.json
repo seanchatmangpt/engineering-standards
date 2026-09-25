@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/chatman/engineering-standards/evidence-receipt.schema.json",
+  "title": "Evidence Receipt",
+  "description": "Integrity-bound observation of authorized execution and verification. A receipt is evidence, not self-promoting standing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["receipt_iri","work_order_iri","authority_decision_iri","repository_identity","base_sha","candidate_sha","graph_digest","execution_identity","consequence_digest","verifier_identity","observed_consequence","replay_identity","observed_at"],
+  "properties": {
+    "receipt_iri": {"type":"string","format":"uri"},
+    "work_order_iri": {"type":"string","format":"uri"},
+    "authority_decision_iri": {"type":"string","format":"uri"},
+    "repository_identity": {"type":"string","pattern":"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+    "base_sha": {"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "candidate_sha": {"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "graph_digest": {"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "execution_identity": {"type":"string","minLength":1},
+    "consequence_digest": {"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "verifier_identity": {"type":"string","minLength":1},
+    "observed_consequence": {"type":"string","minLength":1},
+    "replay_identity": {"type":"string","minLength":1},
+    "observed_at": {"type":"string","format":"date-time"},
+    "process_event_iris": {"type":"array","items":{"type":"string","format":"uri"},"uniqueItems":true}
+  }
+}

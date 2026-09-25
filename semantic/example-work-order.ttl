@@ -1,0 +1,33 @@
+@prefix ex: <https://example.org/engineering/> .
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
+@prefix oslc_cm: <http://open-services.net/ns/cm#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+ex:work-001 a es:WorkOrder, oslc_cm:ChangeRequest ;
+  dcterms:identifier "ENG-001" ;
+  dcterms:title "Make engineering-standards the ecosystem root" ;
+  dcterms:description "Promote the engineering standards ontology and protocol above predecessor and downstream profiles." ;
+  es:repository "seanchatmangpt/engineering-standards" ;
+  es:baseSha "610944c48bce6377291c088a3e07775e9ef2908b" ;
+  es:graphDigest "0000000000000000000000000000000000000000000000000000000000000000" ;
+  es:standing es:UNKNOWN ;
+  es:authorityCeiling es:CONSTRUCT ;
+  es:requiresCapability ex:root-refactor-capability ;
+  es:requiresCourt ex:root-court ;
+  es:hasFalsifier ex:authority-smuggling-falsifier ;
+  es:replayIdentity "engineering-standards:root:v26.9.21" ;
+  es:projectionAuthority es:NONE .
+
+ex:root-refactor-capability a es:Capability ;
+  dcterms:title "Root standards refactor capability" .
+
+ex:root-court a es:Court ;
+  dcterms:title "Root semantic conformance court" .
+
+ex:authority-smuggling-falsifier a es:CandidateFalsifier ;
+  dcterms:title "A work projection acquires DO authority" .
+
+ex:generated-ticket a es:GeneratedArtifact ;
+  es:projectionOf ex:work-001 ;
+  es:projectionAuthority es:NONE .

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/chatman/engineering-standards/semantic-work-envelope.schema.json",
+  "title": "Engineering Standards Work Transport Envelope",
+  "description": "Authority-free projection of an admitted root WorkOrder for SA2A or another admitted transport. Schema validity never authorizes DO.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "work_order_iri",
+    "graph_digest",
+    "repository_identity",
+    "base_sha",
+    "capability_iri",
+    "standing",
+    "authority_ceiling",
+    "transport_profile",
+    "projection_authority",
+    "replay_identity"
+  ],
+  "properties": {
+    "work_order_iri": { "type": "string", "format": "uri" },
+    "graph_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "repository_identity": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+    "base_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "capability_iri": { "type": "string", "format": "uri" },
+    "standing": {
+      "type": "string",
+      "enum": ["UNKNOWN", "PARTIAL_ALIVE", "ALIVE", "BLOCKED", "BUILD_BROKEN", "UNSUPPORTED", "REFUSED"]
+    },
+    "authority_ceiling": { "type": "string", "enum": ["OBSERVE", "SELECT", "CONSTRUCT"] },
+    "transport_profile": { "type": "string", "minLength": 1 },
+    "projection_authority": { "const": "NONE" },
+    "replay_identity": { "type": "string", "minLength": 1 },
+    "evidence_receipts": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" },
+      "uniqueItems": true
+    }
+  }
+}

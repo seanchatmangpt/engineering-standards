@@ -1,61 +1,55 @@
-# Engineering Standards
+# Engineering Standards Root Rule
 
-This project follows the engineering standards defined in the
-[engineering-standards](https://github.com/rmorison/engineering-standards)
-repository. Read and follow these standards for all work.
+This project follows the root engineering constitution from
+[seanchatmangpt/engineering-standards](https://github.com/seanchatmangpt/engineering-standards).
 
-## Feature Development
+Read local `AGENTS.md` first. The root order is:
 
-Follow the spec-driven workflow: **Intent → Spec → Plan → Execute → Validate**.
-
-- Read the spec before writing code
-- Break work into small, reviewable increments
-- Validate each increment against the spec before moving on
-
-Full workflow: [process/feature-development-workflow.md](../../../process/feature-development-workflow.md)
-
-## Documentation
-
-Specs are the source of truth. Write specs before code when:
-- The feature has UI/UX components
-- Multiple implementation approaches exist
-- Work spans multiple PRs
-- Requirements need stakeholder validation
-
-Skip specs for trivial changes, obvious implementations, or experiments.
-
-Standard structure:
-```
-docs/
-├── product/
-│   ├── strategic-vision.md
-│   ├── concepts/{feature}.md
-│   └── features/{feature}.md
-└── engineering/
-    ├── designs/{feature}.md
-    └── adr/{number}-{title}.md
+```text
+MANIFEST -> semantic graph -> SHACL/admission -> process standard -> code profile
 ```
 
-When compound-engineering is in use, additional artifact paths apply (`docs/plans/`, `docs/solutions/`, `docs/ideation/`, and legacy `docs/brainstorms/`). See [process/compound-engineering-integration.md](../../../process/compound-engineering-integration.md) for the full path mapping and precedence rules.
+## Hard boundaries
 
-Full standard: [process/documentation-standards.md](../../../process/documentation-standards.md)
+- Received != Admitted
+- Ticket != Authority
+- Agent != Authority
+- Capability != Authority
+- Plan/Proof != Authority
+- SELECT != CONSTRUCT != DO
+- Generated artifact != semantic authority
+- Inspection != execution
+- UNKNOWN != ALIVE
+- zero unreceipted actuation
 
-## Git Conventions
+## Work
 
-- **Branching**: GitHub Flow — `main` is always deployable, all work in feature branches
-- **Branch names**: `{issue-number}-{slugified-title}` (use GitHub auto-generated names). When CE is in use, `lfg`/`ce-work` autonomous flows may produce topic-style branches (`feat/...`, `fix/...`) without a parent issue; see the integration doc.
-- **Commits**: conventional format. [process/git-branching-strategy.md](../../../process/git-branching-strategy.md#commit-messages) owns the format, the scope policy and the subject limit
-- **PRs**: Small, focused, one feature/fix per branch
-- **Versioning**: Semantic versioning (vMAJOR.MINOR.PATCH)
+In Semantic Work Mode, bind all work to the canonical WorkOrder and exact repository/base identity. Specs, issues, plans, messages, reviews, and generated code are projections/candidates.
 
-Full strategy: [process/git-branching-strategy.md](../../../process/git-branching-strategy.md). When CE is in use: [process/compound-engineering-integration.md](../../../process/compound-engineering-integration.md).
+In Documentation Mode, a maintained spec/issue can be the practical work record for small projects.
 
-## Code Quality Principles
+## Before invention
 
-- No dead code — remove unused code, don't comment it out
-- Root-cause fixes — diagnose before patching, no bandaids
-- Single responsibility — each module does one thing well
-- Don't cross module boundaries for quick fixes — raise for discussion
-- Validate after every meaningful change
+Search:
+1. repository doctrine and solved-problem corpus;
+2. public standards/ontologies;
+3. framework-native generators;
+4. ggen-marketplace/admitted reusable machinery;
+5. formal planners/solvers/rule/process tools.
 
-Language-specific standards: [code/](../../../code/)
+Reuse -> compose -> extend -> invent.
+
+## Git
+
+- exact base first;
+- coherent subject-scoped branch;
+- draft PR by default;
+- exact-head CI;
+- explicit authority for merge/deploy/external mutation;
+- receipt/re-observe consequence.
+
+## Verification
+
+Use the narrowest high-information court first. A green check is bounded evidence only. Promote ALIVE only for the exact subject actually executed and verified.
+
+Full root protocol: [process/semantic-engineering-protocol.md](../../../process/semantic-engineering-protocol.md).

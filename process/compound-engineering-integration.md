@@ -1,5 +1,7 @@
 # Compound Engineering Integration
 
+> **Root position:** Compound Engineering is an interaction/execution profile of the [Semantic Engineering Protocol](./semantic-engineering-protocol.md). CE skills, plans, personas, references, and learnings do not define semantic authority, DO authority, or standing. In Semantic Work Mode, CE artifacts bind and project root WorkOrders.
+
 *Operational reference for adopting compound-engineering as the canonical realization of Layers 2–5 of the [six-layer AI architecture](../ai/claude-code/README.md).*
 
 **Architectural decision:** [ADR-0001](../docs/engineering/adr/0001-six-layer-ai-architecture.md).
@@ -79,7 +81,7 @@ Full three-tier hierarchy per [`process/issue-tracking.md`](./issue-tracking.md)
 
 ### Solo + AI
 
-Reactive issue creation only. The implementation-ready plan file — the one carrying `## Implementation Units`, not a requirements-only brainstorm artifact sharing the same directory — is the granular unit tracker via U-IDs; pre-allocating per-U sub-issues duplicates state and drifts from the plan. Apply when:
+Reactive issue creation only. The root WorkOrder graph is canonical. The implementation-ready plan file — the one carrying `## Implementation Units` — is a human/agent projection via U-IDs; pre-allocating per-U sub-issues duplicates projection state. Apply when:
 
 - Sole contributor working with CE
 - Plan U-IDs adequately track granular progress
@@ -95,7 +97,7 @@ Adopt solo + AI mode now; introduce epics and milestones when a second contribut
 
 A minimal pattern that has worked in real use:
 
-- **One umbrella epic per multi-phase plan** (label: `epic`). The epic links to the plan; the plan is the granular tracker via U-IDs. Do not pre-allocate per-U sub-issues.
+- **One umbrella epic per multi-phase plan** (label: `epic`). The epic and plan both bind the root WorkOrder family; the plan is the granular human projection via U-IDs. Do not pre-allocate per-U sub-issues.
 - **Sub-issues are reactive**, filed when needed: `bug`, `from-review`, `from-deferred-q`, `tech-debt`, `enhancement`. Add `blocked` when waiting on a dependency. [`process/issue-tracking.md`](./issue-tracking.md#label-strategy) defines each of these, including what `from-review` and `from-deferred-q` mean; this list says when to file one.
 - **Branch naming** follows § 4 below.
 - **Skip:** milestones, point/size labels, theme labels, which are exactly the families [`process/issue-tracking.md`](./issue-tracking.md#label-strategy) marks team-scale. Use the plan, not GitHub metadata, to express phase + scope.
@@ -166,10 +168,10 @@ The six steps of every iteration, in CE's terms.
 | CE skill | Behavior | Standards doc(s) it operates within |
 |----------|----------|------------------------------------|
 | `ce-brainstorm` | Structured requirements gathering; produces a requirements-only unified plan at `docs/plans/YYYY-MM-DD-HHMM-<type>-<topic>-plan.md`. Legacy `docs/brainstorms/*-requirements.md` files remain valid input to `ce-plan` but are no longer written | **Phase 0** of [`process/feature-development-workflow.md`](./feature-development-workflow.md); Phase 1 is seeded from the brainstorm output |
-| `ce-plan` | Produces implementation plans at `docs/plans/...` with U-IDs and acceptance criteria | Phases 3–4 of [`process/feature-development-workflow.md`](./feature-development-workflow.md); subsumes `docs/planning/` for CE-using projects |
-| `ce-work` | Executes an implementation-ready plan; manages task state and incremental commits | Phase 5 of [`process/feature-development-workflow.md`](./feature-development-workflow.md) |
+| `ce-plan` | Produces non-authoritative implementation-plan projections at `docs/plans/...` with U-IDs and acceptance criteria; Semantic Work Mode binds them to root WorkOrders | Phases 3–4 of [`process/feature-development-workflow.md`](./feature-development-workflow.md); subsumes `docs/planning/` for CE-using projects |
+| `ce-work` | Consumes an implementation-plan projection and manufactures candidate consequences; consequential DO remains subject to root/project authority and receipts | Phase 5 of [`process/feature-development-workflow.md`](./feature-development-workflow.md) |
 | `ce-simplify-code` | Refines freshly written code for reuse, clarity and efficiency with behavior preserved, before review | Phase 5, between implementation and review. Complements the quality principles in [`code/`](../code/) |
-| `ce-code-review` | Dispatches Layer 3 persona reviewers against a code diff; produces P0–P3 findings | Phase 5 review surface (code review, the AI-review discipline above) |
+| `ce-code-review` | Dispatches Layer 3 persona reviewers against a code diff; findings are candidate evidence, not authority or standing | Phase 5 review surface (code review, the AI-review discipline above) |
 | `ce-compound` | Captures learnings from completed work into `docs/solutions/` (Layer 5 output) | Phase 6 (validation/iteration) of [`process/feature-development-workflow.md`](./feature-development-workflow.md), or post-incident |
 
 ### Around the loop

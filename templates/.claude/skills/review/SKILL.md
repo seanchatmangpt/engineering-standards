@@ -1,65 +1,49 @@
-# /review — Review code against engineering standards
+# /review — Evidence-bounded engineering review
 
-Review code changes against the project's engineering standards.
+Review a candidate change against the root engineering standard. Review findings are candidate evidence, not authority.
 
-## Instructions
+## Root references
 
-1. Fetch the feature development workflow and code standards for reference:
+Fetch:
+- https://raw.githubusercontent.com/seanchatmangpt/engineering-standards/main/process/semantic-engineering-protocol.md
+- https://raw.githubusercontent.com/seanchatmangpt/engineering-standards/main/process/git-branching-strategy.md
+- the applicable code standard from https://github.com/seanchatmangpt/engineering-standards/tree/main/code
 
-<web_fetch>
-https://raw.githubusercontent.com/rmorison/engineering-standards/main/process/feature-development-workflow.md
-</web_fetch>
+Read local `AGENTS.md`, canonical WorkOrder, exact base/head, and declared verification court.
 
-<web_fetch>
-https://raw.githubusercontent.com/rmorison/engineering-standards/main/code/python-standards.md
-</web_fetch>
+## Review
 
-<web_fetch>
-https://raw.githubusercontent.com/rmorison/engineering-standards/main/process/git-branching-strategy.md
-</web_fetch>
+### Subject conservation
+- Same WorkOrder/repository/base/candidate identity across graph, plan, branch, PR, receipt?
+- Any silent subject/base movement?
 
-2. Identify what to review:
-   - If the user specifies files or a PR, review those
-   - If no target is specified, review staged or uncommitted changes (`git diff` and `git diff --cached`)
-   - Read the relevant spec or issue for context on what the changes should accomplish
+### Semantic boundaries
+- Received vs admitted kept separate?
+- SELECT/CONSTRUCT/DO kept separate?
+- Projection or generated artifact gaining authority?
+- Plan/proof/agent/capability treated as authority?
 
-3. Review against these categories:
+### Prior art / manufacture
+- Framework-native generator or admitted marketplace capital bypassed?
+- Generated output hand-edited?
+- Local vocabulary invented without a failed public-ontology edge?
 
-   **Spec compliance**
-   - Do the changes implement what the spec describes?
-   - Are acceptance criteria addressed?
-   - Is anything missing or out of scope?
+### Correctness
+- Acceptance criteria covered?
+- Explicit falsifiers exercised?
+- Failure classification evidence-bound?
+- Tests verify claimed boundary rather than merely inspect?
 
-   **Code quality**
-   - No dead code or commented-out code
-   - Single responsibility per module/function
-   - No unnecessary complexity or premature abstractions
-   - Error handling at system boundaries, not everywhere
+### Evidence
+- Commands/courts and exits identifiable?
+- Exact-head CI where required?
+- Receipt binds exact subject?
+- ALIVE claimed only from observed execution?
+- Replay required and, if so, performed?
 
-   **Git hygiene**
-   - Commits follow the commit format in the branching strategy fetched above, including its scope policy and subject limit
-   - Changes are focused — one concern per commit
-   - No unrelated changes mixed in
+### Code quality
+Apply task-specific language/framework standards.
 
-   **Testing**
-   - Are changed behaviors covered by tests?
-   - Do existing tests still pass?
-   - Are edge cases from the spec addressed?
+## Output
 
-   **Documentation**
-   - Are specs updated if behavior changed?
-   - Are ADRs written for significant decisions?
-
-4. Present findings organized by category. For each issue:
-   - State what the standard says
-   - Show the specific code or commit that deviates
-   - Suggest a fix
-
-5. Summarize: overall assessment (approve, request changes, or needs discussion)
-   and a prioritized list of action items.
-
-## Notes
-
-- Focus on substantive issues, not style nitpicks
-- If the project has language-specific standards (e.g., Python), apply those too
-- Flag security concerns (OWASP top 10) if spotted
+Report findings by failed boundary and evidence. Do not emit an "approve" as operational authority. State the maximum evidence ceiling the review itself supports and what court/authority remains.

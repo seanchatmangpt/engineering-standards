@@ -4,13 +4,39 @@
 
 ## Overview
 
-Project planning transforms product and technical specs into actionable work. The goal is to sequence tasks effectively, identify dependencies and risks, and provide enough estimation to make informed decisions—without over-planning work that may change.
+Project planning transforms admitted intent and constraints into lawful candidate transitions. In Semantic Work Mode, the plan is a **candidate artifact**, not authority.
+
+```text
+WorkOrder graph
+  -> dependency / constraint closure
+  -> lawful candidate space
+  -> planner / solver
+  -> SELECT
+  -> construction plan
+  -> authority boundary
+```
+
+Preserve reversible possibilities until evidence eliminates them. A failed edge changes topology; it does not justify collapsing the whole graph.
+
+### Planning machinery routing
+
+Use specialized machinery for known classes before general model reasoning:
+
+- hierarchical decomposition -> HDDL / HTN;
+- classical or nondeterministic planning -> PDDL / FOND;
+- constraints/scheduling -> SAT / SMT / CP;
+- process/conformance -> OCEL + process mining;
+- deterministic derivation -> rules/templates/generators.
+
+Every planned work unit should bind acceptance criteria, falsifier, verification court, exact dependencies, and authority ceiling.
 
 ## Story Point Estimation
 
+**Human coordination projection.**
+
 ### Fibonacci Scale: 1, 2, 3, 5, 8, 13
 
-We use story points on a Fibonacci scale to estimate effort and complexity. Story points capture:
+Teams may use story points on a Fibonacci scale to estimate human coordination effort and complexity. Story points are not required in Semantic Work Mode and never establish work identity, priority truth, authority, or standing. Story points capture:
 - Implementation effort
 - Technical complexity
 - Uncertainty and unknowns

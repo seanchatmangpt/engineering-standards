@@ -2,26 +2,34 @@
 
 *Full-stack web application standards for Next.js + FastAPI projects*
 
+## Root Relationship
+
+This web standard is an interface construction profile under the [Semantic Engineering Protocol](../process/semantic-engineering-protocol.md) and [Construction, Generation, and Verification Contract](./construction-generation-verification.md).
+
+OpenAPI is the executable HTTP interface projection between FastAPI and Next.js; it is not the semantic root. Generate clients from it and never maintain a shadow client contract by hand. Root/project semantics own cross-interface meaning OpenAPI does not express.
+
+Frontend code is JavaScript-first with JSDoc and runtime boundary schemas. Framework/runtime capabilities never imply external DO authority.
+
 ## Overview
 
 This document defines standards for full-stack web applications using a Next.js frontend and FastAPI backend in a Turborepo monorepo. These standards prioritize:
 
-- **Type safety across the stack** - TypeScript frontend, Pydantic backend, auto-generated API client
+- **Machine-checkable boundaries across the stack** - JavaScript/JSDoc plus runtime schemas at the frontend boundary, Pydantic backend, auto-generated API client
 - **Developer experience** - Fast builds, hot reload, consistent tooling, one repo
 - **Testing at every layer** - Vitest for components, Playwright for e2e, pytest for backend
 - **Clear boundaries** - Frontend and backend are separate applications connected by an OpenAPI contract
 
-**Core principle**: The OpenAPI schema is the contract between frontend and backend. Auto-generate the TypeScript client from FastAPI's schema so the two sides stay in sync without manual effort.
+**Core principle**: The OpenAPI document is the executable HTTP interface projection between frontend and backend. Auto-generate the JavaScript client from FastAPI's schema; do not hand-maintain a second interface contract.
 
 ## Philosophy
 
 ### Monorepo, Separate Concerns
 
 Frontend and backend live in one repository but remain independent applications:
-- The Next.js app is a TypeScript project managed by npm
+- The Next.js app is JavaScript-first, using JSDoc plus runtime schema validation for public boundaries, managed by npm
 - The FastAPI service is a Python project managed by uv
 - The OpenAPI schema is the only coupling between them
-- Turborepo orchestrates the TypeScript side; Make orchestrates the Python side
+- Turborepo orchestrates the JavaScript side; Make orchestrates the Python side
 
 ### Server-First Rendering
 
@@ -47,7 +55,8 @@ Lean on framework defaults:
 | Tool | Purpose | Rationale |
 |------|---------|-----------|
 | **Next.js** (App Router) | React framework | SSR, file-based routing, Server Components, API routes |
-| **TypeScript** | Language | Type safety, IDE support, catches errors at compile time |
+| **JavaScript + JSDoc** | Language/contract surface | Standards-based runtime language with editor/static analysis without a second compile-time language layer |
+| **Zod** | Runtime schema validation | Admit untrusted frontend-boundary data against explicit schemas |
 | **npm** | Package manager | Default for Node.js, broad ecosystem support |
 | **Tailwind CSS** | Styling | Utility-first CSS, consistent design system, no context switching |
 | **shadcn/ui** | Component library | Accessible, composable components built on Tailwind + Radix UI |
@@ -55,7 +64,7 @@ Lean on framework defaults:
 | **Zustand** | Client state management | Lightweight, no boilerplate, supports persistence middleware |
 | **nuqs** | URL state management | Type-safe search params with serialization, SSR-compatible |
 | **Auth.js** | Authentication | JWT sessions, provider support, App Router integration |
-| **Vitest** | Unit/component testing | Fast, native TypeScript, Jest-compatible API |
+| **Vitest** | Unit/component testing | Fast, native JavaScript, Jest-compatible API |
 | **@testing-library/react** | Component test utilities | Accessible queries, user-centric testing |
 | **@testing-library/user-event** | Interaction simulation | Realistic browser event simulation |
 | **Playwright** | E2E testing | Cross-browser headless testing, reliable selectors |
@@ -116,10 +125,10 @@ project-root/
 │   │   ├── package.json
 │   │   └── src/
 │   │       └── components/     # shadcn/ui components
-│   ├── api-client/             # Auto-generated OpenAPI TypeScript client
+│   ├── api-client/             # Auto-generated OpenAPI JavaScript client
 │   │   ├── package.json
 │   │   └── src/                # Generated code — do not edit manually
-│   └── shared/                 # Shared TypeScript types and utilities
+│   └── shared/                 # Shared JSDoc/runtime-schema types and utilities
 │       ├── package.json
 │       └── src/
 └── services/
@@ -357,7 +366,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@project/ui/components/dia
 
 ### OpenAPI Client Generation
 
-FastAPI automatically generates an OpenAPI schema at `/openapi.json`. Auto-generate a TypeScript client from it so frontend types always match backend models.
+FastAPI automatically generates an OpenAPI schema at `/openapi.json`. Auto-generate a JavaScript client from it so frontend types always match backend models.
 
 #### Generation Script
 
@@ -365,7 +374,7 @@ In root `Makefile`:
 
 ```makefile
 .PHONY: generate-api-client
-generate-api-client:  ## Generate TypeScript client from FastAPI OpenAPI schema
+generate-api-client:  ## Generate JavaScript client from FastAPI OpenAPI schema
 	cd services/backend && uv run python -c \
 		"from app.main import app; import json; print(json.dumps(app.openapi()))" \
 		> ../../packages/api-client/openapi.json
@@ -377,7 +386,7 @@ generate-api-client:  ## Generate TypeScript client from FastAPI OpenAPI schema
 
 **How this works**:
 1. Extract the OpenAPI schema from FastAPI without running the server
-2. Generate TypeScript types and a fetch-based client from the schema
+2. Generate JSDoc/runtime-schema types and a fetch-based client from the schema
 3. The generated `packages/api-client/src/` contains typed request/response models and service methods
 
 #### Using the Generated Client
@@ -920,7 +929,7 @@ docker compose up -d                 # PostgreSQL
 make migrate-up                      # Apply all database migrations
 
 # 4. Generate API client
-make generate-api-client             # Generate TypeScript client from FastAPI schema
+make generate-api-client             # Generate JavaScript client from FastAPI schema
 
 # 5. Start development servers
 turbo dev                            # Next.js dev server (with hot reload)
@@ -1256,7 +1265,7 @@ volumes:
 
 ### Integration
 
-**Manual API types** — Never hand-write TypeScript types that mirror Pydantic models. Auto-generate the client. Manual types drift from the backend.
+**Manual API types** — Never hand-write JSDoc/runtime-schema types that mirror Pydantic models. Auto-generate the client. Manual types drift from the backend.
 
 **Wrapping server data fetches in Client Components** — If the data doesn't need interactivity, fetch it in a Server Component. Don't add `"use client"` just to call `useEffect` + `fetch` when a Server Component can fetch the same data with zero client JavaScript.
 

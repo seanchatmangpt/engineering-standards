@@ -4,15 +4,22 @@
 
 ## Overview
 
-This strategy follows **[GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)** - a simple, branch-based workflow that supports continuous delivery.
+GitHub Flow remains the human collaboration transport, subordinate to the root [Semantic Engineering Protocol](./semantic-engineering-protocol.md).
 
-**Core principle**: `main` branch is always deployable. All work happens in feature branches, merged via pull requests after review.
+**Core principles**:
+- `main` represents the admitted release line for the repository;
+- every non-trivial change binds an exact base SHA and one canonical WorkOrder subject;
+- branches/PRs are projections of work, not authority;
+- exact-head CI is evidence, not truth;
+- merge is a consequential DO and requires explicit project/operator authority.
+
+A moved base is new evidence. Never silently rebase the claimed subject and preserve its old standing.
 
 > **When compound-engineering is in use**: see [`process/compound-engineering-integration.md`](./compound-engineering-integration.md) for branch-naming carve-outs (CE's `lfg`/`ce-work` autonomous flows) and the AI-review discipline that complements branch protection.
 
 ### Workflow Diagram
 
-```mermaid
+```text
 gitGraph
     commit id: "initial"
     commit id: "stable"
@@ -32,11 +39,14 @@ gitGraph
 
 ## Guiding Principles
 
-1. **Main is always deployable** - Never commit broken code directly to `main`
-2. **Branch from main** - All work branches from and merges back to `main`
-3. **Issue-driven development** - Create GitHub issues, branch from them
-4. **Small, focused branches** - One feature/fix per branch, short-lived (hours to days)
-5. **Merge via pull requests** - Always use PRs for review and CI validation
+1. **Exact base first** — record repository + immutable base SHA before implementation.
+2. **One semantic subject** — bind branch, PR, checks, receipts, and projections to the same WorkOrder.
+3. **Main stays admissible** — do not knowingly land a broken or unqualified release-line consequence.
+4. **Issues are projections** — use them for navigation; in Semantic Work Mode they do not own work truth.
+5. **Small coherent branches** — one independently verifiable semantic consequence per branch.
+6. **Draft PR is the default publication boundary** — publication enables review/CI without granting merge.
+7. **Exact-head evidence** — only evidence for the current head supports the current subject.
+8. **Explicit merge authority** — CI, approval, proof, or plan does not independently authorize merge.
 
 ---
 
@@ -85,9 +95,11 @@ For detailed mechanics, see [GitHub Flow documentation](https://docs.github.com/
 
 ### Starting Work
 
-1. Create or find GitHub issue
-2. Click "Create a branch" from the issue
-3. Pull the branch locally and start working
+1. Resolve repository and exact base SHA.
+2. Resolve or create the canonical WorkOrder. In Documentation Mode, a GitHub issue may be the practical work record.
+3. Record acceptance, constraints, falsifiers, verification court, dependencies, and authority ceiling.
+4. Create the work branch without moving the admitted base silently.
+5. Materialize only the source needed for the claimed boundary and start work.
 
 ### Keeping Branches Current
 
@@ -108,10 +120,13 @@ Choose rebase (cleaner history) or merge (preserves history) and use consistentl
 
 ### Merging to Main
 
-1. Open pull request (links to issue automatically)
-2. Get review approval and passing CI
-3. **Squash and merge** (recommended) - creates clean single commit per issue
-4. Branch auto-deleted, issue auto-closed
+1. Open a draft pull request and record WorkOrder + exact base/head identities.
+2. Run the narrowest repository-native court and exact-head CI.
+3. Resolve review findings and classify unrelated/pre-existing/environmental failures separately.
+4. Establish the project-required merge authority. Approval/CI are evidence inputs, not authority by themselves.
+5. Merge only when explicitly authorized; squash-and-merge remains a reasonable repository policy where desired.
+6. Re-observe the resulting main SHA and seal the mutation/verification receipt.
+7. Project issue/ticket closure from the admitted consequence; closure does not itself create ALIVE standing.
 
 **Note on squash merging**: When you squash and merge, all individual commits on the branch are combined into a single commit. This means:
 - Individual commit messages are preserved in the squashed commit body
@@ -203,8 +218,17 @@ User/business value or problem being solved (link to issue/spec)
 ## How
 Implementation approach (reference design doc if applicable)
 
+## Subject
+WorkOrder IRI/ID, repository, exact base SHA, candidate/head SHA
+
+## Evidence ceiling
+What this PR can and cannot establish
+
 ## Testing
-How this was tested (unit tests, manual testing, edge cases)
+Commands/courts, exits, exact-head CI, falsifiers exercised
+
+## Receipt / standing
+Observed consequence, replay evidence, bounded standing
 
 ## Related
 - Closes: #123
@@ -213,11 +237,9 @@ How this was tested (unit tests, manual testing, edge cases)
 
 ### PR Size
 
-**Target**: 200-400 lines of changes (excluding generated code)
+Size by **semantic coherence and verification surface**, not a line-count quota. Prefer the smallest diff that closes one independently verifiable consequence while preserving required context. Generated projections do not count as design complexity, but their source/generator/receipt identity must be visible.
 
-**Why**: Smaller PRs = faster, better reviews
-
-**How**: Break large features into multiple issues/PRs, use feature flags if needed
+Split work when separate subjects, authority domains, falsifiers, or verification courts can stand independently. Do not split one atomic semantic change merely to satisfy a line target.
 
 ---
 
@@ -314,10 +336,11 @@ Maintain `CHANGELOG.md` or use [GitHub Releases](https://docs.github.com/en/repo
 
 This strategy works well with AI-assisted development:
 
-**AI benefits from clear context**:
-- Issue descriptions provide full context for AI agents
-- Branch names tied to issues help AI understand intent
-- Specs linked in issues give AI complete requirements
+**Agents benefit from admitted context**:
+- the root/project semantic graph defines stable subject identity and constraints;
+- issues/specs are human projections of that context;
+- branch and PR identities bind the same WorkOrder;
+- receipts and falsifiers prevent narrative self-promotion.
 
 **Best practices with AI tools**:
 - Provide issue description and specs as context to AI
