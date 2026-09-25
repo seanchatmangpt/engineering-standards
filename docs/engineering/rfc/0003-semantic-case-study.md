@@ -1,12 +1,16 @@
 # RFC-0003: Semantic Case Study
 
-**Status:** FINAL_SPEC — closed for v26.9.24
-**Release:** v26.9.24
+**Status:** FINAL_SPEC — closed for v26.9.24; amended 2026-09-24 for the v26.9.25
+machine-addressable form (§9, per the §8 amendment rule)
+**Release:** v26.9.24 (amended for v26.9.25)
 **Role:** normative definition of an admitted semantic case study and its projections
 **Authority:** NONE
 **Consequence:** documentation / admission contract only
-**Implementation standing:** PARTIAL — applied by the xaas WD Case Study 2 / STOGAF episode and
-the zoela ZOE digital-twin case studies; no generic case-study compiler is claimed
+**Implementation standing:** PARTIAL — applied by the xaas WD Case Study 2 / STOGAF episode
+(cs: vocabulary + SHACL shapes + claims ledger, witnessed at
+`seanchatmangpt/xaas@f9670f446537ddb882edf9cd7e0b6519de557e60`); the zoela ZOE digital-twin
+case-study element is reclassified **NOT_CLAIMED** (terminal disposition in §9.2); the generic
+case-study compiler is owed by the `semantic-case-study-pack` (§9.1), not claimed by this RFC
 **Supersedes:** none. A search of every seanchatmangpt repository, every remote branch, and the
 operator's local plan/migration directories on 2026-09-24 found no prior normative artifact titled
 "Semantic Case Study" (the v26.9.21 requirement had no canonical file); this RFC is its first
@@ -108,6 +112,7 @@ itself the source of truth for any of them.
   from `docs/case-studies/wd-fa/presentation/*.ttl`.
 - **ZOE digital-twin case studies** (zoela `docs/case-studies/`,
   `ontology/digital-twin-case-studies.ttl`): application instances; not the universal ontology.
+  Implementation standing for this RFC: `NOT_CLAIMED` (§9.2).
 
 ## 7. Falsifiers
 
@@ -124,3 +129,62 @@ This RFC is falsified if any of the following is observed without a refusal:
 
 New case-study semantics require RFC-0003 amendments. Implementation of a generic case-study
 compiler is a typed sJira implementation obligation, not an open RFC question.
+
+## 9. Machine-addressable form (v26.9.25)
+
+This section exercises the §8 amendment rule. RFC-0004 (v26.9.25 self-closing release, §21/§24)
+requires the Semantic Case Study to exist as machine-addressable structure —
+`CaseStudyOntology → ggen → {Document, Presentation, ClaimsLedger, EvidenceManifest}` — rather
+than prose maintained per episode.
+
+### 9.1 Canonical implementation: `semantic-case-study-pack`
+
+The canonical implementation of this RFC is **`semantic-case-study-pack`**
+(`ggen-marketplace`, `packs/semantic-case-study-pack`), authored under RFC-0004 §24. It:
+
+- **ports `cs:`** — the witnessed xaas case-study vocabulary `urn:xaas:case-study:`
+  (`xaas/priv/packs/wd_cs2_pack/`: `case-study.ttl`, `case-study-shapes.ttl`, `claims.ttl` —
+  a 268-line WD claims ledger bound to exact subject
+  `seanchatmangpt/xaas@f9670f446537ddb882edf9cd7e0b6519de557e60` with evidence, falsifiers,
+  non-claims, and assumptions) — from a repo-local instance pack into the reusable marketplace
+  pack. The xaas `wd_cs2_pack` remains the first instance; the marketplace pack becomes
+  canonical. Divergence between them is a failed edge to be recorded against the pack, not a
+  fork;
+- **composes**, per the reuse-before-invent ladder:
+  `es:` evidence-standing-pack (`https://ggen.dev/ontology/evidence-standing#`) for the
+  evidence/standing vocabulary, `do:` decision-optionality-pack
+  (`https://ggen.dev/ontology/decision-optionality#`) for authority-ceiling and optionality,
+  and `pres:` pptx-presentation-pack (`https://ggen.dev/ns/presentation#`) for deck
+  projections (§4).
+
+### 9.2 Terminal disposition: implementation-standing inconsistency
+
+The v26.9.24 text claimed this RFC was "applied by … the zoela ZOE digital-twin case studies".
+Disposition, terminal for v26.9.25: **that element is reclassified `NOT_CLAIMED`**; the xaas
+WD element remains `PARTIAL` on witnessed evidence. An uncommitted edit attempting a wholesale
+`NOT_CLAIMED` reclassification was lost from the worktree before admission; this amendment
+restores its zoela element while preserving the witnessed xaas claim rather than discarding it.
+Reasoning:
+
+1. no receipt binds the zoela digital-twin artifacts to the §2 tuple — inspection of application
+   instances is not implementation evidence (`inspection ≠ execution`, RFC-0001);
+2. RFC-0004 Appendix A places ZOE vision work at strategy/specification standing, explicitly
+   not implementation standing (§12 of the v26.9.25 requirements);
+3. the honest split is therefore: xaas WD CS2 = `PARTIAL` (witnessed `cs:` implementation),
+   zoela ZOE digital-twin = `NOT_CLAIMED` (application instance only, §6), generic compiler =
+   owed by `semantic-case-study-pack` (§9.1) as the typed sJira obligation of §8.
+
+### 9.3 Anti-vacuity falsifier (pack admission requirement)
+
+A gate with no witnessed refusal carries no bits. `semantic-case-study-pack` is admitted only
+if its gates fail the following mutant, derived from the witnessed instance-pack precedent
+`cssh:SupportedClaimShape` (a `cs:Claim` must carry `cs:standing "UNKNOWN"` or at least one
+`cs:supportedBy`):
+
+> **Falsifier F-CS1:** mutate an admitted case so that a non-`UNKNOWN` claim loses its
+> `supportedBy` evidence binding (equivalently: its evidence is re-bound to a different subject
+> SHA). The pack gates MUST refuse the mutant. A pack whose gates pass this mutant is not
+> admitted (`admission_vacuous`).
+
+The witnessed refusal (command, exit code, subject SHA) is the pack's anti-vacuity evidence and
+must be replayable from the pack's own fixtures.
