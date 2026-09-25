@@ -259,7 +259,7 @@ Each lane writes exactly one machine-readable record at
   "objective": "string",
   "standing": "AUTONOMOUS|ASSISTED|BLOCKED_AUTHORITY|BLOCKED_INFORMATION|FAILED|ALIVE|PARTIAL_ALIVE|BLOCKED|REFUSED|UNSUPPORTED|UNKNOWN",
   "repos": [{"repo": "name", "branch": "purpose-branch", "start_sha": "sha40",
-             "final_sha": "sha40", "commits": ["sha40"]}],
+             "final_sha": "sha40", "commits": ["sha40"], "read_only": false}],
   "commands": [{"cmd": "string", "exit": 0}],
   "tests": [{"cmd": "string", "exit": 0}],
   "falsifiers": [{"id": "Rxxx-F", "result": "PASS|FAIL|NOT_RUN"}],
@@ -284,7 +284,11 @@ Each lane writes exactly one machine-readable record at
 ```
 
 The crown validates this shape, refuses records failing it (`REFUSED[INVALID_RECORD]`),
-and derives terms per §6.
+and derives terms per §6. `read_only` (optional boolean, default `false`) declares a
+verification-only objective for that repo: a repo entry with `start_sha == final_sha`
+and an empty `commits` list fails the PROCESS term unless `read_only: true` is declared
+(R008); an undeclared stand-still is treated as an unexecuted objective, never as
+evidence.
 
 ## 8. Standing derivation
 

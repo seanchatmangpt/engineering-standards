@@ -1,13 +1,26 @@
 {
   "registry_id": "RFC-0005-autonomous-loop-requirements",
   "title": "Autonomous Loop Qualification - machine-addressable requirements registry",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "episode": "ALOOP-ZCODE-DOGFOOD-001",
   "normative_source": "0005-autonomous-loop-qualification.md",
   "falsifier_law": "A normative requirement with no falsifier is prose and is marked UNSUPPORTED; every entry here carries a numbered falsifier and an executable check.",
   "standing_vocabulary": {
-    "episode_outcomes": ["AUTONOMOUS", "ASSISTED", "BLOCKED_AUTHORITY", "BLOCKED_INFORMATION", "FAILED"],
-    "standing": ["ALIVE", "PARTIAL_ALIVE", "BLOCKED", "REFUSED", "UNSUPPORTED", "UNKNOWN"],
+    "episode_outcomes": [
+      "AUTONOMOUS",
+      "ASSISTED",
+      "BLOCKED_AUTHORITY",
+      "BLOCKED_INFORMATION",
+      "FAILED"
+    ],
+    "standing": [
+      "ALIVE",
+      "PARTIAL_ALIVE",
+      "BLOCKED",
+      "REFUSED",
+      "UNSUPPORTED",
+      "UNKNOWN"
+    ],
     "promotion_rule": "ASSISTED is never promoted to AUTONOMOUS within an episode (law L6)."
   },
   "requirements": [
@@ -65,7 +78,7 @@
       "term": "PROCESS",
       "requirement": "Typed terminality: an episode terminates only via a typed terminal event (goal.satisfied | goal.blocked | refusal) carrying final standing, receipt chain, and falsifier results; no terminal event means UNKNOWN (RFC-0005 2.8).",
       "falsifier": "F-R008: a lane record with no terminal disposition and no typed blockers must derive standing UNKNOWN, never success.",
-      "executable_check": "aloop_crown.py defaults a record lacking terminal evidence to UNKNOWN contribution; PROCESS term requires every repo to carry start/final SHAs and commit list."
+      "executable_check": "aloop_crown.py defaults a record lacking terminal evidence to UNKNOWN contribution; PROCESS term requires every repo to carry start/final SHAs and commit list; start==final with no commits fails PROCESS unless read_only:true is declared (verified by tests/test_aloop_crown.py::test_undeclared_read_only_repo_fails_process / test_declared_read_only_repo_passes_process)."
     },
     {
       "id": "R009",
