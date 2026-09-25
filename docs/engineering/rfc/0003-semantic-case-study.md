@@ -157,6 +157,17 @@ The canonical implementation of this RFC is **`semantic-case-study-pack`**
   and `pres:` pptx-presentation-pack (`https://ggen.dev/ns/presentation#`) for deck
   projections (§4).
 
+The v26.9.25 instance receipts are machine-addressable. The WD case emits
+`seanchatmangpt/xaas` → `release/v26.9.25/receipts/case-study-schema.json`: case IRI
+`urn:xaas:wd-cs2:case`, case revision digest
+`6bd9762edbdf7c8f2a267106343601c60eef8c5cf32f52e183b963cc6453806f`, generator identity
+`ggen_igniter@26.9.15+engine=sparql` (instance-pack content digest recorded in full in the
+receipt), a per-projection SHA-256 map (`case-study.json`, `claims-ledger.json`,
+`SLIDE-EVIDENCE-MAP.json`), plus subject SHA, standing, court report, commands, checks,
+refusals, non-claims, and receipt digest — a complete R receipt. This receipt shape is what
+`semantic-case-study-pack` (§9.1) must emit per admitted case, so each admitted case is
+cold-replayable from the receipt alone (R25-010).
+
 ### 9.2 Terminal disposition: implementation-standing inconsistency
 
 The v26.9.24 text claimed this RFC was "applied by … the zoela ZOE digital-twin case studies".

@@ -2,6 +2,8 @@
 
 *Breaking features into deliverable work with realistic estimates*
 
+**Status:** FINAL — in force (R25-007 disposition, v26.9.25 sweep)
+
 ## Overview
 
 Project planning transforms admitted intent and constraints into lawful candidate transitions. In Semantic Work Mode, the plan is a **candidate artifact**, not authority.

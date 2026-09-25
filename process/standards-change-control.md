@@ -1,5 +1,7 @@
 # Standards Change Control
 
+**Status:** FINAL — in force (R25-007 disposition, v26.9.25 sweep)
+
 ## Purpose
 
 The root must obey the same evidence discipline it imposes downstream. A standards edit is not admitted root law merely because it was written, reviewed, or merged.

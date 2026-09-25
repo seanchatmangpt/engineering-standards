@@ -2,6 +2,9 @@
 
 *Modern tooling and practices for Python command-line and library projects*
 
+**Status:** PROPOSED — self-declared draft ("in active development", footer below); promotion
+to FINAL owed under R25-007
+
 ## Root Relationship
 
 This Python standard is a construction/verification profile under the [Semantic Engineering Protocol](../process/semantic-engineering-protocol.md) and the shared [Construction, Generation, and Verification Contract](./construction-generation-verification.md).

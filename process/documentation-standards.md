@@ -2,6 +2,8 @@
 
 *Lightweight practices for early-stage agile development*
 
+**Status:** FINAL — in force (R25-007 disposition, v26.9.25 sweep)
+
 ## Philosophy
 
 Documentation has two lawful roles.
