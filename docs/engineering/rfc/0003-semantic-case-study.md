@@ -5,8 +5,9 @@
 **Role:** normative definition of an admitted semantic case study and its projections
 **Authority:** NONE
 **Consequence:** documentation / admission contract only
-**Implementation standing:** PARTIAL — applied by the xaas WD Case Study 2 / STOGAF episode and
-the zoela ZOE digital-twin case studies; no generic case-study compiler is claimed
+**Implementation standing:** NOT_CLAIMED (generic case-study compiler). Applications: the xaas
+WD Case Study 2 / STOGAF episode (STOGAF court ALIVE at xaas `7c457827`, merged `f9670f44`) and the
+zoela ZOE digital-twin case studies (branch-only application, not part of this closure)
 **Supersedes:** none. A search of every seanchatmangpt repository, every remote branch, and the
 operator's local plan/migration directories on 2026-09-24 found no prior normative artifact titled
 "Semantic Case Study" (the v26.9.21 requirement had no canonical file); this RFC is its first
