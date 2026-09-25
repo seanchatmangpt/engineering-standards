@@ -1,67 +1,62 @@
-# Code Quality Standards
+# Code Construction Profiles
 
-Language and stack-specific code quality standards and best practices.
+Language and stack-specific construction and verification profiles under the [Semantic Engineering Protocol](../process/semantic-engineering-protocol.md).
 
-## Purpose
+## Position in the root
 
-This directory contains standards for code quality, formatting, linting, testing, and conventions specific to programming languages and technology stacks.
+```text
+root/project admitted semantics
+  -> construction profile
+  -> framework/generator
+  -> code/schema/config projection
+  -> verifier
+  -> authority
+  -> runtime consequence
+  -> receipt
+```
 
-## Standards
+These documents answer **how to construct and qualify a software projection in a particular stack**. They do not own work identity, semantic standing, or consequential authority.
 
-### [Python Project Standards](./python-standards.md)
+## Cross-profile laws
 
-Modern tooling and practices for Python command-line and library projects:
-- **Tool stack** - uv, pyenv, make, ruff, mypy, pytest, pre-commit
-- **Project structure** - src-layout, test organization, documentation
-- **Code quality** - Linting, formatting, type checking, Google-style docstrings
-- **Testing** - pytest with coverage (80%+ target), unit and integration tests
-- **Security** - detect-secrets, pip-audit vulnerability scanning
-- **Docker** - Multi-stage builds with python-slim, non-root user
-- **CI/CD** - GitHub Actions with matrix testing across Python versions
+- framework-native generator first when it preserves required semantics;
+- reuse admitted ggen-marketplace capital before local reinvention;
+- generated output is non-sovereign and should not be hand-edited;
+- language types, database constraints, OpenAPI, linters, and tests prove only their declared boundary;
+- integration/runtime ALIVE requires observed execution for the exact subject;
+- external mutation remains behind explicit project authority.
 
-**Key principle**: Automated, consistent development environment with fast feedback and security scanning.
+## Active profiles
 
-### [Database Standards](./database-standards.md)
+### [Python](./python-standards.md)
 
-PostgreSQL conventions and practices for application database design:
-- **Engine** - PostgreSQL 18+ with standard extensions (pg_trgm, pgcrypto)
-- **Schema design** - Per-domain schemas forming a DAG, no circular dependencies
-- **Naming conventions** - snake_case, plural tables, prefixed constraints (`pk_`, `fk_`, `uq_`, `idx_`, `ck_`)
-- **Standard columns** - UUID v7 primary keys, `created_at`/`updated_at` with triggers
-- **Data access** - Direct SQL with psycopg 3, Pydantic models for validation (no ORM)
-- **Migrations** - golang-migrate with per-schema directories, up/down pairs
-- **Security** - Parameterized queries, least-privilege database roles, secrets via environment variables
+Python construction/tooling profile: uv, ruff, mypy, pytest, reproducible environments, packaging, CI, and deterministic qualification.
 
-**Key principle**: The database is the source of truth for data integrity. Use SQL directly, let PostgreSQL enforce constraints.
+### [Database / PostgreSQL](./database-standards.md)
 
-### [Web Application Standards](./web-application-standards.md)
+PostgreSQL projection profile for relational persistence and integrity. Database constraints are authoritative for admitted persisted-state invariants, while root/project semantics remain canonical for cross-system meaning.
 
-Full-stack web application standards for Next.js + FastAPI projects in a Turborepo monorepo:
-- **Monorepo structure** - Turborepo for TypeScript, Make for Python, npm workspaces
-- **Frontend** - Next.js App Router, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query
-- **Backend** - FastAPI, Pydantic, psycopg 3 (follows Python and Database standards)
-- **API integration** - Auto-generated TypeScript client from FastAPI's OpenAPI schema
-- **Authentication** - Auth.js with JWT tokens issued by FastAPI
-- **Testing** - Vitest for components, Playwright for E2E, pytest for backend
-- **CI/CD** - GitHub Actions with API client staleness checks
-- **Docker** - Multi-stage builds, Docker Compose for full stack
+### [Web Applications](./web-application-standards.md)
 
-**Key principle**: The OpenAPI schema is the contract between frontend and backend. Auto-generate the TypeScript client so the two sides stay in sync without manual effort.
+Next.js + FastAPI boundary profile. OpenAPI is the generated HTTP interface projection; clients are generated rather than manually synchronized.
 
-## Future Standards
+## Shared construction contract
 
-Examples of standards that will be added:
+All profiles inherit [Construction, Generation, and Verification](./construction-generation-verification.md).
 
-- **go.md** - Go code standards (gofmt, golint, error handling, conventions)
-- **typescript.md** - Standalone TypeScript/JavaScript standards (ESLint, Prettier, non-web conventions)
-- **rust.md** - Rust code standards (rustfmt, clippy, conventions)
+## Adding a code profile
 
-## Relationship to Templates
+Before creating a new language/framework standard:
 
-Code standards defined here should be pre-configured in corresponding project templates:
-- `code/python-standards.md` standards → implemented in `templates/python-cli/` or `templates/python-fastapi/`
-- `code/typescript.md` standards → implemented in `templates/nextjs-webapp/`
+1. prove an existing profile cannot express the required construction boundary;
+2. inspect framework-native conventions/generators;
+3. identify which root semantics project into the stack and which remain outside it;
+4. define the narrowest verifier court;
+5. identify generated vs irreducible handwritten residue;
+6. add permanent falsifiers for observed failure classes.
 
-## Status
+A new profile should reduce future reasoning, not add another prose taxonomy.
 
-**Active** - Python, Database, and Web Application standards complete. Additional language standards will be added as projects adopt specific stacks.
+## Standing
+
+**Active profile documentation.** Runtime/tool-version claims remain subject to repository-native requalification at the exact version/head where they are used.

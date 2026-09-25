@@ -117,3 +117,36 @@ Names held; behavior and output paths moved. The one-row insurance was written a
 **The rule now.** Re-verify the layer table, the artifact-path table, and the skill cross-reference table together against the installed CE on each minor upgrade, then grep the repository for what restates them. [`process/compound-engineering-integration.md`](../../../process/compound-engineering-integration.md) carries this as its **Version drift** note and records the CE version it was last verified against; that note is authoritative over the Upgrade discipline paragraph above.
 
 **What is unchanged.** The decision itself stands, and the audit strengthened it. The six-layer model absorbed 26 minor releases of upstream change without a structural revision: no layer was added, removed, or redefined, and every drifted claim was an inventory detail rather than a category error. Pinning to 3.x and re-evaluating the canonical-realization claim at 4.x also stands.
+
+
+---
+
+## Amendment — 2026-09-21: AI architecture subordinated to the semantic root
+
+Everything above remains historical evidence of the 2026-05-03 decision and the 2026-09-20 correction. The **scope and authority** of the six-layer model changes here.
+
+ADR-0002 established `engineering-standards` as the ecosystem semantic root. The six-layer model is therefore no longer the top-level engineering architecture. It is an **interaction/context architecture profile** beneath the root [Semantic Engineering Protocol](../../../process/semantic-engineering-protocol.md).
+
+The dependency direction is now:
+
+```text
+engineering-standards semantic root
+  -> admitted WorkOrder / contracts / authority / evidence law
+  -> AI interaction profile
+       -> rules
+       -> skills
+       -> personas
+       -> references
+       -> compound outputs
+       -> hooks
+```
+
+Consequences:
+
+- a rule, skill, persona, model output, plan, review, or compound document is a projection/candidate, never semantic authority;
+- Layer 6 hooks may enforce deterministic local constraints but do not grant consequential DO authority;
+- Layer 5 succeeds only when a learning is promoted into reusable ontology, schema, generator, planner, policy, verifier, fixture, or process control where practical;
+- CE remains one realization of the interaction profile, not the owner of engineering semantics;
+- the root `AGENTS.md`, `MANIFEST.json`, and semantic graph outrank AI-specific context files.
+
+This amendment supersedes any sentence above that calls the six-layer AI model "the architecture" without qualification. It does not invalidate the six context-cost slots themselves.

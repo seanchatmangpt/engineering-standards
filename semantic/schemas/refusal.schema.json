@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/chatman/engineering-standards/refusal.schema.json",
+  "title": "Typed Refusal",
+  "description": "Durable fail-closed refusal. REFUSED is distinct from UNSUPPORTED and BLOCKED.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["refusal_iri","subject_iri","stage","code","reason","observed_at"],
+  "properties": {
+    "refusal_iri": {"type":"string","format":"uri"},
+    "subject_iri": {"type":"string","format":"uri"},
+    "stage": {"enum":["ADMISSION","AUTHORITY","CONSTRUCTION","ACTUATION","VERIFICATION","REPLAY"]},
+    "code": {"type":"string","pattern":"^REFUSED:[A-Z0-9_:-]+$"},
+    "reason": {"type":"string","minLength":1},
+    "evidence_iris": {"type":"array","items":{"type":"string","format":"uri"},"uniqueItems":true},
+    "observed_at": {"type":"string","format":"date-time"}
+  }
+}

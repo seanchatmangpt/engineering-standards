@@ -2,6 +2,14 @@
 
 *PostgreSQL conventions and practices for application database design*
 
+## Root Relationship
+
+This database standard is a persistence construction profile under the [Semantic Engineering Protocol](../process/semantic-engineering-protocol.md) and [Construction, Generation, and Verification Contract](./construction-generation-verification.md).
+
+The project semantic graph/contract owns cross-system meaning. PostgreSQL owns enforcement of the admitted relational invariants projected into its schema. Migrations are consequential DO: they require the project authority path, exact identities, verification, and receipts.
+
+Generated schemas/migrations remain non-sovereign projections. When derivable, change the semantic source/generator rather than hand-editing output.
+
 ## Overview
 
 This document defines standards for database design, schema management, data access, and migrations in application projects. These standards prioritize:
@@ -11,7 +19,7 @@ This document defines standards for database design, schema management, data acc
 - **Domain boundaries** - Schemas as organizational units with clear dependency direction
 - **Safe evolution** - Versioned, reversible migrations with predictable tooling
 
-**Core principle**: The database is the source of truth for data integrity. Use SQL directly, let PostgreSQL do what it does best, and keep your application code focused on business logic.
+**Core principle**: PostgreSQL is the enforcement authority for **persisted relational integrity at its admitted boundary**. It is not the ecosystem semantic root. Root/project semantics define intended subjects and contracts; database constraints enforce the subset projected into PostgreSQL.
 
 ## Philosophy
 
@@ -22,12 +30,23 @@ ORMs add abstraction at the cost of control. When the database is central to you
 - **Pydantic for validation** - Application-layer models handle serialization and input validation
 - **No hidden queries** - Every database interaction is explicit and visible
 
-### Database as Authority
+### Database Integrity Authority
 
-The database enforces data integrity, not the application:
+For persisted relational state, place enforceable invariants in PostgreSQL instead of application memory. This authority is bounded:
+
+- ontology/contract defines the intended invariant;
+- migration/schema projects it where expressible;
+- PostgreSQL enforces persisted-state integrity;
+- migration/runtime receipts establish observed consequence.
+
+The database enforces its admitted data-integrity boundary, not arbitrary ecosystem semantics:
 - Constraints (`NOT NULL`, `CHECK`, `UNIQUE`, foreign keys) live in the schema
 - Default values and timestamps are database-managed
 - The application validates input; the database guarantees consistency
+
+### Schema Graphs as Projected Domain Boundaries
+
+Where domain semantics are modeled in the project graph, derive or mechanically check schema dependencies against that source instead of maintaining an independent domain model by prose alone.
 
 ### Schemas as Domain Boundaries
 

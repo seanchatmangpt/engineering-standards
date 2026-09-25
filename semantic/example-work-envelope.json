@@ -1,0 +1,13 @@
+{
+  "work_order_iri": "https://example.org/engineering/work-001",
+  "graph_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "repository_identity": "seanchatmangpt/engineering-standards",
+  "base_sha": "610944c48bce6377291c088a3e07775e9ef2908b",
+  "capability_iri": "https://example.org/engineering/root-refactor-capability",
+  "standing": "UNKNOWN",
+  "authority_ceiling": "CONSTRUCT",
+  "transport_profile": "SA2A",
+  "projection_authority": "NONE",
+  "replay_identity": "engineering-standards:root:v26.9.21",
+  "evidence_receipts": []
+}

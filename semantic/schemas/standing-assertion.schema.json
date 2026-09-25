@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/chatman/engineering-standards/standing-assertion.schema.json",
+  "title": "Standing Assertion",
+  "description": "Bounded evidence standing for one exact admitted subject.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["assertion_iri","subject_iri","standing","verifier_identity","evidence_ceiling","receipt_iris","observed_execution","replay_verified","replay_identity","asserted_at"],
+  "properties": {
+    "assertion_iri": {"type":"string","format":"uri"},
+    "subject_iri": {"type":"string","format":"uri"},
+    "standing": {"enum":["UNKNOWN","PARTIAL_ALIVE","ALIVE","BLOCKED","BUILD_BROKEN","UNSUPPORTED","REFUSED"]},
+    "verifier_identity": {"type":"string","minLength":1},
+    "evidence_ceiling": {"type":"string","minLength":1},
+    "receipt_iris": {"type":"array","items":{"type":"string","format":"uri"},"uniqueItems":true},
+    "observed_execution": {"type":"boolean"},
+    "replay_verified": {"type":"boolean"},
+    "replay_identity": {"type":"string","minLength":1},
+    "asserted_at": {"type":"string","format":"date-time"},
+    "reason": {"type":"string","minLength":1}
+  },
+  "allOf": [
+    {
+      "if": {"properties":{"standing":{"const":"ALIVE"}},"required":["standing"]},
+      "then": {
+        "properties": {
+          "receipt_iris":{"minItems":1},
+          "observed_execution":{"const":true},
+          "replay_verified":{"const":true}
+        }
+      }
+    },
+    {
+      "if": {"properties":{"standing":{"enum":["BLOCKED","BUILD_BROKEN","UNSUPPORTED","REFUSED"]}},"required":["standing"]},
+      "then": {"required":["reason"]}
+    }
+  ]
+}

@@ -1,11 +1,17 @@
 # Documentation
 
-This directory holds repository documentation per [`process/documentation-standards.md`](../process/documentation-standards.md).
+This directory contains **human-facing projections and historical decision records** for the engineering root. Machine authority lives in `../MANIFEST.json` and `../semantic/`.
 
 ## Contents
 
-- **[`engineering/`](./engineering/)** — Architecture decision records, technical design documents
-- **[`plans/`](./plans/)** — Unified plan artifacts (compound-engineering output: `ce-brainstorm` writes requirements-only plans here, `ce-plan` implementation-ready ones)
-- **[`solutions/`](./solutions/)** — Documented solutions to past problems (bugs, best practices, workflow patterns), filed by category with YAML frontmatter (`module`, `tags`, `problem_type`)
+- **[`engineering/`](./engineering/)** — root architecture and ADRs.
+- **[`plans/`](./plans/)** — plan projections; candidate work structure, never DO authority.
+- **[`solutions/`](./solutions/)** — captured solved-problem observations. A solution becomes durable capital when promoted into formal machinery where practical.
 
-Other top-level subdirectories (`product/`, `operations/`, `architecture/`, `experiments/`) may be added when the relevant content exists. See `process/documentation-standards.md` for the full directory taxonomy.
+Other directories may be added under [Documentation Standards](../process/documentation-standards.md).
+
+## Projection law
+
+In Semantic Work Mode, do not maintain semantic facts independently in docs. Link/query/generate from canonical source when the transform is stable.
+
+Historical ADRs remain immutable except for dated amendments.

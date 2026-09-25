@@ -1,0 +1,12 @@
+{
+  "assertion_iri":"https://example.org/standing/1",
+  "subject_iri":"https://example.org/engineering/work-001",
+  "standing":"ALIVE",
+  "verifier_identity":"engineering-standards/root-court",
+  "evidence_ceiling":"repository semantic conformance",
+  "receipt_iris":["https://example.org/receipt/1"],
+  "observed_execution":true,
+  "replay_verified":true,
+  "replay_identity":"engineering-standards:root:v26.9.21",
+  "asserted_at":"2026-09-21T21:00:00Z"
+}

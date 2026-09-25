@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/chatman/engineering-standards/process-evidence-event.schema.json",
+  "title": "Object-Centric Process Evidence Event",
+  "description": "Root envelope for projecting engineering execution into OCEL-compatible object-centric process evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id","activity","timestamp","work_order_iri","objects","attributes"],
+  "properties": {
+    "event_id": {"type":"string","minLength":1},
+    "activity": {"type":"string","minLength":1},
+    "timestamp": {"type":"string","format":"date-time"},
+    "work_order_iri": {"type":"string","format":"uri"},
+    "receipt_iri": {"type":"string","format":"uri"},
+    "objects": {
+      "type":"array",
+      "minItems":1,
+      "uniqueItems":true,
+      "items":{
+        "type":"object",
+        "additionalProperties":false,
+        "required":["object_type","object_id"],
+        "properties":{
+          "object_type":{"type":"string","minLength":1},
+          "object_id":{"type":"string","minLength":1}
+        }
+      }
+    },
+    "attributes":{"type":"object"}
+  }
+}

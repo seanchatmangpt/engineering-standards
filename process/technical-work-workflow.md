@@ -4,7 +4,20 @@
 
 ## Overview
 
-This workflow covers work driven by engineering needs rather than product requirements: bug fixes, technical debt reduction, infrastructure improvements, tooling, and security fixes. While the [Feature Development Workflow](./feature-development-workflow.md) covers feature work driven by product stakeholders, technical work is driven by engineering directives and engineers directly.
+This workflow covers engineering-driven work: bugs, technical debt, infrastructure, tooling, performance, reliability, and security.
+
+Under Semantic Work Mode, all technical work follows the same root consequence chain:
+
+```text
+OBSERVE -> bind exact subject -> ADMIT WorkOrder
+        -> diagnose / classify -> construct candidate repair
+        -> falsifier + court -> authority -> DO
+        -> receipt -> replay -> standing -> reusable guard
+```
+
+Severity and complexity labels are scheduling projections. They do not replace exact subject identity, authority, evidence, or standing.
+
+The [Feature Development Workflow](./feature-development-workflow.md) covers product-driven intent; both workflows share the root [Semantic Engineering Protocol](./semantic-engineering-protocol.md).
 
 > **When compound-engineering is in use**: the critical (P0) severity classes defined below — security breach, data loss, authentication bypass — are load-bearing elsewhere. [`process/compound-engineering-integration.md`](./compound-engineering-integration.md) § 5 requires a second review pass, no same-session merge, and an explicit note for changes in those classes under the solo AI-review discipline. Editing that list changes which work takes the stricter discipline.
 
@@ -14,7 +27,7 @@ This workflow covers work driven by engineering needs rather than product requir
 
 The process varies by work type and complexity:
 
-```mermaid
+```text
 flowchart TD
     Start([Technical Work]) --> Classify{Work Type?}
 
@@ -145,9 +158,9 @@ Treat like a small feature - may need:
 
 ### Critical Bug Process (P0)
 
-Speed matters, but documentation still required:
+Speed matters, but authority and receipts still apply. A project may define a pre-authorized emergency policy, but emergency classification is not ambient DO authority.
 
-1. **Immediate response**: Fix quickly, ship to production
+1. **Immediate response**: execute the smallest authorized containment/repair and record the consequence
 2. **Post-incident documentation** (within 24-48 hours):
    - Timeline of events
    - Root cause analysis
@@ -365,9 +378,11 @@ Engineering leads prioritize tech debt based on:
 
 ---
 
-## Story Point Estimation for Technical Work
+## Planning Projection for Technical Work
 
-Use the same Fibonacci scale (1-13) from [Project Planning Standards](./project-planning-standards.md), but complexity factors differ:
+In Semantic Work Mode, plan with explicit dependency/constraint structure and formal machinery where applicable. Fibonacci points remain an optional human scheduling projection from [Project Planning Standards](./project-planning-standards.md); they never establish admissibility, authority, completion, or standing.
+
+When points are useful for team coordination, technical complexity factors include:
 
 ### Technical Work Complexity Factors
 
@@ -439,6 +454,10 @@ This is an engineering leadership decision, not dictated by these standards.
 
 ## Anti-Patterns
 
+- **Inspection promoted to execution**: source review or a green dashboard claimed as runtime proof
+- **Ticket status promoted to standing**: closing work without an exact-subject receipt
+- **Agent/capability promoted to authority**: authenticated reachability treated as permission
+- **Repeated intelligence for a solved class**: rediscovering a diagnosis or transformation that should be a guard/generator/verifier
 - **"While we're at it" scope creep**: Bug fix turns into unplanned refactor
 - **Skipping justification**: "Trust me, we need to refactor this" without business impact
 - **Analysis paralysis**: Over-investigating simple bugs

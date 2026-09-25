@@ -1,4 +1,4 @@
-name: Claude Code
+name: Root-bounded Claude interaction
 
 on:
   issue_comment:
@@ -10,6 +10,9 @@ on:
   pull_request_review:
     types: [submitted]
 
+# This workflow is an interaction profile, not source-code DO authority.
+# It may inspect and publish issue/PR conversation consequences for the
+# explicitly admitted user, but repository contents remain read-only.
 jobs:
   claude:
     if: |
@@ -19,20 +22,20 @@ jobs:
       (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       pull-requests: write
       issues: write
       id-token: write
-      actions: read # Required for Claude to read CI results on PRs
+      actions: read
     steps:
-      - name: Checkout repository
+      - name: Checkout exact event repository state
         uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
-      - name: Run Claude Code
+      - name: Run Claude Code under root interaction profile
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          allowed_users: "rmorison"
+          allowed_users: "seanchatmangpt"

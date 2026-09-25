@@ -1,0 +1,17 @@
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
+@prefix p: <https://w3id.org/chatman/engineering-standards/profile/sa2a#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+
+p:SA2AProfile a prof:Profile ;
+  dcterms:title "Semantic A2A downstream transport/runtime profile" ;
+  prof:isProfileOf <https://w3id.org/chatman/engineering-standards> ;
+  dcterms:source <https://github.com/seanchatmangpt/ash_a2a/commit/baa135d5c6129aea1d4b38d48a12ad87e132b638> .
+
+p:transportContract a es:Contract ;
+  dcterms:title "SA2A carries exact semantic subject identity without conferring authority" ;
+  dcterms:description "The transport binds WorkOrder, graph digest, repository/base identity, capability, replay identity, standing, and authority ceiling. Authentication and capability never imply DO." .
+
+p:commandBusContract a es:Contract ;
+  dcterms:title "Consequential SA2A work routes through an authority broker" ;
+  dcterms:description "Change/external-do capability transport remains candidate work until explicit authority admission and receipted execution." .

@@ -3,27 +3,37 @@
     "allow": [
       "Bash(make:*)",
       "Bash(uv:*)",
-      "Bash(git:*)",
       "Bash(ruff:*)",
       "Bash(mypy:*)",
-      "Bash(pytest:*)"
+      "Bash(pytest:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git log:*)",
+      "Bash(git rev-parse:*)"
     ],
     "deny": [
       "Bash(rm -rf:*)",
-      "Bash(git push --force:*)"
+      "Bash(git push:*)",
+      "Bash(git merge:*)",
+      "Bash(git tag:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(kubectl apply:*)",
+      "Bash(kubectl delete:*)",
+      "Bash(terraform apply:*)"
     ]
   },
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Write|Edit|MultiEdit",
-        "command": "python3 .claude/hooks/pre-tool-use/example-block.py"
+        "matcher": "Bash|Write|Edit|MultiEdit",
+        "command": "python3 .claude/hooks/pre-tool-use/root-authority-guard.py"
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit|MultiEdit",
-        "command": "python3 .claude/hooks/post-tool-use/example-notify.py"
+        "command": "python3 .claude/hooks/post-tool-use/root-evidence-hook.py"
       }
     ]
   }

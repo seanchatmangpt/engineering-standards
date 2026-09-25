@@ -1,0 +1,13 @@
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
+@prefix p: <https://w3id.org/chatman/engineering-standards/profile/process-evidence#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+
+p:ProcessEvidenceProfile a prof:Profile ;
+  dcterms:title "Object-centric engineering process evidence profile" ;
+  prof:isProfileOf <https://w3id.org/chatman/engineering-standards> ;
+  dcterms:references <https://www.ocel-standard.org/specification/overview/> .
+
+p:OCELProjectionContract a es:Contract ;
+  dcterms:title "Engineering process events project into OCEL-compatible object-centric evidence" ;
+  dcterms:description "Consequential activities bind WorkOrder plus affected repository/commit/artifact/receipt objects so conformance, variants, bottlenecks, rework, and authority exceptions can be analyzed without making the process log semantic authority." .

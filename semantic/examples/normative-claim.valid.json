@@ -1,0 +1,28 @@
+{
+  "claim_iri":"https://w3id.org/chatman/engineering-standards/claims/root-is-authority-v26.9.21",
+  "claim":"engineering-standards is the ecosystem root for shared engineering semantics; APS, sJira, SA2A, AI tooling, and generated artifacts are predecessor/downstream/profile surfaces.",
+  "scope":"shared engineering semantics and operating law",
+  "status":"ADMITTED",
+  "evidence":[
+    "MANIFEST.json root authority map",
+    "semantic/semantic-engineering-profile.ttl",
+    "docs/engineering/adr/0002-semantic-engineering-protocol.md"
+  ],
+  "falsifiers":[
+    "a downstream profile requires redefining root WorkOrder/authority/standing semantics to remain correct",
+    "a predecessor must remain normatively above the root to preserve required behavior"
+  ],
+  "prior_art":[
+    "PROV-O",
+    "SHACL",
+    "ODRL",
+    "OSLC",
+    "APS v26.9.17",
+    "ggen-marketplace semantic projection/manufacture packs"
+  ],
+  "decision":{
+    "disposition":"COMPOSE",
+    "reason":"Public standards and predecessor/downstream prior art cover major semantic regions; the root composes them and retains explicit local residue only where no exact public term exists."
+  },
+  "evidence_ceiling":"repository architecture; no downstream runtime standing"
+}

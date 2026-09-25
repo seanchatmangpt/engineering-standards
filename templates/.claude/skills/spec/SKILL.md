@@ -1,32 +1,28 @@
-# /spec — Draft a specification
+# /spec — Project a specification from admitted intent
 
-Draft a specification document following the engineering standards documentation format.
+Create or update a human specification without manufacturing a parallel authority surface.
 
-## Instructions
+## Root references
 
-1. Fetch the documentation standards for reference:
+Fetch:
+- https://raw.githubusercontent.com/seanchatmangpt/engineering-standards/main/process/semantic-engineering-protocol.md
+- https://raw.githubusercontent.com/seanchatmangpt/engineering-standards/main/process/documentation-standards.md
 
-<web_fetch>
-https://raw.githubusercontent.com/rmorison/engineering-standards/main/process/documentation-standards.md
-</web_fetch>
+Read local `AGENTS.md` and project semantic/work source first.
 
-2. Ask the user what they want to spec. Gather:
-   - Feature name and one-line description
-   - Problem being solved and target users
-   - Whether this is a product spec (`docs/product/features/`) or technical design (`docs/engineering/design/`)
+## Procedure
 
-3. Draft the spec following the standard structure from the documentation standards:
-   - For product specs: problem statement, requirements, acceptance criteria, UI/UX considerations
-   - For technical designs: context, approach, alternatives considered, risks
-   - For ADRs: status, context, decision, consequences
+1. Resolve mode: Semantic Work Mode or Documentation Mode.
+2. Resolve the exact feature/decision subject, constraints, acceptance criteria, falsifiers, evidence boundary, and out-of-scope space.
+3. In Semantic Work Mode, conserve the WorkOrder/contract identities and treat the document as a projection. Do not invent semantics missing from the canonical source; surface the gap.
+4. In Documentation Mode, the spec may be the practical contract.
+5. Draft the appropriate product spec, technical design, or ADR.
+6. Make acceptance criteria falsifiable and identify the verification boundary.
+7. Write the document to the project-standard path.
 
-4. Present the draft for review. Iterate based on feedback.
+## Constraints
 
-5. Write the final spec to the correct path using the project's directory structure.
-
-## Notes
-
-- Use kebab-case filenames: `feature-name.md`
-- Keep specs focused — one feature per document
-- Include acceptance criteria that can be validated
-- Link related specs and ADRs where relevant
+- Generated/projection docs carry no DO authority.
+- A spec approval is not authority.
+- Prefer links/queries to duplicated semantic facts.
+- If a stable projection can be generated, route it to the project generator rather than maintaining a hand copy.

@@ -1,44 +1,31 @@
-# /plan — Break work into estimated, sequenced tasks
+# /plan — Construct a lawful work plan
 
-Create a project plan with task breakdown, estimates, and sequencing.
+Create a candidate transition/dependency plan. A plan is not authority.
 
-## Instructions
+## Root references
 
-1. Fetch the project planning standards for reference:
+Fetch:
+- https://raw.githubusercontent.com/seanchatmangpt/engineering-standards/main/process/semantic-engineering-protocol.md
+- https://raw.githubusercontent.com/seanchatmangpt/engineering-standards/main/process/project-planning-standards.md
 
-<web_fetch>
-https://raw.githubusercontent.com/rmorison/engineering-standards/main/process/project-planning-standards.md
-</web_fetch>
+Read local `AGENTS.md` and canonical WorkOrder(s).
 
-2. Identify the scope of work. Ask the user for:
-   - The spec or feature description to plan against
-   - Any known constraints (timeline, dependencies, team size)
-   - Whether this plan feeds into GitHub issues or is for discussion
+## Procedure
 
-3. Break the work down into tasks following the planning standards:
-   - Each task should be independently deliverable
-   - Target 1–5 story points per task (split anything larger)
-   - Identify dependencies between tasks
-   - Flag risks and unknowns
+1. Bind the exact subject, base identity, goal, constraints, acceptance, falsifiers, evidence courts, and authority ceiling.
+2. Reconstruct dependencies and reversible alternatives before pruning.
+3. Route known classes:
+   - HTN -> HDDL;
+   - classical/FOND -> PDDL/FOND;
+   - constraints/scheduling -> SAT/SMT/CP;
+   - process -> OCEL/process mining;
+   - deterministic derivation -> rules/generators.
+4. Use model decomposition only for unresolved semantic residue.
+5. Produce independently verifiable work units with explicit dependencies and required evidence.
+6. Identify critical path and parallel frontier.
+7. Add story points only when useful as human coordination metadata.
+8. Stop at SELECT/CONSTRUCT. Do not imply merge/deploy/external authority.
 
-4. Estimate each task using the Fibonacci scale:
-   - 1 point: trivial (~half day)
-   - 2 points: straightforward (~1 day, baseline)
-   - 3 points: moderate complexity (~1.5 days)
-   - 5 points: significant (~2–3 days)
-   - 8 points: complex (~4 days, consider splitting)
-   - 13 points: too large — must be split
+## Output
 
-5. Sequence the tasks:
-   - Identify the critical path
-   - Group parallelizable work
-   - Note external dependencies or blockers
-
-6. Present the plan as a table with: task, estimate, dependencies, and notes.
-   Wait for confirmation before creating issues.
-
-## Notes
-
-- Plans are living documents — expect iteration
-- Points measure complexity, not hours
-- If total exceeds 40 points, suggest phasing the work into milestones
+A plan projection that binds the root WorkOrder identity and names its evidence/authority boundary.

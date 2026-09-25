@@ -1,0 +1,21 @@
+@prefix es: <https://w3id.org/chatman/engineering-standards#> .
+@prefix sj: <https://ggen-igniter.dev/ontology/semantic-jira#> .
+@prefix p: <https://w3id.org/chatman/engineering-standards/profile/sjira#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+
+p:SemanticJiraProfile a prof:Profile ;
+  dcterms:title "Semantic Jira downstream work/evidence profile" ;
+  prof:isProfileOf <https://w3id.org/chatman/engineering-standards> ;
+  dcterms:source <https://github.com/seanchatmangpt/ggen_igniter/pull/20> .
+
+p:m01 a es:CompatibilityMapping ; es:sourceTerm sj:WorkOrder ; es:targetTerm es:WorkOrder ; es:mappingDisposition es:Profiled .
+p:m02 a es:CompatibilityMapping ; es:sourceTerm sj:baseSha ; es:targetTerm es:baseSha ; es:mappingDisposition es:Carried .
+p:m03 a es:CompatibilityMapping ; es:sourceTerm sj:standing ; es:targetTerm es:standing ; es:mappingDisposition es:Profiled .
+p:m04 a es:CompatibilityMapping ; es:sourceTerm sj:authorityCeiling ; es:targetTerm es:authorityCeiling ; es:mappingDisposition es:Profiled .
+p:m05 a es:CompatibilityMapping ; es:sourceTerm sj:replayIdentity ; es:targetTerm es:replayIdentity ; es:mappingDisposition es:Carried .
+p:m06 a es:CompatibilityMapping ; es:sourceTerm sj:falsifier ; es:targetTerm es:hasFalsifier ; es:mappingDisposition es:Profiled .
+
+p:projectionAuthorityRule a es:Contract ;
+  dcterms:title "sJira projections carry no DO authority" ;
+  dcterms:description "A generated Jira/GitHub/PRD/ARD/plan projection binds a root WorkOrder but remains es:NONE authority." .
