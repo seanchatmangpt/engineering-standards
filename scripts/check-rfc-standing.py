@@ -73,12 +73,15 @@ STANDING_TOKENS = {"PARTIAL", "ALIVE", "OPEN", "NOT_CLAIMED", "UNKNOWN", "BLOCKE
 RFC0003 = "docs/engineering/rfc/0003-semantic-case-study.md"
 WITNESS = "semantic/witness/rfc-0003-xaas.witness.json"
 RFC0005_REGISTRY = "docs/engineering/rfc/0005-autonomous-loop-requirements.json"
+RFC_DIR = "docs/engineering/rfc"
+RFC0006_AMENDMENT = "docs/engineering/rfc/0006-v26.9.25-autonomic-closure-amendment.md"
 
 STATUS_LINE = re.compile(r"^\*\*Status:\*\*\s+(\S+)")
 FIELD_LINE = re.compile(r"^\*\*([A-Za-z][A-Za-z ]*):\*\*\s*(.*)$")
 XAAS_REF = re.compile(r"xaas@([0-9A-Za-z]+)")
 LEDGER_CLAIM = re.compile(r"(\d+)-line\s+WD\s+claims\s+ledger")
 HEXISH = re.compile(r"(?<![0-9a-fA-F])[0-9a-f]{48,80}(?![0-9a-fA-F])")
+RFC_ID_TITLE = re.compile(r"^#\s+(RFC-\d{4}):")
 
 
 # --------------------------------------------------------------------------- helpers
@@ -263,9 +266,35 @@ def rfc0005_registry_errors(registry_text: str) -> list[str]:
     return errors
 
 
+def rfc_id_errors(texts: dict[str, str]) -> list[str]:
+    """Cross-file RFC-id uniqueness: within the RFC kind, a declared
+    ``# RFC-NNNN:`` title names exactly one document in ``docs/engineering/rfc/``.
+
+    Historical defect (repaired 2026-09-26): RFC-0005 was double-booked by the
+    autonomous-loop qualification and the v26.9.25 autonomic-closure amendment;
+    the amendment was renumbered RFC-0006. A file whose first ``# `` title does
+    not declare an RFC id (for example an embedded verbatim RFC or a working
+    note) is not part of the id set.
+    """
+    declared: dict[str, list[str]] = {}
+    prefix = f"{RFC_DIR}/"
+    for rel in sorted(texts):
+        if not rel.startswith(prefix) or not rel.endswith(".md"):
+            continue
+        for line in texts[rel].split("\n"):
+            match = RFC_ID_TITLE.match(line)
+            if match:
+                declared.setdefault(match.group(1), []).append(rel)
+                break
+    return [f"RFC id collision: {rid} is declared by {', '.join(rels)}"
+            for rid, rels in sorted(declared.items()) if len(rels) > 1]
+
+
 def load(root: Path) -> tuple[dict[str, str], dict]:
     texts = {rel: (root / rel).read_text()
              for rel in set(SWEEP) | set(RFC_FRONT) | {RFC0005_REGISTRY}}
+    texts.update({f"{RFC_DIR}/{path.name}": path.read_text()
+                  for path in sorted((root / RFC_DIR).glob("*.md"))})
     witness = json.loads((root / WITNESS).read_text())
     return texts, witness
 
@@ -278,6 +307,7 @@ def structural_errors(texts: dict[str, str], witness: dict) -> list[str]:
         errors += rfc_front_errors(rel, texts[rel])
     errors += rfc0003_errors(texts[RFC0003], witness)
     errors += rfc0005_registry_errors(texts[RFC0005_REGISTRY])
+    errors += rfc_id_errors(texts)
     return errors
 
 
@@ -315,6 +345,9 @@ def mutants(witness: dict) -> list[tuple[str, str, callable]]:
     return [
         ("RFC-0005 registry falsifier blanked", RFC0005_REGISTRY,
          lambda t: re.sub(r'"falsifier": "[^"]*"', '"falsifier": ""', t, count=1)),
+        ("duplicate RFC id (historical RFC-0005 double-booking)", RFC0006_AMENDMENT,
+         lambda t: _swap(t, "# RFC-0006: v26.9.25 Autonomic Closure Amendment",
+                         "# RFC-0005: v26.9.25 Autonomic Closure Amendment")),
         ("missing status header", root_arch,
          lambda t: "\n".join(l for l in t.split("\n") if not l.startswith("**Status:**"))),
         ("duplicate status header (duplicate delivery)", root_arch,
@@ -472,7 +505,7 @@ def main() -> int:
     ok = not result["errors"] and not result["survivors"] and not (result["replay"] or [])
     killed = result["mutants"] - len(result["survivors"])
     print(f"r25-007-sweep: {len(SWEEP)} documents; rfc-front: {len(RFC_FRONT)} RFCs; "
-          f"rfc-0003 witness; rfc-0005 registry")
+          f"rfc-0003 witness; rfc-0005 registry; rfc-id uniqueness")
     print(f"structural: {'PASS' if not result['errors'] else 'FAIL'} ({len(result['errors'])} refusals)")
     print(f"anti-vacuity: {killed}/{result['mutants']} mutants refused")
     if result["replay"] is None:
