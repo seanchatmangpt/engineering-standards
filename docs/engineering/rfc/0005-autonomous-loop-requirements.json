@@ -1,0 +1,217 @@
+{
+  "registry_id": "RFC-0005-autonomous-loop-requirements",
+  "title": "Autonomous Loop Qualification - machine-addressable requirements registry",
+  "version": "1.1.0",
+  "episode": "ALOOP-ZCODE-DOGFOOD-001",
+  "normative_source": "0005-autonomous-loop-qualification.md",
+  "falsifier_law": "A normative requirement with no falsifier is prose and is marked UNSUPPORTED; every entry here carries a numbered falsifier and an executable check.",
+  "standing_vocabulary": {
+    "episode_outcomes": [
+      "AUTONOMOUS",
+      "ASSISTED",
+      "BLOCKED_AUTHORITY",
+      "BLOCKED_INFORMATION",
+      "FAILED"
+    ],
+    "standing": [
+      "ALIVE",
+      "PARTIAL_ALIVE",
+      "BLOCKED",
+      "REFUSED",
+      "UNSUPPORTED",
+      "UNKNOWN"
+    ],
+    "promotion_rule": "ASSISTED is never promoted to AUTONOMOUS within an episode (law L6)."
+  },
+  "requirements": [
+    {
+      "id": "R001",
+      "term": "LOOP",
+      "requirement": "An episode is a bounded execution history with one objective, one authority envelope, one OCEL log, and exactly one episode.start event (RFC-0005 2.1).",
+      "falsifier": "F-R001: an episode corpus whose OCEL log contains zero or multiple episode.start events, or whose records disagree on objective, is refused as not-an-episode.",
+      "executable_check": "aloop_crown.py validates each record carries episode id and rejects a corpus mixing >1 episode value with REFUSED[EPISODE_MISMATCH]."
+    },
+    {
+      "id": "R002",
+      "term": "CAUSALITY",
+      "requirement": "Before episode.start humans may set objective/policies/authority envelope/benchmark parameters; after episode.start any Human->NextAction edge invalidates full autonomy for the affected segment and must be recorded as a human causal edge (RFC-0005 2.2).",
+      "falsifier": "F-R002: a record claiming standing AUTONOMOUS while human_causal_edges contains an entry with phase=post-epoch-execution must cause crown term CAUSALITY to fail.",
+      "executable_check": "tests/test_aloop_crown.py::test_human_causal_edge_caps_at_assisted"
+    },
+    {
+      "id": "R003",
+      "term": "CAUSALITY",
+      "requirement": "A human causal edge is an OCEL edge with origin authority human whose consequence is selection, modification, or authorization of the next action; observation without influence is not causal (RFC-0005 2.3).",
+      "falsifier": "F-R003: a record that counts pure observation as a human causal edge and downgrades itself below ASSISTED despite a clean autonomy-class recurrence chain is a mis-qualification the crown must not perform (crown derives from phase field only, never invents edges).",
+      "executable_check": "aloop_crown.py treats human_causal_edges as lane-asserted facts and derives segment taint strictly from phase=post-epoch-execution; it adds no edges."
+    },
+    {
+      "id": "R004",
+      "term": "LOOP",
+      "requirement": "A closed loop derives its next work inside the loop: Receipt[n] -> Reobserve[n+1] -> Frontier[n+1] -> WorkOrder[n+1], all events emitted by non-human workers and bound into OCEL (RFC-0005 2.4).",
+      "falsifier": "F-R004: a recurrence.chain missing any of the four stages, or a WorkOrder[n+1] whose predecessor is a human prompt, fails LOOP.",
+      "executable_check": "aloop_crown.py requires recurrence.demonstrated=true, iterations>=1, and the full four-stage chain for the LOOP term."
+    },
+    {
+      "id": "R005",
+      "term": "LOOP",
+      "requirement": "Recurrence is witnessed when the closed-loop transition occurs at least twice in sequence, each step carrying its own receipt, reobservation, frontier delta, and WorkOrder (RFC-0005 2.5).",
+      "falsifier": "F-R005: a corpus with iterations<2 for every lane cannot yield AUTONOMOUS_LOOP_ALIVE; LOOP fails.",
+      "executable_check": "aloop_crown.py requires recurrence.iterations >= 2 for the LOOP admit path."
+    },
+    {
+      "id": "R006",
+      "term": "PROVIDERS",
+      "requirement": "Provider independence: WorkOrder identity, authority reference, acceptance criteria, receipt schema, and replay binding carry no provider identity; provider.replace capability admitted or exercised (RFC-0005 2.6).",
+      "falsifier": "F-R006: a WorkOrder id containing its provider token must be refused; receipts all sharing one provider with no provider.replace admission must fail PROVIDERS.",
+      "executable_check": "aloop_crown.py REFUSED[PROVIDER_NEUTRALITY] on provider token in work_order_id; PROVIDERS term requires >=2 distinct providers or declared replace capability."
+    },
+    {
+      "id": "R007",
+      "term": "RECOVERY",
+      "requirement": "Worker independence: worker runs are interchangeable lanes bound to subject identity (repo/SHA/paths); a crashed worker's WorkOrder is re-issuable to another worker without semantic change (RFC-0005 2.7).",
+      "falsifier": "F-R007: a receipt or evidence field binding standing to a worker name rather than a subject SHA indicates worker dependence; reissue must preserve identity/authority/acceptance.",
+      "executable_check": "aloop_crown.py validates receipts bind to provider_execution_id + subject fields; worker names appear only in ocel_summary event qualifiers."
+    },
+    {
+      "id": "R008",
+      "term": "PROCESS",
+      "requirement": "Typed terminality: an episode terminates only via a typed terminal event (goal.satisfied | goal.blocked | refusal) carrying final standing, receipt chain, and falsifier results; no terminal event means UNKNOWN (RFC-0005 2.8).",
+      "falsifier": "F-R008: a lane record with no terminal disposition and no typed blockers must derive standing UNKNOWN, never success.",
+      "executable_check": "aloop_crown.py defaults a record lacking terminal evidence to UNKNOWN contribution; PROCESS term requires every repo to carry start/final SHAs and commit list; start==final with no commits fails PROCESS unless read_only:true is declared (verified by tests/test_aloop_crown.py::test_undeclared_read_only_repo_fails_process / test_declared_read_only_repo_passes_process)."
+    },
+    {
+      "id": "R009",
+      "term": "RECOVERY",
+      "requirement": "Self-recovery: crash -> replan/reissue/provider.replace -> observed success on the same WorkOrder identity with zero human causal edges in the recovery path (RFC-0005 2.9).",
+      "falsifier": "F-R009: a corpus where every recovery entry carries human_edges>0, or where no recovery exists, fails RECOVERY.",
+      "executable_check": "aloop_crown.py RECOVERY term requires at least one recovery entry with human_edges=0 and to=success."
+    },
+    {
+      "id": "R010",
+      "term": "OCEL",
+      "requirement": "OCEL evidence: autonomy claims are admitted only from the episode OCEL 2.0 log with the defined object types and event classes; claims not bound to OCEL events are inadmissible (RFC-0005 2.10).",
+      "falsifier": "F-R010: a record whose ocel_summary lacks required object types (Episode, WorkOrder, Authority, Receipt) or event classes (episode.start, execution.start, receipt.persist, verify) or has event_count=0 fails OCEL.",
+      "executable_check": "aloop_crown.py OCEL term validates required object types and event classes per record."
+    },
+    {
+      "id": "R011",
+      "term": "STRESS",
+      "requirement": "Benchmark/stress/soak standing is typed PASS|FAIL|NOT_RUN per kind and NOT_RUN fails any term requiring it; never assumed PASS (RFC-0005 2.11).",
+      "falsifier": "F-R011: a corpus where every stress entry is NOT_RUN or absent must fail STRESS rather than admit.",
+      "executable_check": "aloop_crown.py STRESS term requires >=1 stress entry with result=PASS."
+    },
+    {
+      "id": "R012",
+      "term": "REPLAY",
+      "requirement": "Historical evidence vs current conformance: prior receipts never establish current conformance; Receipt[t] is input to Reobserve[t+1], never a substitute (RFC-0005 2.12, law L4).",
+      "falsifier": "F-R012: a standing derived solely from receipt existence without verifier execution on the exact subject is REFUSED (inspection != execution).",
+      "executable_check": "aloop_crown.py REPLAY term requires a replay_binding naming the verifier per receipt; the crown itself never executes replay and never claims verification from binding presence alone."
+    },
+    {
+      "id": "R013",
+      "term": "CAUSALITY",
+      "requirement": "Law L1: Automation != Autonomy - a segment with zero human keystrokes but a human-authored next WorkOrder is automation (RFC-0005 4 L1).",
+      "falsifier": "F-R013: any OCEL edge originAuthority=human -> WorkOrder[n+1] inside a segment claimed autonomous refutes the claim.",
+      "executable_check": "tests/test_aloop_crown.py::test_assisted_never_promoted - a fully ASSISTED corpus cannot yield AUTONOMOUS_LOOP_ALIVE."
+    },
+    {
+      "id": "R014",
+      "term": "PROVIDERS",
+      "requirement": "Law L2: WorkerIndependence != ProviderIndependence - cross-worker reissue proves nothing about provider lock-in (RFC-0005 4 L2).",
+      "falsifier": "F-R014: an episode claiming provider independence whose receipts carry one provider and no admitted provider.replace capability is refuted.",
+      "executable_check": "aloop_crown.py PROVIDERS term counts distinct providers; single-provider corpora fail with INSUFFICIENT_PROVIDER_DIVERSITY."
+    },
+    {
+      "id": "R015",
+      "term": "LOOP",
+      "requirement": "Law L3: ScheduledExecution != ClosedLoop - a scheduler trigger is an external clock, not frontier derivation (RFC-0005 4 L3).",
+      "falsifier": "F-R015: a recurrence chain whose WorkOrder[n+1] predecessor is a scheduler event rather than Frontier[n+1] refutes closed-loop claims.",
+      "executable_check": "aloop_crown.py LOOP term requires chain containing Frontier[n+1] between Reobserve[n+1] and WorkOrder[n+1]."
+    },
+    {
+      "id": "R016",
+      "term": "RECEIPTS",
+      "requirement": "Law L4: Receipt != Verification - a receipt records actuation under authority with replay binding; it does not certify current subject conformance (RFC-0005 4 L4).",
+      "falsifier": "F-R016: a receipt accepted as verification without an executed verifier on the exact subject is the refuting observation.",
+      "executable_check": "aloop_crown.py RECEIPTS term validates receipt fields but grants no ALIVE from receipts alone; REPLAY binding presence is necessary, never sufficient."
+    },
+    {
+      "id": "R017",
+      "term": "LOOP",
+      "requirement": "Law L5: NoHumanInput != Autonomous unless recurrence demonstrated (RFC-0005 4 L5).",
+      "falsifier": "F-R017: an episode with zero recorded human causal edges, zero demonstrated recurrence, claiming AUTONOMOUS.",
+      "executable_check": "tests/test_aloop_crown.py::test_no_human_input_without_recurrence_not_autonomous"
+    },
+    {
+      "id": "R018",
+      "term": "CAUSALITY",
+      "requirement": "Law L6: ASSISTED is never promoted to AUTONOMOUS within an episode; standing is monotone non-increasing under taint (RFC-0005 4 L6).",
+      "falsifier": "F-R018: any ASSISTED -> AUTONOMOUS transition on the same episode id without a new episode.start.",
+      "executable_check": "aloop_crown.py derives standing per run from evidence only; it has no promotion input; CAUSALITY term caps tainted lanes at ASSISTED."
+    },
+    {
+      "id": "R019",
+      "term": "AUTHORITY",
+      "requirement": "Law L7: zero unreceipted actuation - every actuation carries authority + receipt + replay binding (RFC-0005 4 L7).",
+      "falsifier": "F-R019: any command with external consequence lacking a receipt binding in the OCEL log.",
+      "executable_check": "aloop_crown.py AUTHORITY term requires authority.origin declared, violations empty, and receipts.origin_authority present on every receipt of actuation-bearing lanes."
+    },
+    {
+      "id": "R020",
+      "term": "LOOP",
+      "requirement": "The autonomy claim is the conjunction ClosedLoop ^ ZeroHumanCausality ^ ZeroUnreceiptedActuation ^ SemanticIntegrity ^ ProviderIndependence ^ SelfRecovery ^ Recurrence; outcome is exactly one typed value (RFC-0005 5).",
+      "falsifier": "F-R020: a verdict emitted without one of the five typed outcomes, or ALIVE with any failed crown term.",
+      "executable_check": "aloop_crown.py emits only AUTONOMOUS_LOOP_ALIVE or AUTONOMOUS_LOOP_PARTIAL_ALIVE(missing:[terms]); any failed term forbids ALIVE."
+    },
+    {
+      "id": "R021",
+      "term": "PROCESS",
+      "requirement": "Crown non-self-certification: the crown consumes only lane-authored record.json files, never reads its own verdicts, never cites self-generated files as lane evidence, refuses output paths inside lane directories (RFC-0005 6).",
+      "falsifier": "F-R021: a crown invocation whose output path resolves inside a lane-*/ directory must be refused.",
+      "executable_check": "tests/test_aloop_crown.py::test_no_self_certification_output_refused"
+    },
+    {
+      "id": "R022",
+      "term": "OCEL",
+      "requirement": "Fail-closed: missing or incomplete lane evidence fails every term that lane's evidence would have supported; missing evidence is never assumed present (RFC-0005 6).",
+      "falsifier": "F-R022: a lane-N directory with no record.json must cause typed term failures, never a skipped lane counted as passing.",
+      "executable_check": "tests/test_aloop_crown.py::test_missing_lane_record_fails_terms"
+    },
+    {
+      "id": "R023",
+      "term": "PROCESS",
+      "requirement": "Manifest schema conformance: each lane writes exactly one machine-readable record matching the RFC-0005 section 7 schema; records failing shape are REFUSED[INVALID_RECORD] (RFC-0005 7).",
+      "falsifier": "F-R023: a record with missing required fields or malformed SHAs must be refused, not partially admitted.",
+      "executable_check": "aloop_crown.py validate_record enforces schema_version, episode, lane, standing vocabulary, sha40 regexes, typed arrays."
+    },
+    {
+      "id": "R024",
+      "term": "RECEIPTS",
+      "requirement": "Standing derivation: loop standing is AUTONOMOUS_LOOP_ALIVE iff all ten crown terms pass on the corpus, else AUTONOMOUS_LOOP_PARTIAL_ALIVE(missing:<terms>) naming exactly which terms lacked admissible evidence; contradictions are recorded, never silently downgraded (RFC-0005 8).",
+      "falsifier": "F-R024: a verdict that omits the missing-term list, or hides a CAUSALITY violation while reporting PARTIAL_ALIVE without it.",
+      "executable_check": "tests/test_aloop_crown.py::test_partial_names_missing_terms; violations array present in every PARTIAL verdict."
+    },
+    {
+      "id": "R025",
+      "term": "PROVIDERS",
+      "requirement": "Provider neutrality is mechanical: provider identity appears only in the typed provider field of execution records and receipts (RFC-0005 9).",
+      "falsifier": "F-R025: a work_order_id, acceptance predicate, or receipt schema field embedding a provider token.",
+      "executable_check": "aloop_crown.py REFUSED[PROVIDER_NEUTRALITY] when a receipt's work_order_id contains its provider name."
+    },
+    {
+      "id": "R026",
+      "term": "REPLAY",
+      "requirement": "Falsifier suite executes: the crown's unittest suite exercises the admit path and every refusal path, each test naming the RFC law it guards (RFC-0005 10).",
+      "falsifier": "F-R026: any test in the suite failing, or a suite with zero negative (refusal) cases.",
+      "executable_check": "python3 -m unittest tests.test_aloop_crown -v exits 0 and includes refusal-path tests."
+    },
+    {
+      "id": "R027",
+      "term": "LOOP",
+      "requirement": "Dogfood honesty: the bootstrap episode ALOOP-ZCODE-DOGFOOD-001 is classified ASSISTED at best because the launcher enumerated lanes and no prior-episode recurrence exists (RFC-0005 12).",
+      "falsifier": "F-R027: a bootstrap episode record claiming AUTONOMOUS, or a crown verdict of ALIVE on a corpus whose every lane carries pre-epoch lane enumeration and zero cross-episode recurrence.",
+      "executable_check": "aloop_crown.py run against the live ALOOP-ZCODE-DOGFOOD-001 corpus must NOT emit AUTONOMOUS_LOOP_ALIVE; recorded in lane run records."
+    }
+  ]
+}

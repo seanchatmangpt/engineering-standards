@@ -48,6 +48,10 @@ Record:
 
 Templates under `templates/` are bootstrap material for these declarations.
 
+Adopted `.claude/` templates ship a deterministic pre-tool-use refusal guard for DO-shaped commands (typed `REFUSED:*` codes: `EXTERNAL_GIT_PUSH_REQUIRES_AUTHORITY` for `git push`, `MERGE_REQUIRES_AUTHORITY` for `git merge`, `PR_MERGE_REQUIRES_AUTHORITY` for `gh pr merge`, `CLUSTER_DO_REQUIRES_AUTHORITY` for `kubectl apply|delete`, `INFRASTRUCTURE_DO_REQUIRES_AUTHORITY` for `terraform apply`) and `GENERATED_PROJECTION_EDIT` for Write/Edit into generated projection paths, plus a post-tool-use `CONSTRUCTED_NOT_VERIFIED` reminder — a passing hook grants no authority.
+
+`scripts/render-repository-adoption.py` emits `standing: "UNKNOWN"` in freshly rendered adoption manifests; local evidence upgrades it (`UNKNOWN` != `ALIVE` is ecosystem law).
+
 ## Do not fork shared semantics
 
 Do not create project-local equivalents for:

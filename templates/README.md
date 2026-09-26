@@ -8,7 +8,7 @@ Copy/adapt:
 
 - `AGENTS.md` — cross-tool root constitution.
 - `CLAUDE.md` — Claude-specific projection of the same root.
-- `.claude/` — optional six-layer interaction baselines.
+- `.claude/` — optional six-layer interaction baselines. The shipped hooks are a deterministic refusal guard, not an authority broker: a pre-tool-use hook emits typed `REFUSED:*` refusals for DO-shaped commands (`EXTERNAL_GIT_PUSH_REQUIRES_AUTHORITY` for `git push`, `MERGE_REQUIRES_AUTHORITY` for `git merge`, `PR_MERGE_REQUIRES_AUTHORITY` for `gh pr merge`, `CLUSTER_DO_REQUIRES_AUTHORITY` for `kubectl apply|delete`, `INFRASTRUCTURE_DO_REQUIRES_AUTHORITY` for `terraform apply`) and `GENERATED_PROJECTION_EDIT` for Write/Edit into generated projection paths (`.generated`/`generated`/`dist`/`build` path segments); a post-tool-use hook emits a `CONSTRUCTED_NOT_VERIFIED` reminder; `settings.json` replaces the broad `Bash(git:*)` allow with read-only git subcommands and denies push/merge/tag. A passing hook grants no authority.
 - `semantic/project-profile.ttl` — project profile stub for Semantic Work Mode.
 
 ## Two modes

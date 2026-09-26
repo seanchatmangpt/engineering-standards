@@ -49,7 +49,7 @@ NO_XAAS = "no xaas git repository (set ES_XAAS_REPO) — cross-repo witness repl
 class CourtCase(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = Path(tempfile.mkdtemp(prefix="rfc-standing-"))
-        for rel in set(court.SWEEP) | set(court.RFC_FRONT) | {WITNESS}:
+        for rel in set(court.SWEEP) | set(court.RFC_FRONT) | {WITNESS, court.RFC0005_REGISTRY}:
             dest = self.tmp / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / rel, dest)
@@ -81,7 +81,7 @@ class StructuralCourt(CourtCase):
         result = self.run_court()
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("structural: PASS (0 refusals)", result.stdout)
-        self.assertIn("anti-vacuity: 17/17 mutants refused", result.stdout)
+        self.assertIn("anti-vacuity: 18/18 mutants refused", result.stdout)
         self.assertIn("witness-replay: NOT_RUN", result.stdout)
 
     def test_receipt_records_standing_and_mutant_counts(self):
@@ -91,7 +91,7 @@ class StructuralCourt(CourtCase):
         body = json.loads(receipt.read_text())
         self.assertEqual(body["standing"], "ALIVE")
         self.assertEqual(body["authority"], "NONE")
-        self.assertEqual((body["mutants_total"], body["mutants_refused"]), (17, 17))
+        self.assertEqual((body["mutants_total"], body["mutants_refused"]), (18, 18))
         self.assertEqual(body["refusals"], [])
 
     def test_missing_status_header_refused(self):

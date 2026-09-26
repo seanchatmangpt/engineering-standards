@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Standing court for RFC front matter, the R25-007 status sweep, and the RFC-0003 witness.
 
-Three structural courts run on every invocation, each over the real files of the
+Four structural courts run on every invocation, each over the real files of the
 repository (or of ``--root``):
 
 1. **R25-007 status sweep** — every swept document carries exactly one
@@ -17,6 +17,9 @@ repository (or of ``--root``):
    is a recorded digest; both recorded digests and all recorded subjects are
    cited; the zoela element stays ``NOT_CLAIMED`` in the header, section 6 and
    section 9.2; falsifier F-CS1 is present; the ledger line count matches.
+4. **RFC-0005 registry** — every ``R0xx`` requirement has a non-empty
+   ``requirement``, ``falsifier`` and ``executable_check`` field, unique ids,
+   and a versioned registry envelope.
 
 A court that never refuses carries no bits, so each run also applies a fixed
 set of in-memory mutants (missing/duplicated/reordered headers, contradicted
@@ -69,6 +72,7 @@ STANDING_TOKENS = {"PARTIAL", "ALIVE", "OPEN", "NOT_CLAIMED", "UNKNOWN", "BLOCKE
 
 RFC0003 = "docs/engineering/rfc/0003-semantic-case-study.md"
 WITNESS = "semantic/witness/rfc-0003-xaas.witness.json"
+RFC0005_REGISTRY = "docs/engineering/rfc/0005-autonomous-loop-requirements.json"
 
 STATUS_LINE = re.compile(r"^\*\*Status:\*\*\s+(\S+)")
 FIELD_LINE = re.compile(r"^\*\*([A-Za-z][A-Za-z ]*):\*\*\s*(.*)$")
@@ -234,8 +238,34 @@ def rfc0003_errors(text: str, witness: dict) -> list[str]:
     return errors
 
 
+def rfc0005_registry_errors(registry_text: str) -> list[str]:
+    """RFC-0005 requirements registry: every R0xx carries a non-empty falsifier
+    and executable check, unique ids, and the versioned registry envelope."""
+    errors: list[str] = []
+    try:
+        registry = json.loads(registry_text)
+    except json.JSONDecodeError as exc:
+        return [f"RFC-0005: registry unreadable: {exc}"]
+    for field in ("registry_id", "version", "requirements"):
+        if not registry.get(field):
+            errors.append(f"RFC-0005: registry {field} missing or empty")
+    seen: set[str] = set()
+    for req in registry.get("requirements", []):
+        rid = req.get("id", "")
+        if not re.fullmatch(r"R\d{3}", rid):
+            errors.append(f"RFC-0005: requirement id {rid!r} is not R0xx")
+        elif rid in seen:
+            errors.append(f"RFC-0005: duplicate requirement id {rid}")
+        seen.add(rid)
+        for field in ("requirement", "falsifier", "executable_check"):
+            if not str(req.get(field, "")).strip():
+                errors.append(f"RFC-0005: {rid} {field} is empty or missing")
+    return errors
+
+
 def load(root: Path) -> tuple[dict[str, str], dict]:
-    texts = {rel: (root / rel).read_text() for rel in set(SWEEP) | set(RFC_FRONT)}
+    texts = {rel: (root / rel).read_text()
+             for rel in set(SWEEP) | set(RFC_FRONT) | {RFC0005_REGISTRY}}
     witness = json.loads((root / WITNESS).read_text())
     return texts, witness
 
@@ -247,6 +277,7 @@ def structural_errors(texts: dict[str, str], witness: dict) -> list[str]:
     for rel in RFC_FRONT:
         errors += rfc_front_errors(rel, texts[rel])
     errors += rfc0003_errors(texts[RFC0003], witness)
+    errors += rfc0005_registry_errors(texts[RFC0005_REGISTRY])
     return errors
 
 
@@ -282,6 +313,8 @@ def mutants(witness: dict) -> list[tuple[str, str, callable]]:
     root_arch = "docs/engineering/root-architecture.md"
     python_std = "code/python-standards.md"
     return [
+        ("RFC-0005 registry falsifier blanked", RFC0005_REGISTRY,
+         lambda t: re.sub(r'"falsifier": "[^"]*"', '"falsifier": ""', t, count=1)),
         ("missing status header", root_arch,
          lambda t: "\n".join(l for l in t.split("\n") if not l.startswith("**Status:**"))),
         ("duplicate status header (duplicate delivery)", root_arch,
@@ -438,7 +471,8 @@ def main() -> int:
 
     ok = not result["errors"] and not result["survivors"] and not (result["replay"] or [])
     killed = result["mutants"] - len(result["survivors"])
-    print(f"r25-007-sweep: {len(SWEEP)} documents; rfc-front: {len(RFC_FRONT)} RFCs; rfc-0003 witness")
+    print(f"r25-007-sweep: {len(SWEEP)} documents; rfc-front: {len(RFC_FRONT)} RFCs; "
+          f"rfc-0003 witness; rfc-0005 registry")
     print(f"structural: {'PASS' if not result['errors'] else 'FAIL'} ({len(result['errors'])} refusals)")
     print(f"anti-vacuity: {killed}/{result['mutants']} mutants refused")
     if result["replay"] is None:
