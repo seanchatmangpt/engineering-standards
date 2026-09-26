@@ -53,6 +53,10 @@ class CourtCase(unittest.TestCase):
             dest = self.tmp / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / rel, dest)
+        for rfc in sorted((ROOT / court.RFC_DIR).glob("*.md")):
+            dest = self.tmp / court.RFC_DIR / rfc.name
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(rfc, dest)
 
     def tearDown(self) -> None:
         shutil.rmtree(self.tmp, ignore_errors=True)
@@ -81,7 +85,7 @@ class StructuralCourt(CourtCase):
         result = self.run_court()
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("structural: PASS (0 refusals)", result.stdout)
-        self.assertIn("anti-vacuity: 18/18 mutants refused", result.stdout)
+        self.assertIn("anti-vacuity: 19/19 mutants refused", result.stdout)
         self.assertIn("witness-replay: NOT_RUN", result.stdout)
 
     def test_receipt_records_standing_and_mutant_counts(self):
@@ -91,8 +95,30 @@ class StructuralCourt(CourtCase):
         body = json.loads(receipt.read_text())
         self.assertEqual(body["standing"], "ALIVE")
         self.assertEqual(body["authority"], "NONE")
-        self.assertEqual((body["mutants_total"], body["mutants_refused"]), (18, 18))
+        self.assertEqual((body["mutants_total"], body["mutants_refused"]), (19, 19))
         self.assertEqual(body["refusals"], [])
+
+    def test_head_tree_declares_unique_rfc_ids(self):
+        # RFC-0005 belongs to the autonomous-loop qualification alone; the
+        # v26.9.25 autonomic-closure amendment is RFC-0006 (renumbered
+        # 2026-09-26 after the double-booking was caught).
+        result = self.run_court()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("RFC id collision", result.stderr)
+
+    def test_duplicate_rfc_id_refused(self):
+        # The historical defect: a second document re-declaring RFC-0005.
+        self.edit(court.RFC0006_AMENDMENT,
+                  "# RFC-0006: v26.9.25 Autonomic Closure Amendment",
+                  "# RFC-0005: v26.9.25 Autonomic Closure Amendment")
+        self.assert_refused("RFC id collision: RFC-0005")
+
+    def test_rfc_id_gate_ignores_files_without_declared_id(self):
+        # A working note in the rfc/ directory declares no RFC-NNNN title and
+        # must not crash (or be mis-parsed into) the id-uniqueness court.
+        (self.tmp / court.RFC_DIR / "9000-working-note.md").write_text(
+            "# A working note\n\nNo RFC id declared here.\n")
+        self.assertEqual(self.run_court().returncode, 0)
 
     def test_missing_status_header_refused(self):
         self.edit("process/standards-change-control.md",
