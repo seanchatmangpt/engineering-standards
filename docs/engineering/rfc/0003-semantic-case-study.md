@@ -7,8 +7,9 @@ machine-addressable form (§9, per the §8 amendment rule)
 **Authority:** NONE
 **Consequence:** documentation / admission contract only
 **Implementation standing:** PARTIAL — applied by the xaas WD Case Study 2 / STOGAF episode
-(cs: vocabulary + SHACL shapes + claims ledger, witnessed at
-`seanchatmangpt/xaas@f9670f446537ddb882edf9cd7e0b6519de557e60`); the zoela ZOE digital-twin
+(cs: vocabulary + SHACL shapes + claims ledger, witnessed at receipt subject
+`seanchatmangpt/xaas@c10cdab95b927ed82c5c212a3f36d02b52ed525e`; the ledger's evidence is bound
+to `seanchatmangpt/xaas@f9670f446537ddb882edf9cd7e0b6519de557e60`); the zoela ZOE digital-twin
 case-study element is reclassified **NOT_CLAIMED** (terminal disposition in §9.2); the generic
 case-study compiler is owed by the `semantic-case-study-pack` (§9.1), not claimed by this RFC
 **Supersedes:** none. A search of every seanchatmangpt repository, every remote branch, and the
@@ -144,7 +145,9 @@ The canonical implementation of this RFC is **`semantic-case-study-pack`**
 
 - **ports `cs:`** — the witnessed xaas case-study vocabulary `urn:xaas:case-study:`
   (`xaas/priv/packs/wd_cs2_pack/`: `case-study.ttl`, `case-study-shapes.ttl`, `claims.ttl` —
-  a 268-line WD claims ledger bound to exact subject
+  present at receipt subject `seanchatmangpt/xaas@c10cdab95b927ed82c5c212a3f36d02b52ed525e` and
+  absent from the tree of the evidence subject below; `claims.ttl` is a 268-line WD claims
+  ledger whose `cs:boundSubject` is exact evidence subject
   `seanchatmangpt/xaas@f9670f446537ddb882edf9cd7e0b6519de557e60` with evidence, falsifiers,
   non-claims, and assumptions) — from a repo-local instance pack into the reusable marketplace
   pack. The xaas `wd_cs2_pack` remains the first instance; the marketplace pack becomes
@@ -164,7 +167,13 @@ The v26.9.25 instance receipts are machine-addressable. The WD case emits
 `ggen_igniter@26.9.15+engine=sparql` (instance-pack content digest recorded in full in the
 receipt), a per-projection SHA-256 map (`case-study.json`, `claims-ledger.json`,
 `SLIDE-EVIDENCE-MAP.json`), plus subject SHA, standing, court report, commands, checks,
-refusals, non-claims, and receipt digest — a complete R receipt. This receipt shape is what
+refusals, non-claims, and receipt digest — a complete R receipt. Its subject is
+`seanchatmangpt/xaas@c10cdab95b927ed82c5c212a3f36d02b52ed525e`, its receipt digest
+(`receipt_sha256`) is `d32afca859a3b633584532c40be44a46a5343c68516fc292f508862a538f6d40`, and it
+is committed out-of-subject at `seanchatmangpt/xaas@6a63d891ea5ce046d23c1e00cc78a2f070aca617`
+(a child of the subject). The recorded identities are pinned in
+`semantic/witness/rfc-0003-xaas.witness.json` and re-derived from a real xaas checkout by
+`scripts/check-rfc-standing.py --witness-repo`. This receipt shape is what
 `semantic-case-study-pack` (§9.1) must emit per admitted case, so each admitted case is
 cold-replayable from the receipt alone (R25-010).
 
