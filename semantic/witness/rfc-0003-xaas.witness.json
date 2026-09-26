@@ -1,0 +1,32 @@
+{
+  "schema": "engineering-standards.rfc-witness.v26.9.26",
+  "rfc": "docs/engineering/rfc/0003-semantic-case-study.md",
+  "repository": "seanchatmangpt/xaas",
+  "authority": "NONE",
+  "subjects": {
+    "ledger_evidence_subject": "f9670f446537ddb882edf9cd7e0b6519de557e60",
+    "vocabulary_subject": "c10cdab95b927ed82c5c212a3f36d02b52ed525e",
+    "receipt_commit": "6a63d891ea5ce046d23c1e00cc78a2f070aca617"
+  },
+  "vocabulary_files": {
+    "priv/packs/wd_cs2_pack/case-study.ttl": "3c5a265a6d0c891b8b926aef0f7ff96dfba991fa",
+    "priv/packs/wd_cs2_pack/case-study-shapes.ttl": "676ce67bbca3daeb52ead24eb30dfca7ca961898",
+    "priv/packs/wd_cs2_pack/claims.ttl": "eea8ae49baabffbd2b4a86bb985bcb6e5fd7501e"
+  },
+  "vocabulary_files_absent_at_ledger_evidence_subject": true,
+  "claims_ledger": {
+    "path": "priv/packs/wd_cs2_pack/claims.ttl",
+    "lines": 268,
+    "bound_subject": "seanchatmangpt/xaas@f9670f446537ddb882edf9cd7e0b6519de557e60"
+  },
+  "receipt": {
+    "path": "release/v26.9.25/receipts/case-study-schema.json",
+    "blob": "1de26101e2589f54cce8ffcba7d54995fecf68f0",
+    "case_iri": "urn:xaas:wd-cs2:case",
+    "case_revision_digest": "6bd9762edbdf7c8f2a267106343601c60eef8c5cf32f52e183b963cc6453806f",
+    "receipt_sha256": "d32afca859a3b633584532c40be44a46a5343c68516fc292f508862a538f6d40",
+    "generator_identity_prefix": "ggen_igniter@26.9.15+engine=sparql",
+    "subject_sha": "c10cdab95b927ed82c5c212a3f36d02b52ed525e"
+  },
+  "observed_by": "git -C <xaas> rev-parse/ls-tree/show at the subjects above, 2026-09-25"
+}

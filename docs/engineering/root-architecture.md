@@ -1,5 +1,7 @@
 # Root Architecture
 
+**Status:** FINAL — in force (R25-007 disposition, v26.9.25 sweep)
+
 ## Purpose
 
 Show the authority, projection, and evidence topology of `engineering-standards`.

@@ -2,6 +2,9 @@
 
 *Full-stack web application standards for Next.js + FastAPI projects*
 
+**Status:** PROPOSED — self-declared draft ("in active development", footer below); promotion
+to FINAL owed under R25-007
+
 ## Root Relationship
 
 This web standard is an interface construction profile under the [Semantic Engineering Protocol](../process/semantic-engineering-protocol.md) and [Construction, Generation, and Verification Contract](./construction-generation-verification.md).

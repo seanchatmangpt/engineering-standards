@@ -1,0 +1,32 @@
+{
+  "schema": "engineering-standards.bench-receipt.v26.9.26",
+  "subject": "scripts/check-rfc-standing.py",
+  "unit": "ms",
+  "results": {
+    "structural_court": {
+      "n": 300,
+      "min": 40.585,
+      "median": 45.112,
+      "p95": 49.7,
+      "max": 97.1
+    },
+    "mutants_per_run": 17,
+    "witness_replay": {
+      "n": 30,
+      "min": 196.552,
+      "median": 256.178,
+      "p95": 397.584,
+      "max": 397.612
+    }
+  },
+  "regression_bound_ms": {
+    "structural_court_median": 250
+  },
+  "host": {
+    "python": "3.14.3",
+    "machine": "arm64",
+    "system": "Darwin"
+  },
+  "observed_at": "2026-09-26T06:47:41.588490+00:00",
+  "authority": "NONE"
+}

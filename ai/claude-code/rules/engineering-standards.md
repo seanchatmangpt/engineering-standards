@@ -1,5 +1,7 @@
 # Engineering Standards Root Rule
 
+**Status:** FINAL — in force (R25-007 disposition, v26.9.25 sweep)
+
 This project follows the root engineering constitution from
 [seanchatmangpt/engineering-standards](https://github.com/seanchatmangpt/engineering-standards).
 
