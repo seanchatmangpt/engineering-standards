@@ -1,0 +1,106 @@
+@prefix cs2: <https://chatmangpt.com/engineering/cs2#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cs2:InformationBundleShape
+  a sh:NodeShape ;
+  sh:targetClass cs2:InformationBundle ;
+  sh:closed false ;
+  sh:property [
+    sh:path cs2:standard ;
+    sh:hasValue "RFC-CS2-001" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path cs2:schemaVersion ;
+    sh:hasValue "cs2.conformance.v1" ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path cs2:subject ;
+    sh:class cs2:SubjectBinding ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path cs2:claim ;
+    sh:class cs2:Claim ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path cs2:requestedLevel ;
+    sh:in ( "C0" "C1" "C2" "C3" "C4" ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+cs2:SubjectBindingShape
+  a sh:NodeShape ;
+  sh:targetClass cs2:SubjectBinding ;
+  sh:property [
+    sh:path cs2:subjectId ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path cs2:subjectKind ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path cs2:subjectRevision ;
+    sh:datatype xsd:string ;
+    sh:minLength 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+cs2:SourceShape
+  a sh:NodeShape ;
+  sh:targetClass cs2:Source ;
+  sh:property [ sh:path cs2:sourceId ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:sourceKind ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:locator ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ] .
+
+cs2:ClaimShape
+  a sh:NodeShape ;
+  sh:targetClass cs2:Claim ;
+  sh:property [ sh:path cs2:claimId ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:predicate ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [
+    sh:path cs2:standing ;
+    sh:in ( "OBSERVED" "DERIVED" "REPORTED" "HYPOTHESIS" "REFUTED" "UNKNOWN" ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+
+cs2:EvidenceShape
+  a sh:NodeShape ;
+  sh:targetClass cs2:Evidence ;
+  sh:property [ sh:path cs2:evidenceId ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:subjectRef ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:sourceRef ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+cs2:ConsumerRouteShape
+  a sh:NodeShape ;
+  sh:targetClass cs2:ConsumerRoute ;
+  sh:property [ sh:path cs2:consumer ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:workflow ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:projectionId ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:minimumLevel ; sh:in ( "C0" "C1" "C2" "C3" "C4" ) ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:projectionAuthority ; sh:hasValue "NONE" ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+cs2:ProcessBindingShape
+  a sh:NodeShape ;
+  sh:targetClass cs2:ProcessBinding ;
+  sh:property [ sh:path cs2:ocelRef ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:receiptSchema ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:replayBinding ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:episodeId ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cs2:eventRef ; sh:datatype xsd:string ; sh:minLength 1 ; sh:minCount 1 ] .

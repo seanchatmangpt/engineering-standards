@@ -1,0 +1,1669 @@
+{
+  "eventTypes": [
+    {
+      "name": "task_started",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "control_read",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "work_selected",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "scope_locked",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "source_read",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "branch_created",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "write_attempted",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "write_succeeded",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "write_failed",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "fallback_selected",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "receipt_materialized",
+      "attributes": [
+        {
+          "name": "sequence",
+          "type": "integer"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "objectTypes": [
+    {
+      "name": "Run",
+      "attributes": [
+        {
+          "name": "run_id",
+          "type": "string"
+        },
+        {
+          "name": "mode",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Lane",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "WorkItem",
+      "attributes": [
+        {
+          "name": "work_id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "type": "string"
+        },
+        {
+          "name": "priority",
+          "type": "string"
+        },
+        {
+          "name": "objective",
+          "type": "string"
+        },
+        {
+          "name": "next_edge",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Repository",
+      "attributes": [
+        {
+          "name": "repo_id",
+          "type": "integer"
+        },
+        {
+          "name": "full_name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Branch",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "BaseCommit",
+      "attributes": [
+        {
+          "name": "sha",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Capability",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "type": "string"
+        },
+        {
+          "name": "blob_sha",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "ToolEdge",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "outcome",
+          "type": "string"
+        },
+        {
+          "name": "failure_class",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "evt:001",
+      "type": "task_started",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 1
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "lane:EXPANSION",
+          "qualifier": "lane"
+        }
+      ]
+    },
+    {
+      "id": "evt:002",
+      "type": "control_read",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 2
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "edge:notion-control",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:003",
+      "type": "work_selected",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 3
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "work:CS2-WRK-001",
+          "qualifier": "target"
+        },
+        {
+          "objectId": "edge:notion-work-frontier",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:004",
+      "type": "scope_locked",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 4
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "repo:1380522237",
+          "qualifier": "target"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "work:CS2-WRK-001",
+          "qualifier": "parent"
+        }
+      ]
+    },
+    {
+      "id": "evt:005",
+      "type": "source_read",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 5
+        },
+        {
+          "name": "outcome",
+          "value": "failed"
+        },
+        {
+          "name": "failure_class",
+          "value": "TOOL_INTERNAL_READ_BUNDLE_FAILURE"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "edge:github-grouped-read",
+          "qualifier": "edge"
+        },
+        {
+          "objectId": "repo:1380522237",
+          "qualifier": "target"
+        }
+      ]
+    },
+    {
+      "id": "evt:006",
+      "type": "fallback_selected",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 6
+        },
+        {
+          "name": "outcome",
+          "value": "selected"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "edge:github-grouped-read",
+          "qualifier": "parent"
+        },
+        {
+          "objectId": "edge:github-direct-read",
+          "qualifier": "next"
+        }
+      ]
+    },
+    {
+      "id": "evt:007",
+      "type": "source_read",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 7
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "edge:github-direct-read",
+          "qualifier": "edge"
+        },
+        {
+          "objectId": "base:0f23708a07349e110f7c2ec567eea778f934915d",
+          "qualifier": "target"
+        }
+      ]
+    },
+    {
+      "id": "evt:008",
+      "type": "branch_created",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 8
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "branch:expansion/v26.9.26/rfc-cs2-001-conformance-20260926t2220-r2",
+          "qualifier": "target"
+        },
+        {
+          "objectId": "edge:github-create-branch",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:0:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 9
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:rfc",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:0:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 10
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:rfc",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:1:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 11
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:requirements",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:1:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 12
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:requirements",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:2:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 13
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:manifest",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:2:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 14
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:manifest",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:3:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 15
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:profile",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:3:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 16
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:profile",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:4:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 17
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:shapes",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:4:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 18
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:shapes",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:5:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 19
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:schema",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:5:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 20
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:schema",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:6:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 21
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:validator",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:6:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 22
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:validator",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:7:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 23
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:fixture",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:7:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 24
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:fixture",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:8:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 25
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:tests",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:8:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 26
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:tests",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:9:attempt",
+      "type": "write_attempted",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 27
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:bench",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:write:9:success",
+      "type": "write_succeeded",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 28
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:bench",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    },
+    {
+      "id": "evt:receipt",
+      "type": "receipt_materialized",
+      "time": "2026-09-26T22:31:00-07:00",
+      "attributes": [
+        {
+          "name": "sequence",
+          "value": 29
+        },
+        {
+          "name": "outcome",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "run:20260926T223100-0700-rfc-cs2-001-r1",
+          "qualifier": "run"
+        },
+        {
+          "objectId": "surface:receipt",
+          "qualifier": "surface"
+        },
+        {
+          "objectId": "edge:github-create-blob",
+          "qualifier": "edge"
+        }
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "run:20260926T223100-0700-rfc-cs2-001-r1",
+      "type": "Run",
+      "attributes": [
+        {
+          "name": "run_id",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "20260926T223100-0700-rfc-cs2-001-r1"
+        },
+        {
+          "name": "mode",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "EXPANSION"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "lane:EXPANSION",
+      "type": "Lane",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "EXPANSION"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "work:CS2-WRK-001",
+      "type": "WorkItem",
+      "attributes": [
+        {
+          "name": "work_id",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "CS2-WRK-001"
+        },
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "CS2 — engineering-standards"
+        },
+        {
+          "name": "state",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "READY"
+        },
+        {
+          "name": "priority",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "P0"
+        },
+        {
+          "name": "objective",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "Standardize RFC-CS2-001 and conformance levels."
+        },
+        {
+          "name": "next_edge",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "Create fresh PR from current default head."
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "repo:1380522237",
+      "type": "Repository",
+      "attributes": [
+        {
+          "name": "repo_id",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": 1380522237
+        },
+        {
+          "name": "full_name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "seanchatmangpt/engineering-standards"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "branch:expansion/v26.9.26/rfc-cs2-001-conformance-20260926t2220-r2",
+      "type": "Branch",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "expansion/v26.9.26/rfc-cs2-001-conformance-20260926t2220-r2"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "repo:1380522237",
+          "qualifier": "parent"
+        },
+        {
+          "objectId": "base:0f23708a07349e110f7c2ec567eea778f934915d",
+          "qualifier": "parent"
+        }
+      ]
+    },
+    {
+      "id": "base:0f23708a07349e110f7c2ec567eea778f934915d",
+      "type": "BaseCommit",
+      "attributes": [
+        {
+          "name": "sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "0f23708a07349e110f7c2ec567eea778f934915d"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "repo:1380522237",
+          "qualifier": "parent"
+        }
+      ]
+    },
+    {
+      "id": "capability:rfc-cs2-001-conformance",
+      "type": "Capability",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "RFC-CS2-001 enterprise information conformance and levels"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "work:CS2-WRK-001",
+          "qualifier": "parent"
+        }
+      ]
+    },
+    {
+      "id": "surface:rfc",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "docs/engineering/rfc/CS2-001-enterprise-information-conformance.md"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "60ff16aaa42259b7118ce86a9e8aa4b54b6ecb3d"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:requirements",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "docs/engineering/rfc/CS2-001-requirements.json"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "bcc81c7c826c690e7b050302d9c7ec28b4cf5bb6"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:manifest",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "semantic/cs2/manifest.json"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "1e117c930d2be6d3815a6dd799c9481c149c92fd"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:profile",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "semantic/cs2/cs2-profile.ttl"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "99017ef65233e32fc5b4b826a820f33e1cc0a498"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:shapes",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "semantic/cs2/cs2-shapes.ttl"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "8f9df17d13ffd5d31d27f078f7647aa3e90d020c"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:schema",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "semantic/schemas/cs2-conformance.schema.json"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "914833d6a3ea562d7ed782ece2f4425593c176e3"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:validator",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "scripts/check-cs2-conformance.py"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "2f1cd0b504cb367803562d086315bf2aab26de45"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:fixture",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "semantic/examples/cs2-conformance-c4.json"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "e5ab78eaea96b957b4906a90ae188df7a6ac1fc6"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:tests",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "scripts/tests/test_check_cs2_conformance.py"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "13f7ce4788fbda46b428b2e91a151b110954d43d"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:bench",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "scripts/bench/bench_cs2_conformance.py"
+        },
+        {
+          "name": "blob_sha",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "bf784d70a1d23355757eaaa1fed1a12304cec008"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "surface:receipt",
+      "type": "CodeSurface",
+      "attributes": [
+        {
+          "name": "path",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "receipts/ocel/v2/swarm/expansion/20260926T223100-0700-rfc-cs2-001-r1.jsonocel"
+        }
+      ],
+      "relationships": [
+        {
+          "objectId": "capability:rfc-cs2-001-conformance",
+          "qualifier": "capability"
+        }
+      ]
+    },
+    {
+      "id": "edge:notion-control",
+      "type": "ToolEdge",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "Notion.fetch Scheduled Factory — Maximum Code Mode"
+        },
+        {
+          "name": "outcome",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "edge:notion-work-frontier",
+      "type": "ToolEdge",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "Notion.query_data_sources Work/Frontier"
+        },
+        {
+          "name": "outcome",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "edge:github-grouped-read",
+      "type": "ToolEdge",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "GitHub.fetch grouped repository/branch/root/code-search"
+        },
+        {
+          "name": "outcome",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "failed"
+        },
+        {
+          "name": "failure_class",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "TOOL_INTERNAL_READ_BUNDLE_FAILURE"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "edge:github-direct-read",
+      "type": "ToolEdge",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "GitHub.fetch direct repository/branch/source"
+        },
+        {
+          "name": "outcome",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "edge:github-create-branch",
+      "type": "ToolEdge",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "GitHub.create_branch"
+        },
+        {
+          "name": "outcome",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "id": "edge:github-create-blob",
+      "type": "ToolEdge",
+      "attributes": [
+        {
+          "name": "name",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "GitHub.create_blob"
+        },
+        {
+          "name": "outcome",
+          "time": "2026-09-26T22:31:00-07:00",
+          "value": "succeeded"
+        }
+      ],
+      "relationships": []
+    }
+  ]
+}

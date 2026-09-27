@@ -1,0 +1,89 @@
+{
+  "id": "RFC-CS2-001",
+  "version": "1.0.0",
+  "release": "v26.9.26",
+  "role": "canonical enterprise information conformance root",
+  "authority": "NONE",
+  "normative": {
+    "rfc": "../../docs/engineering/rfc/CS2-001-enterprise-information-conformance.md",
+    "requirements": "../../docs/engineering/rfc/CS2-001-requirements.json"
+  },
+  "machine": {
+    "profile": "cs2-profile.ttl",
+    "shapes": "cs2-shapes.ttl",
+    "schema": "../schemas/cs2-conformance.schema.json",
+    "validator": "../../scripts/check-cs2-conformance.py",
+    "tests": "../../scripts/tests/test_check_cs2_conformance.py",
+    "benchmark": "../../scripts/bench/bench_cs2_conformance.py",
+    "fixture": "../examples/cs2-conformance-c4.json"
+  },
+  "levels": {
+    "C0": {
+      "name": "ADDRESSABLE",
+      "requires": [
+        "identity",
+        "claims"
+      ]
+    },
+    "C1": {
+      "name": "PROVENANCE_BOUND",
+      "requires": [
+        "C0",
+        "sources",
+        "evidence",
+        "references"
+      ]
+    },
+    "C2": {
+      "name": "FALSIFIABLE",
+      "requires": [
+        "C1",
+        "standing",
+        "falsifiers",
+        "contradictions"
+      ]
+    },
+    "C3": {
+      "name": "ROUTABLE",
+      "requires": [
+        "C2",
+        "consumer_route",
+        "projection_authority_none"
+      ]
+    },
+    "C4": {
+      "name": "PROCESS_BOUND",
+      "requires": [
+        "C3",
+        "ocel_ref",
+        "receipt_schema",
+        "replay_binding",
+        "episode_id",
+        "event_refs"
+      ]
+    }
+  },
+  "projection_preserves": [
+    "subject.id",
+    "subject.revision",
+    "claim.id",
+    "claim.standing",
+    "evidence.id",
+    "source.id",
+    "claim.falsifier",
+    "semantic_fingerprint"
+  ],
+  "non_claims": [
+    "truth",
+    "authority",
+    "execution",
+    "provider acceptance",
+    "verification",
+    "current standing"
+  ],
+  "next_edge": {
+    "repository": "seanchatmangpt/ggen-marketplace",
+    "capability": "cs2-conformance-pack",
+    "contract": "consume this manifest and requirement registry; generate projections without duplicating normative requirements"
+  }
+}

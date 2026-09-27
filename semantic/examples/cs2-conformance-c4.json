@@ -1,0 +1,105 @@
+{
+  "schema_version": "cs2.conformance.v1",
+  "standard": "RFC-CS2-001",
+  "subject": {
+    "id": "repo:example/service-a",
+    "kind": "Repository",
+    "revision": "0123456789abcdef0123456789abcdef01234567",
+    "name": "service-a",
+    "locators": [
+      "git:example/service-a@0123456789abcdef0123456789abcdef01234567"
+    ]
+  },
+  "sources": [
+    {
+      "id": "src:run-17",
+      "kind": "ExecutionRun",
+      "locator": "ocel:run-17",
+      "revision": "17"
+    },
+    {
+      "id": "src:design-4",
+      "kind": "DesignDocument",
+      "locator": "doc:service-a/design@4",
+      "revision": "4"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev:latency",
+      "kind": "Measurement",
+      "subject_ref": "repo:example/service-a",
+      "source_ref": "src:run-17",
+      "locator": "metric:run-17/p95-latency-ms",
+      "value": 84
+    },
+    {
+      "id": "ev:ownership",
+      "kind": "DocumentObservation",
+      "subject_ref": "repo:example/service-a",
+      "source_ref": "src:design-4",
+      "locator": "doc:service-a/design@4#ownership",
+      "value": "payments-platform"
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim:latency",
+      "predicate": "observed_p95_latency_ms",
+      "object": 84,
+      "source_refs": [
+        "src:run-17"
+      ],
+      "evidence_refs": [
+        "ev:latency"
+      ],
+      "standing": "OBSERVED",
+      "falsifier": {
+        "observation": "A replay of run-17 against the exact subject produces a different admitted p95 measurement."
+      },
+      "contradicts": []
+    },
+    {
+      "id": "claim:owner",
+      "predicate": "engineering_owner",
+      "object": "payments-platform",
+      "source_refs": [
+        "src:design-4"
+      ],
+      "evidence_refs": [
+        "ev:ownership"
+      ],
+      "standing": "REPORTED",
+      "falsifier": {
+        "observation": "A newer admitted ownership source for the same subject revision names a different owner."
+      },
+      "contradicts": []
+    }
+  ],
+  "route": {
+    "consumer": "engineer-workflow:jira",
+    "workflow": "qualified-information-intake",
+    "projection_id": "cs2-to-jira-v1",
+    "minimum_level": "C3",
+    "delivery_semantics": "EXACTLY_ONCE_INTENT",
+    "projection_authority": "NONE"
+  },
+  "process": {
+    "ocel_ref": "receipts/ocel/v2/run-17.jsonocel",
+    "receipt_schema": "semantic/schemas/evidence-receipt.schema.json",
+    "replay_binding": "replay:run-17@0123456789abcdef0123456789abcdef01234567",
+    "episode_id": "episode:17",
+    "event_refs": [
+      "event:observe-latency",
+      "event:qualify-information"
+    ],
+    "consequence_class": "EXTERNAL_WORKFLOW_MUTATION",
+    "authority_requirement": "brce:external-workflow-mutation"
+  },
+  "conformance": {
+    "requested_level": "C4"
+  },
+  "extensions": {
+    "classification": "example-only"
+  }
+}
