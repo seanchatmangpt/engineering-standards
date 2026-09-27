@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chatmangpt.com/engineering/schemas/cs2-projection.schema.json",
+  "title": "RFC-CS2-001 portable projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "standard",
+    "subject",
+    "sources",
+    "evidence",
+    "claims",
+    "semantic_fingerprint",
+    "projection_authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cs2.conformance.v1"
+    },
+    "standard": {
+      "const": "RFC-CS2-001"
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "sources": {
+      "type": "array"
+    },
+    "evidence": {
+      "type": "array"
+    },
+    "claims": {
+      "type": "array"
+    },
+    "semantic_fingerprint": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "projection_authority": {
+      "const": "NONE"
+    },
+    "route": {
+      "type": "object"
+    },
+    "process": {
+      "type": "object"
+    },
+    "extensions": {
+      "type": "object"
+    }
+  }
+}

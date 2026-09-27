@@ -1,0 +1,35 @@
+{
+  "schema": "cs2.migration-map.v1",
+  "target": {
+    "standard": "RFC-CS2-001",
+    "schema_version": "cs2.conformance.v1"
+  },
+  "laws": [
+    {
+      "id": "MIG-001",
+      "law": "Never invent provenance absent from predecessor input.",
+      "fallback": "claims become UNKNOWN with empty source_refs/evidence_refs"
+    },
+    {
+      "id": "MIG-002",
+      "law": "Preserve unmapped predecessor fields.",
+      "fallback": "extensions.migration.residue"
+    },
+    {
+      "id": "MIG-003",
+      "law": "Preserve predecessor identity.",
+      "fallback": "extensions.predecessor"
+    },
+    {
+      "id": "MIG-004",
+      "law": "Never infer authority from route, process, or conformance.",
+      "fallback": "projection_authority NONE"
+    },
+    {
+      "id": "MIG-005",
+      "law": "Subject revision is mandatory for C0.",
+      "fallback": "empty revision remains nonconforming"
+    }
+  ],
+  "executable": "scripts/cs2_codec.py migrate"
+}

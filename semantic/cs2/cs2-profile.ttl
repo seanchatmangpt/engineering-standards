@@ -1,0 +1,150 @@
+@prefix cs2: <https://chatmangpt.com/engineering/cs2#> .
+@prefix es: <https://chatmangpt.com/engineering/standards#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+cs2:RFC-CS2-001
+  a cs2:InformationConformanceStandard ;
+  dcterms:identifier "RFC-CS2-001" ;
+  dcterms:title "Enterprise Information Conformance" ;
+  dcterms:hasVersion "1.0.0" ;
+  cs2:projectionAuthority cs2:NONE ;
+  cs2:definesLevel cs2:C0, cs2:C1, cs2:C2, cs2:C3, cs2:C4 .
+
+cs2:InformationConformanceStandard a skos:Concept .
+cs2:InformationBundle a skos:Concept .
+cs2:SubjectBinding a skos:Concept .
+cs2:Source a skos:Concept .
+cs2:Claim a skos:Concept .
+cs2:Evidence a skos:Concept .
+cs2:Falsifier a skos:Concept .
+cs2:ConsumerRoute a skos:Concept .
+cs2:ProcessBinding a skos:Concept .
+cs2:ConformanceLevel a skos:Concept .
+cs2:Projection a skos:Concept .
+cs2:ConsequenceClass a skos:Concept .
+
+cs2:C0 a cs2:ConformanceLevel ;
+  skos:prefLabel "ADDRESSABLE" ;
+  cs2:rank 0 ;
+  cs2:requiresTerm cs2:IdentityTerm, cs2:ClaimTerm .
+
+cs2:C1 a cs2:ConformanceLevel ;
+  skos:prefLabel "PROVENANCE_BOUND" ;
+  cs2:rank 1 ;
+  cs2:extends cs2:C0 ;
+  cs2:requiresTerm cs2:ProvenanceTerm, cs2:EvidenceTerm .
+
+cs2:C2 a cs2:ConformanceLevel ;
+  skos:prefLabel "FALSIFIABLE" ;
+  cs2:rank 2 ;
+  cs2:extends cs2:C1 ;
+  cs2:requiresTerm cs2:StandingTerm, cs2:FalsifierTerm, cs2:ContradictionTerm .
+
+cs2:C3 a cs2:ConformanceLevel ;
+  skos:prefLabel "ROUTABLE" ;
+  cs2:rank 3 ;
+  cs2:extends cs2:C2 ;
+  cs2:requiresTerm cs2:RouteTerm, cs2:ProjectionTerm ;
+  cs2:projectionAuthority cs2:NONE .
+
+cs2:C4 a cs2:ConformanceLevel ;
+  skos:prefLabel "PROCESS_BOUND" ;
+  cs2:rank 4 ;
+  cs2:extends cs2:C3 ;
+  cs2:requiresTerm cs2:ProcessTerm, cs2:ReplayTerm, cs2:ReceiptTerm .
+
+cs2:NONE a skos:Concept ;
+  skos:prefLabel "NONE" ;
+  skos:definition "No authority is granted or implied by this projection or conformance result." .
+
+cs2:OBSERVED a skos:Concept .
+cs2:DERIVED a skos:Concept .
+cs2:REPORTED a skos:Concept .
+cs2:HYPOTHESIS a skos:Concept .
+cs2:REFUTED a skos:Concept .
+cs2:UNKNOWN a skos:Concept .
+
+cs2:standard a skos:Concept .
+cs2:schemaVersion a skos:Concept .
+cs2:subject a skos:Concept .
+cs2:subjectId a skos:Concept .
+cs2:subjectKind a skos:Concept .
+cs2:subjectRevision a skos:Concept .
+cs2:source a skos:Concept .
+cs2:sourceId a skos:Concept .
+cs2:sourceKind a skos:Concept .
+cs2:locator a skos:Concept .
+cs2:claim a skos:Concept .
+cs2:claimId a skos:Concept .
+cs2:predicate a skos:Concept .
+cs2:objectJson a skos:Concept .
+cs2:standing a skos:Concept .
+cs2:evidence a skos:Concept .
+cs2:evidenceId a skos:Concept .
+cs2:sourceRef a skos:Concept .
+cs2:evidenceRef a skos:Concept .
+cs2:subjectRef a skos:Concept .
+cs2:falsifier a skos:Concept .
+cs2:falsifierObservation a skos:Concept .
+cs2:contradicts a skos:Concept .
+cs2:route a skos:Concept .
+cs2:consumer a skos:Concept .
+cs2:workflow a skos:Concept .
+cs2:projectionId a skos:Concept .
+cs2:minimumLevel a skos:Concept .
+cs2:requestedLevel a skos:Concept .
+cs2:actualLevel a skos:Concept .
+cs2:deliverySemantics a skos:Concept .
+cs2:projectionAuthority a skos:Concept .
+cs2:process a skos:Concept .
+cs2:ocelRef a skos:Concept .
+cs2:receiptSchema a skos:Concept .
+cs2:replayBinding a skos:Concept .
+cs2:episodeId a skos:Concept .
+cs2:eventRef a skos:Concept .
+cs2:consequenceClass a skos:Concept .
+cs2:authorityRequirement a skos:Concept .
+cs2:semanticFingerprint a skos:Concept .
+cs2:definesLevel a skos:Concept .
+cs2:extends a skos:Concept .
+cs2:rank a skos:Concept .
+cs2:requiresTerm a skos:Concept .
+
+cs2:IdentityTerm a skos:Concept .
+cs2:ClaimTerm a skos:Concept .
+cs2:ProvenanceTerm a skos:Concept .
+cs2:EvidenceTerm a skos:Concept .
+cs2:StandingTerm a skos:Concept .
+cs2:FalsifierTerm a skos:Concept .
+cs2:ContradictionTerm a skos:Concept .
+cs2:RouteTerm a skos:Concept .
+cs2:ProjectionTerm a skos:Concept .
+cs2:ProcessTerm a skos:Concept .
+cs2:ReplayTerm a skos:Concept .
+cs2:ReceiptTerm a skos:Concept .
+
+cs2:InformationBundle
+  skos:definition "A bounded collection of subject identity, claims, provenance, evidence, falsifiers, route, and optional process bindings conforming to RFC-CS2-001." .
+
+cs2:Projection
+  skos:definition "A non-sovereign consumer representation that preserves RFC-CS2-001 semantic identities and never gains authority from projection." .
+
+cs2:Claim
+  skos:definition "A proposition about one exact subject with typed standing and, at C2+, an explicit falsifier." .
+
+cs2:Evidence
+  skos:definition "An observation bound to the exact subject and an identified source." .
+
+cs2:ConsumerRoute
+  skos:definition "A destination and projection contract for qualified information; routeability is not authorization." .
+
+cs2:ProcessBinding
+  skos:definition "OCEL, receipt, replay, episode, and consequence references connecting information to a replayable engineering process without proving execution." .
+
+# Reuse the engineering root's no-authority projection law.
+cs2:RFC-CS2-001
+  es:projectionAuthority es:NONE ;
+  prov:wasDerivedFrom <https://github.com/seanchatmangpt/engineering-standards> .
