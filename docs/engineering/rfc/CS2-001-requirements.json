@@ -1,0 +1,203 @@
+{
+  "registry_id": "RFC-CS2-001-requirements",
+  "title": "Enterprise Information Conformance machine-addressable requirements",
+  "version": "1.0.0",
+  "normative_source": "CS2-001-enterprise-information-conformance.md",
+  "levels": [
+    "C0",
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "standing_vocabulary": [
+    "OBSERVED",
+    "DERIVED",
+    "REPORTED",
+    "HYPOTHESIS",
+    "REFUTED",
+    "UNKNOWN"
+  ],
+  "issue_classes": [
+    "INVALID_SHAPE",
+    "IDENTITY_MISSING",
+    "REVISION_MISSING",
+    "DUPLICATE_ID",
+    "BROKEN_REFERENCE",
+    "PROVENANCE_MISSING",
+    "FALSIFIER_MISSING",
+    "ROUTE_MISSING",
+    "PROJECTION_AUTHORITY_VIOLATION",
+    "PROCESS_BINDING_MISSING",
+    "REQUESTED_LEVEL_UNSATISFIED"
+  ],
+  "requirements": [
+    {
+      "id": "CS2-R001",
+      "level": "C0",
+      "term": "IDENTITY",
+      "requirement": "Bundle standard MUST equal RFC-CS2-001 and schema_version MUST be cs2.conformance.v1.",
+      "falsifier": "A bundle naming another standard or schema version.",
+      "executable_check": "check_standard_identity"
+    },
+    {
+      "id": "CS2-R002",
+      "level": "C0",
+      "term": "IDENTITY",
+      "requirement": "Subject MUST carry non-empty id, kind, and immutable revision.",
+      "falsifier": "Missing/empty subject id, kind, or revision.",
+      "executable_check": "check_subject"
+    },
+    {
+      "id": "CS2-R003",
+      "level": "C0",
+      "term": "CLAIMS",
+      "requirement": "Bundle MUST contain at least one claim with a unique id and predicate.",
+      "falsifier": "Zero claims, duplicate claim id, or empty predicate.",
+      "executable_check": "check_claim_identity"
+    },
+    {
+      "id": "CS2-R004",
+      "level": "C1",
+      "term": "PROVENANCE",
+      "requirement": "Bundle MUST contain at least one source with stable id, kind, and locator.",
+      "falsifier": "No source or source missing id/kind/locator.",
+      "executable_check": "check_sources"
+    },
+    {
+      "id": "CS2-R005",
+      "level": "C1",
+      "term": "EVIDENCE",
+      "requirement": "Bundle MUST contain at least one evidence object bound to the exact subject.",
+      "falsifier": "No evidence or evidence subject_ref differs from subject.id.",
+      "executable_check": "check_evidence"
+    },
+    {
+      "id": "CS2-R006",
+      "level": "C1",
+      "term": "PROVENANCE",
+      "requirement": "Every evidence source_ref MUST resolve to an existing source id.",
+      "falsifier": "Evidence references an undeclared source.",
+      "executable_check": "check_references"
+    },
+    {
+      "id": "CS2-R007",
+      "level": "C1",
+      "term": "CLAIMS",
+      "requirement": "Every non-UNKNOWN claim MUST reference at least one source or evidence object.",
+      "falsifier": "Non-UNKNOWN claim with empty source_refs and evidence_refs.",
+      "executable_check": "check_claim_provenance"
+    },
+    {
+      "id": "CS2-R008",
+      "level": "C2",
+      "term": "FALSIFIABILITY",
+      "requirement": "Every claim MUST use the CS2 standing vocabulary.",
+      "falsifier": "Claim standing absent or outside the vocabulary.",
+      "executable_check": "check_claim_standing"
+    },
+    {
+      "id": "CS2-R009",
+      "level": "C2",
+      "term": "FALSIFIABILITY",
+      "requirement": "Every non-REFUTED claim MUST carry a non-empty falsifier observation.",
+      "falsifier": "Non-REFUTED claim lacks falsifier.observation.",
+      "executable_check": "check_falsifiers"
+    },
+    {
+      "id": "CS2-R010",
+      "level": "C2",
+      "term": "IDENTITY",
+      "requirement": "Ids MUST be unique across sources, evidence, and claims.",
+      "falsifier": "Same local id appears in more than one object namespace.",
+      "executable_check": "check_global_ids"
+    },
+    {
+      "id": "CS2-R011",
+      "level": "C2",
+      "term": "CONTRADICTION",
+      "requirement": "Every contradicts reference MUST resolve to another claim id.",
+      "falsifier": "Claim contradicts an undeclared claim id.",
+      "executable_check": "check_references"
+    },
+    {
+      "id": "CS2-R012",
+      "level": "C3",
+      "term": "ROUTE",
+      "requirement": "Route MUST name consumer, workflow, projection_id, minimum_level, and delivery_semantics.",
+      "falsifier": "Any required route field missing.",
+      "executable_check": "check_route"
+    },
+    {
+      "id": "CS2-R013",
+      "level": "C3",
+      "term": "AUTHORITY",
+      "requirement": "Route projection_authority MUST equal NONE.",
+      "falsifier": "Projection claims any authority value other than NONE.",
+      "executable_check": "check_route"
+    },
+    {
+      "id": "CS2-R014",
+      "level": "C3",
+      "term": "ROUTE",
+      "requirement": "route.minimum_level MUST be a known CS2 level not greater than bundle requested level.",
+      "falsifier": "Unknown or impossible minimum level.",
+      "executable_check": "check_route"
+    },
+    {
+      "id": "CS2-R015",
+      "level": "C4",
+      "term": "PROCESS",
+      "requirement": "Process binding MUST name ocel_ref, receipt_schema, replay_binding, and episode_id.",
+      "falsifier": "Missing process binding field.",
+      "executable_check": "check_process"
+    },
+    {
+      "id": "CS2-R016",
+      "level": "C4",
+      "term": "PROCESS",
+      "requirement": "Process binding MUST contain at least one event_ref.",
+      "falsifier": "C4 bundle with no process event references.",
+      "executable_check": "check_process"
+    },
+    {
+      "id": "CS2-R017",
+      "level": "C4",
+      "term": "AUTHORITY",
+      "requirement": "A non-NONE consequence_class MUST name authority_requirement but does not infer authority.",
+      "falsifier": "Consequential C4 bundle omits authority requirement or claims authority by conformance.",
+      "executable_check": "check_process"
+    },
+    {
+      "id": "CS2-R018",
+      "level": "C0",
+      "term": "CONFORMANCE",
+      "requirement": "Requested level MUST be satisfied by the highest achieved monotonic level.",
+      "falsifier": "requested_level ranks above actual_level.",
+      "executable_check": "check_requested_level"
+    },
+    {
+      "id": "CS2-R019",
+      "level": "C0",
+      "term": "FINGERPRINT",
+      "requirement": "Semantic fingerprint MUST be deterministic over canonical bundle semantics and exclude derived conformance output.",
+      "falsifier": "Same semantic input produces different fingerprint or derived output changes fingerprint.",
+      "executable_check": "semantic_fingerprint"
+    },
+    {
+      "id": "CS2-R020",
+      "level": "C3",
+      "term": "PROJECTION",
+      "requirement": "Consumer projections MUST preserve subject identity/revision, claim/evidence/source ids, standing, falsifiers, and semantic fingerprint.",
+      "falsifier": "Projection changes or drops a required semantic identity without explicit migration.",
+      "executable_check": "projection_contract"
+    }
+  ],
+  "non_claims": [
+    "Conformance does not establish truth.",
+    "Conformance does not grant authority.",
+    "Conformance does not prove execution.",
+    "Conformance does not prove external provider acceptance.",
+    "Conformance does not establish current standing."
+  ]
+}

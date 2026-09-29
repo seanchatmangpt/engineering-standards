@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chatmangpt.com/engineering/schemas/cs2-conformance.schema.json",
+  "title": "RFC-CS2-001 Enterprise Information Conformance Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "standard",
+    "subject",
+    "sources",
+    "evidence",
+    "claims",
+    "conformance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cs2.conformance.v1"
+    },
+    "standard": {
+      "const": "RFC-CS2-001"
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "locators": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "locator"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          },
+          "observed_at": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "subject_ref",
+          "source_ref",
+          "locator"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "subject_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "digest": {
+            "type": "string"
+          },
+          "observed_at": {
+            "type": "string"
+          },
+          "value": {}
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "predicate",
+          "object",
+          "source_refs",
+          "evidence_refs",
+          "standing"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "predicate": {
+            "type": "string",
+            "minLength": 1
+          },
+          "object": {},
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "standing": {
+            "enum": [
+              "OBSERVED",
+              "DERIVED",
+              "REPORTED",
+              "HYPOTHESIS",
+              "REFUTED",
+              "UNKNOWN"
+            ]
+          },
+          "falsifier": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "observation"
+            ],
+            "properties": {
+              "observation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "check": {
+                "type": "string"
+              }
+            }
+          },
+          "contradicts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer",
+        "workflow",
+        "projection_id",
+        "minimum_level",
+        "delivery_semantics",
+        "projection_authority"
+      ],
+      "properties": {
+        "consumer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "workflow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "projection_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minimum_level": {
+          "enum": [
+            "C0",
+            "C1",
+            "C2",
+            "C3",
+            "C4"
+          ]
+        },
+        "delivery_semantics": {
+          "enum": [
+            "AT_LEAST_ONCE",
+            "AT_MOST_ONCE",
+            "EXACTLY_ONCE_INTENT",
+            "SNAPSHOT",
+            "STREAM"
+          ]
+        },
+        "projection_authority": {
+          "const": "NONE"
+        },
+        "extensions": {
+          "type": "object"
+        }
+      }
+    },
+    "process": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ocel_ref",
+        "receipt_schema",
+        "replay_binding",
+        "episode_id",
+        "event_refs",
+        "consequence_class"
+      ],
+      "properties": {
+        "ocel_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "receipt_schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "replay_binding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "episode_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "event_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "consequence_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority_requirement": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "object"
+        }
+      }
+    },
+    "conformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested_level"
+      ],
+      "properties": {
+        "requested_level": {
+          "enum": [
+            "C0",
+            "C1",
+            "C2",
+            "C3",
+            "C4"
+          ]
+        },
+        "actual_level": {
+          "enum": [
+            "NONE",
+            "C0",
+            "C1",
+            "C2",
+            "C3",
+            "C4"
+          ]
+        },
+        "semantic_fingerprint": {
+          "type": "string"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "extensions": {
+      "type": "object"
+    }
+  }
+}
