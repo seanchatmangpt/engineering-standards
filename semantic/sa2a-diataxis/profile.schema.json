@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seanchatmangpt.github.io/schemas/sa2a-diataxis-profile-v1.json",
+  "title": "SA2A Diataxis generated profile",
+  "type": "object",
+  "required": [
+    "schema",
+    "subject",
+    "quadrants",
+    "verification"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sa2a-diataxis-profile/v1"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "quadrants": {
+      "type": "object",
+      "required": [
+        "tutorial",
+        "how_to",
+        "reference",
+        "explanation"
+      ],
+      "properties": {
+        "tutorial": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "how_to": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reference": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "explanation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "repair": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "receipt": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
