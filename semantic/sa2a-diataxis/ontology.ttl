@@ -1,0 +1,35 @@
+@prefix sa2a: <https://seanchatmangpt.github.io/sa2a/diataxis#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+sa2a:RepositoryProfile a rdfs:Class .
+sa2a:Capability a rdfs:Class .
+sa2a:TutorialTrajectory a rdfs:Class .
+sa2a:HowToMethod a rdfs:Class .
+sa2a:ReferenceContract a rdfs:Class .
+sa2a:ExplanationLaw a rdfs:Class .
+sa2a:VerificationGate a rdfs:Class .
+sa2a:RepairRoute a rdfs:Class .
+sa2a:ReceiptBinding a rdfs:Class .
+
+sa2a:exports a rdf:Property ; rdfs:domain sa2a:RepositoryProfile ; rdfs:range sa2a:Capability .
+sa2a:learnedBy a rdf:Property ; rdfs:domain sa2a:Capability ; rdfs:range sa2a:TutorialTrajectory .
+sa2a:executedBy a rdf:Property ; rdfs:domain sa2a:Capability ; rdfs:range sa2a:HowToMethod .
+sa2a:specifiedBy a rdf:Property ; rdfs:domain sa2a:Capability ; rdfs:range sa2a:ReferenceContract .
+sa2a:constrainedBy a rdf:Property ; rdfs:domain sa2a:Capability ; rdfs:range sa2a:ExplanationLaw .
+sa2a:verifiedBy a rdf:Property ; rdfs:domain sa2a:Capability ; rdfs:range sa2a:VerificationGate .
+sa2a:repairedBy a rdf:Property ; rdfs:domain sa2a:Capability ; rdfs:range sa2a:RepairRoute .
+sa2a:evidencedBy a rdf:Property ; rdfs:domain sa2a:Capability ; rdfs:range sa2a:ReceiptBinding .
+
+sa2a:role a rdf:Property ; rdfs:domain sa2a:RepositoryProfile .
+sa2a:authority a rdf:Property ; rdfs:domain sa2a:RepositoryProfile .
+sa2a:generator a rdf:Property ; rdfs:domain sa2a:RepositoryProfile .
+sa2a:sourceRepo a rdf:Property ; rdfs:domain sa2a:RepositoryProfile .
+sa2a:version a rdf:Property .
+sa2a:path a rdf:Property .
+sa2a:precondition a rdf:Property .
+sa2a:postcondition a rdf:Property .
+sa2a:falsifier a rdf:Property .
+sa2a:failureClass a rdf:Property .
+sa2a:nextEdge a rdf:Property .
+sa2a:standing a rdf:Property .

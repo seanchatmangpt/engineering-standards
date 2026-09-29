@@ -1,0 +1,26 @@
+PREFIX sa2a: <https://seanchatmangpt.github.io/sa2a/diataxis#>
+SELECT ?capability
+       (COUNT(?tutorial) AS ?tutorials)
+       (COUNT(?method) AS ?methods)
+       (COUNT(?contract) AS ?contracts)
+       (COUNT(?law) AS ?laws)
+       (COUNT(?gate) AS ?gates)
+       (COUNT(?repair) AS ?repairs)
+       (COUNT(?receipt) AS ?receipts)
+WHERE {
+  ?capability a sa2a:Capability .
+  OPTIONAL { ?capability sa2a:learnedBy ?tutorial }
+  OPTIONAL { ?capability sa2a:executedBy ?method }
+  OPTIONAL { ?capability sa2a:specifiedBy ?contract }
+  OPTIONAL { ?capability sa2a:constrainedBy ?law }
+  OPTIONAL { ?capability sa2a:verifiedBy ?gate }
+  OPTIONAL { ?capability sa2a:repairedBy ?repair }
+  OPTIONAL { ?capability sa2a:evidencedBy ?receipt }
+}
+GROUP BY ?capability
+HAVING (
+  COUNT(?tutorial) = 0 || COUNT(?method) = 0 || COUNT(?contract) = 0 ||
+  COUNT(?law) = 0 || COUNT(?gate) = 0 || COUNT(?repair) = 0 ||
+  COUNT(?receipt) = 0
+)
+ORDER BY ?capability

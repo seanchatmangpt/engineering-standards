@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seanchatmangpt.github.io/schemas/sa2a-diataxis-manifest-v1.json",
+  "title": "SA2A Diataxis repository manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "repository",
+    "role",
+    "authority",
+    "generator",
+    "capabilities"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sa2a-diataxis/v1"
+    },
+    "repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "enum": [
+        "runtime",
+        "semantic",
+        "manufacture",
+        "evidence",
+        "ash-extension",
+        "product",
+        "prior-art",
+        "support"
+      ]
+    },
+    "authority": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "generator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "generated_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
